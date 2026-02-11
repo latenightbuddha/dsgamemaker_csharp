@@ -15,12 +15,18 @@
     <Compile Remove="My Project\**" />
     <Compile Remove="NewUI\**" />
     <Compile Remove="Resources\**" />
+    <Compile Remove="ScintillaNet\x64\**" />
+    <Compile Remove="ScintillaNET\x86\**" />
     <EmbeddedResource Remove="My Project\**" />
     <EmbeddedResource Remove="NewUI\**" />
     <EmbeddedResource Remove="Resources\**" />
+    <EmbeddedResource Remove="ScintillaNet\x64\**" />
+    <EmbeddedResource Remove="ScintillaNET\x86\**" />
     <None Remove="My Project\**" />
     <None Remove="NewUI\**" />
     <None Remove="Resources\**" />
+    <None Remove="ScintillaNet\x64\**" />
+    <None Remove="ScintillaNET\x86\**" />
   </ItemGroup>
 
   <ItemGroup>

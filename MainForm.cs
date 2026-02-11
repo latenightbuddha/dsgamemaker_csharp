@@ -114,23 +114,17 @@ namespace DS_Game_Maker
 =======
 
             /*if (!File.Exists(System32Path + @"\SciLexer_x64.dll"))
->>>>>>> Stashed changes
             {
                 File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer.dll", System32Path + @"\SciLexer.dll");
             }
 <<<<<<< Updated upstream
 =======
             
->>>>>>> Stashed changes
             if (!File.Exists(System32Path + @"\ScintillaNet.dll"))
             {
                 File.Copy(DS_Game_Maker.DSGMlib.AppPath + "ScintillaNet.dll", System32Path + @"\ScintillaNet.dll");
             }
             // Also into Windows... nasty, rare suggested fix
-<<<<<<< Updated upstream
-            string WindowsPath = System32Path.Substring(0, System32Path.LastIndexOf(@"\"));
-            if (!File.Exists(WindowsPath + @"\SciLexer.dll"))
-=======
             /*string WindowsPath = System32Path.Substring(0, System32Path.LastIndexOf(@"\"));
             if (!File.Exists(WindowsPath + @"\SciLexer_x64.dll"))
 >>>>>>> Stashed changes
@@ -141,7 +135,6 @@ namespace DS_Game_Maker
 =======
 
             
->>>>>>> Stashed changes
             if (!File.Exists(WindowsPath + @"\ScintillaNet.dll"))
             {
                 File.Copy(DS_Game_Maker.DSGMlib.AppPath + "ScintillaNet.dll", WindowsPath + @"\ScintillaNet.dll");

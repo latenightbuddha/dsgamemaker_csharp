@@ -2069,10 +2069,7 @@ namespace DS_Game_Maker
             string[] Starters = new string[] { "if", "while", "for", "with" };
             string[] Enders = new string[] { "end if", "end while", "next", "end with" };
             string[] CapsEnders = new string[] { "End If", "End While", "Next", "End With" };
-<<<<<<< Updated upstream
-=======
             //string P = TheControl.Lines[TheControl.Caret.Position - 1].Text;
->>>>>>> Stashed changes
             string P = TheControl.Lines[TheControl.CurrentPosition - 1].Text;
             P = P.Substring(0, P.Length - 2);
             if (P.Length == 0)
@@ -2101,12 +2098,8 @@ namespace DS_Game_Maker
             {
                 TheControl.InsertText(0, Conversions.ToString(MakeSpaces((byte)(SpaceCount + Amount))));
                 bool DoAdd = true;
-<<<<<<< Updated upstream
-                for (byte i = (byte)TheControl.CurrentLine, loopTo2 = (byte)(TheControl.Lines.Count - 1); i <= loopTo2; i++)
-=======
                 //for (byte i = (byte)TheControl.Caret.Position, loopTo2 = (byte)(TheControl.Lines.Count - 1); i <= loopTo2; i++)
                 for (byte i = (byte)TheControl.CurrentPosition, loopTo2 = (byte)(TheControl.Lines.Count - 1); i <= loopTo2; i++)
->>>>>>> Stashed changes
                 {
                     string L = TheControl.Lines[i].Text;
                     L = L.Substring(0, L.Length - 2).ToLower();
@@ -2118,15 +2111,10 @@ namespace DS_Game_Maker
                 }
                 if (DoAdd)
                 {
-<<<<<<< Updated upstream
-                    short BackupPos = (short)TheControl.CurrentPosition;
-                    TheControl.InsertText(0, Conversions.ToString(Operators.AddObject(Operators.AddObject(Constants.vbCrLf, MakeSpaces((byte)SpaceCount)), CapsEnders[FID])));
-=======
                     //short BackupPos = (short)TheControl.Caret.Position;
                     short BackupPos = (short)TheControl.CurrentPosition;
                     TheControl.InsertText(0, Conversions.ToString(Operators.AddObject(Operators.AddObject(Constants.vbCrLf, MakeSpaces((byte)SpaceCount)), CapsEnders[FID])));
                     //TheControl.Caret.Position = BackupPos;
->>>>>>> Stashed changes
                     TheControl.CurrentPosition = BackupPos;
                     // TheControl.SelectedText.Length = 0; Wat?
                 }

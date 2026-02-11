@@ -287,11 +287,7 @@ namespace DS_Game_Maker
             if (ArgumentsList.SelectedIndices.Count == 0)
                 return;
             // Dim BackupPosition = MainTextBox.Caret.Position + ArgumentsListBox.Text.Length
-<<<<<<< Updated upstream
-            MainTextBox.InsertText(0, ArgumentNames[ArgumentsList.SelectedIndex]);
-=======
             //MainTextBox.InsertText(ArgumentNames[ArgumentsList.SelectedIndex]);
->>>>>>> Stashed changes
             MainTextBox.Focus();
             // MainTextBox.Caret.Position = BackupPosition
         }
@@ -391,13 +387,8 @@ namespace DS_Game_Maker
 
         private void MainTextBox_CharAdded(object sender, ScintillaNET.CharAddedEventArgs e)
         {
-<<<<<<< Updated upstream
-            if (!(e.Ch == '\r'))
-                return;
-=======
             //if (!(e.Ch == '\r'))
             //    return;
->>>>>>> Stashed changes
             ScintillaNET.Scintilla argTheControl = (ScintillaNET.Scintilla)sender;
             DS_Game_Maker.DSGMlib.IntelliSense(ref argTheControl);
             sender = argTheControl;

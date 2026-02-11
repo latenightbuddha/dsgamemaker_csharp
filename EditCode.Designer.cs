@@ -39,11 +39,7 @@ namespace DS_Game_Maker
             MainTextBox = new ScintillaNET.Scintilla();
             MainTextBox.KeyDown += new KeyEventHandler(MainTextBox_KeyDown);
             MainTextBox.MouseClick += new MouseEventHandler(MainTextBox_KeyDown);
-<<<<<<< Updated upstream
-            MainTextBox.TextChanged += new EventHandler<EventArgs>(MainTextBox_KeyDown);
-=======
             MainTextBox.TextChanged += new EventHandler(MainTextBox_KeyDown);
->>>>>>> Stashed changes
             MainTextBox.CharAdded += new EventHandler<ScintillaNET.CharAddedEventArgs>(MainTextBox_CharAdded);
             MainToolStrip = new ToolStrip();
             DAcceptButton = new ToolStripButton();

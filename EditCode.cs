@@ -97,14 +97,9 @@ namespace DS_Game_Maker
 
         private void MainTextBox_CharAdded(object sender, ScintillaNET.CharAddedEventArgs e)
         {
-<<<<<<< Updated upstream
-            if (!(e.Ch == '\r'))
-                return;
-=======
            // if (!(e.Ch == '\r'))
            //     return;
 
->>>>>>> Stashed changes
             ScintillaNET.Scintilla argTheControl = (ScintillaNET.Scintilla)sender;
             DS_Game_Maker.DSGMlib.IntelliSense(ref argTheControl);
             sender = argTheControl;

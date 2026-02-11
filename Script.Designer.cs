@@ -54,22 +54,10 @@ namespace DS_Game_Maker
             StatsLabel = new ToolStripStatusLabel();
             SpacesLabel = new ToolStripStatusLabel();
             FunctionLabel = new ToolStripStatusLabel();
-<<<<<<< Updated upstream
-
-            MainTextBox = new ScintillaNET.Scintilla();
-            MainTextBox.KeyDown += new KeyEventHandler(MainTextBox_LineStatCaller);
-            MainTextBox.MouseClick += new MouseEventHandler(MainTextBox_LineStatCaller);
-            // old version
-            // MainTextBox.TextChanged += new EventHandler<EventArgs>(MainTextBox_LineStatCaller);
-            //"Brute Force" Lambda
-            MainTextBox.TextChanged += (s, e) => MainTextBox_LineStatCaller(s, e);
-
-=======
             MainTextBox = new ScintillaNET.Scintilla();
             MainTextBox.KeyDown += new KeyEventHandler(MainTextBox_LineStatCaller);
             MainTextBox.MouseClick += new MouseEventHandler(MainTextBox_LineStatCaller);
             MainTextBox.TextChanged += new EventHandler(MainTextBox_LineStatCaller);
->>>>>>> Stashed changes
             MainTextBox.KeyUp += new KeyEventHandler(MainTextBox_KeyUp);
             MainTextBox.CharAdded += new EventHandler<ScintillaNET.CharAddedEventArgs>(MainTextBox_CharAdded);
             SidePanel = new Panel();
@@ -190,11 +178,7 @@ namespace DS_Game_Maker
             // 
             // MainTextBox
             // 
-<<<<<<< Updated upstream
-            MainTextBox.LexerName = "vbscript"; // .ConfigurationManager.Language = "vbscript";
-=======
             //MainTextBox.ConfigurationManager.Language = "vbscript";
->>>>>>> Stashed changes
             MainTextBox.Dock = DockStyle.Fill;
             //MainTextBox.IsBraceMatching = true;
             MainTextBox.Location = new Point(196, 25);
@@ -202,16 +186,6 @@ namespace DS_Game_Maker
             MainTextBox.Name = "MainTextBox";
             //MainTextBox.Scrolling.HorizontalWidth = 1000;
             MainTextBox.Size = new Size(348, 452);
-<<<<<<< Updated upstream
-           // MainTextBox.Styles.BraceBad.FontName = "Verdana";
-           // MainTextBox.Styles.BraceLight.FontName = "Verdana";
-           // MainTextBox.Styles.ControlChar.FontName = "Verdana";
-           // MainTextBox.Styles.Default.FontName = "Verdana";
-           // MainTextBox.Styles.IndentGuide.FontName = "Verdana";
-           // MainTextBox.Styles.LastPredefined.FontName = "Verdana";
-           // MainTextBox.Styles.LineNumber.FontName = "Verdana";
-           // MainTextBox.Styles.Max.FontName = "Verdana";
-=======
             //MainTextBox.Styles.BraceBad.FontName = "Verdana";
             //MainTextBox.Styles.BraceLight.FontName = "Verdana";
             //MainTextBox.Styles.ControlChar.FontName = "Verdana";
@@ -220,7 +194,6 @@ namespace DS_Game_Maker
             //MainTextBox.Styles.LastPredefined.FontName = "Verdana";
             //MainTextBox.Styles.LineNumber.FontName = "Verdana";
             //MainTextBox.Styles.Max.FontName = "Verdana";
->>>>>>> Stashed changes
             MainTextBox.TabIndex = 4;
             // 
             // SidePanel
