@@ -97,8 +97,8 @@ namespace DS_Game_Maker
             // 
             MainImageList.ImageStream = (ImageListStreamer)resources.GetObject("MainImageList.ImageStream");
             MainImageList.TransparentColor = Color.Transparent;
-            MainImageList.Images.SetKeyName(0, "book.png");
-            MainImageList.Images.SetKeyName(1, "document.png");
+            //MainImageList.Images.SetKeyName(0, "book.png");
+            //MainImageList.Images.SetKeyName(1, "document.png");
             // 
             // IndexTab
             // 

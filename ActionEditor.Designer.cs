@@ -79,7 +79,7 @@ namespace DS_Game_Maker
             NameColumn = new ColumnHeader();
             TypeColumn = new ColumnHeader();
             MainToolStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)MainTextBox).BeginInit();
+            //((System.ComponentModel.ISupportInitialize)MainTextBox).BeginInit();
             ActionPropertiesPanel.SuspendLayout();
             IndentationGroupBox.SuspendLayout();
             SubToolStrip.SuspendLayout();
@@ -184,22 +184,22 @@ namespace DS_Game_Maker
             // 
             // MainTextBox
             // 
-            MainTextBox.ConfigurationManager.Language = "cpp";
+            //MainTextBox.ConfigurationManager.Language = "cpp";
             MainTextBox.Dock = DockStyle.Fill;
-            MainTextBox.IsBraceMatching = true;
+            //MainTextBox.IsBraceMatching = true;
             MainTextBox.Location = new Point(174, 25);
-            MainTextBox.Margins.Margin0.Width = 20;
+            //MainTextBox.Margins.Margin0.Width = 20;
             MainTextBox.Name = "MainTextBox";
-            MainTextBox.Scrolling.HorizontalWidth = 1000;
+            //MainTextBox.Scrolling.HorizontalWidth = 1000;
             MainTextBox.Size = new Size(379, 457);
-            MainTextBox.Styles.BraceBad.FontName = "Verdana";
-            MainTextBox.Styles.BraceLight.FontName = "Verdana";
-            MainTextBox.Styles.ControlChar.FontName = "Verdana";
-            MainTextBox.Styles.Default.FontName = "Verdana";
-            MainTextBox.Styles.IndentGuide.FontName = "Verdana";
-            MainTextBox.Styles.LastPredefined.FontName = "Verdana";
-            MainTextBox.Styles.LineNumber.FontName = "Verdana";
-            MainTextBox.Styles.Max.FontName = "Verdana";
+            //MainTextBox.Styles.BraceBad.FontName = "Verdana";
+            //MainTextBox.Styles.BraceLight.FontName = "Verdana";
+            //MainTextBox.Styles.ControlChar.FontName = "Verdana";
+            //MainTextBox.Styles.Default.FontName = "Verdana";
+            //MainTextBox.Styles.IndentGuide.FontName = "Verdana";
+            //MainTextBox.Styles.LastPredefined.FontName = "Verdana";
+            //MainTextBox.Styles.LineNumber.FontName = "Verdana";
+            //MainTextBox.Styles.Max.FontName = "Verdana";
             MainTextBox.TabIndex = 7;
             // 
             // ActionPropertiesPanel
@@ -405,7 +405,7 @@ namespace DS_Game_Maker
             Text = "Action Editor";
             MainToolStrip.ResumeLayout(false);
             MainToolStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)MainTextBox).EndInit();
+            //((System.ComponentModel.ISupportInitialize)MainTextBox).EndInit();
             ActionPropertiesPanel.ResumeLayout(false);
             ActionPropertiesPanel.PerformLayout();
             IndentationGroupBox.ResumeLayout(false);

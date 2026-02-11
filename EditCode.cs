@@ -32,9 +32,12 @@ namespace DS_Game_Maker
 
         public void UpdateLineStats()
         {
-            InfoLabel.Text = "Ln " + MainTextBox.Caret.LineNumber.ToString() + " : ";
-            InfoLabel.Text += MainTextBox.Lines.Count.ToString() + "   Col " + MainTextBox.GetColumn(MainTextBox.CurrentPos).ToString();
-            InfoLabel.Text += "   Sel " + MainTextBox.Selection.Start.ToString();
+            // InfoLabel.Text = "Ln " + MainTextBox.Caret.LineNumber.ToString() + " : ";
+            // InfoLabel.Text += MainTextBox.Lines.Count.ToString() + "   Col " + MainTextBox.GetColumn(MainTextBox.CurrentPos).ToString();
+            // InfoLabel.Text += "   Sel " + MainTextBox.Selection.Start.ToString();
+            InfoLabel.Text = "Ln " + MainTextBox.CurrentPosition + " : ";
+            InfoLabel.Text += MainTextBox.Lines.Count.ToString() + "   Col " + MainTextBox.GetColumn(MainTextBox.CurrentPosition).ToString();
+            InfoLabel.Text += "   Sel " + MainTextBox.Selections;
         }
 
         private void MainTextBox_KeyDown(object sender, EventArgs e)
@@ -52,14 +55,14 @@ namespace DS_Game_Maker
 
         private void UndoButton_Click(object sender, EventArgs e)
         {
-            if (MainTextBox.UndoRedo.CanUndo)
-                MainTextBox.UndoRedo.Undo();
+            if (MainTextBox.CanUndo)
+                MainTextBox.Undo();
         }
 
         private void RedoButton_Click(object sender, EventArgs e)
         {
-            if (MainTextBox.UndoRedo.CanRedo)
-                MainTextBox.UndoRedo.Redo();
+            if (MainTextBox.CanRedo)
+                MainTextBox.Redo();
         }
 
         private void LoadInButton_Click(object sender, EventArgs e)
@@ -94,8 +97,14 @@ namespace DS_Game_Maker
 
         private void MainTextBox_CharAdded(object sender, ScintillaNET.CharAddedEventArgs e)
         {
+<<<<<<< Updated upstream
             if (!(e.Ch == '\r'))
                 return;
+=======
+           // if (!(e.Ch == '\r'))
+           //     return;
+
+>>>>>>> Stashed changes
             ScintillaNET.Scintilla argTheControl = (ScintillaNET.Scintilla)sender;
             DS_Game_Maker.DSGMlib.IntelliSense(ref argTheControl);
             sender = argTheControl;
