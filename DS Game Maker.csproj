@@ -9,18 +9,22 @@
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>AnyCPU;x64</Platforms>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="My Project\**" />
     <Compile Remove="NewUI\**" />
     <Compile Remove="Resources\**" />
+    <Compile Remove="ScintillaNet\x64\**" />
     <EmbeddedResource Remove="My Project\**" />
     <EmbeddedResource Remove="NewUI\**" />
     <EmbeddedResource Remove="Resources\**" />
+    <EmbeddedResource Remove="ScintillaNet\x64\**" />
     <None Remove="My Project\**" />
     <None Remove="NewUI\**" />
     <None Remove="Resources\**" />
+    <None Remove="ScintillaNet\x64\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,9 +43,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ScintillaNet">
-      <HintPath>bin\Debug\ScintillaNet.dll</HintPath>
-    </Reference>
+    <None Update="SciLexer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SciLexer_x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ScintillaNET\SciLexer\X64Bit\SciLexer.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

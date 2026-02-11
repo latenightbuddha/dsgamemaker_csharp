@@ -230,3 +230,4 @@ MigrationBackup/
 *.msix
 *.msm
 *.msp
+/bin

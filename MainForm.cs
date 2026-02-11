@@ -113,24 +113,31 @@ namespace DS_Game_Maker
             }
             string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
             CacheHasTinternet = DS_Game_Maker.DSGMlib.HasInternetConnection("http://google.com");
-            if (!File.Exists(System32Path + @"\SciLexer.dll"))
+
+            if (!File.Exists(System32Path + @"\SciLexer_x64.dll"))
             {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer.dll", System32Path + @"\SciLexer.dll");
+                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer_x64.dll", System32Path + @"\SciLexer_x64.dll");
             }
-            if (!File.Exists(System32Path + @"\ScintillaNet.dll"))
+            
+            /*if (!File.Exists(System32Path + @"\ScintillaNet.dll"))
             {
                 File.Copy(DS_Game_Maker.DSGMlib.AppPath + "ScintillaNet.dll", System32Path + @"\ScintillaNet.dll");
-            }
+            }*/
+
             // Also into Windows... nasty, rare suggested fix
             string WindowsPath = System32Path.Substring(0, System32Path.LastIndexOf(@"\"));
-            if (!File.Exists(WindowsPath + @"\SciLexer.dll"))
+            if (!File.Exists(WindowsPath + @"\SciLexer_x64.dll"))
             {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer.dll", WindowsPath + @"\SciLexer.dll");
+                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer_x64.dll", WindowsPath + @"\SciLexer_x64.dll");
             }
+
+            /*
             if (!File.Exists(WindowsPath + @"\ScintillaNet.dll"))
             {
                 File.Copy(DS_Game_Maker.DSGMlib.AppPath + "ScintillaNet.dll", WindowsPath + @"\ScintillaNet.dll");
             }
+            */
+
             try
             {
                 DS_Game_Maker.RegistryLib.SetFileType(".dsgm", "DSGMFile");
