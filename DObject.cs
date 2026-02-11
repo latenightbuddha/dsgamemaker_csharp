@@ -169,33 +169,33 @@ namespace DS_Game_Maker
             }
             if (!Code)
             {
-                DS_Game_Maker.My.MyProject.Forms.Action.ActionName = ActionName;
-                DS_Game_Maker.My.MyProject.Forms.Action.AppliesTo = "this";
-                DS_Game_Maker.My.MyProject.Forms.Action.ArgumentString = string.Empty;
+                Program.Forms.action_Form.ActionName = ActionName;
+                Program.Forms.action_Form.AppliesTo = "this";
+                Program.Forms.action_Form.ArgumentString = string.Empty;
             }
             if (ArgCount > 1)
             {
                 string MyShizzle = string.Empty;
                 for (byte X = 0, loopTo = (byte)(ArgCount - 2); X <= loopTo; X++)
                     MyShizzle += ";";
-                DS_Game_Maker.My.MyProject.Forms.Action.ArgumentString = MyShizzle;
+                Program.Forms.action_Form.ArgumentString = MyShizzle;
             }
             if (Code)
             {
-                DS_Game_Maker.My.MyProject.Forms.EditCode.ReturnableCode = string.Empty;
-                DS_Game_Maker.My.MyProject.Forms.EditCode.ImportExport = true;
-                if (!(DS_Game_Maker.My.MyProject.Forms.EditCode.ShowDialog() == DialogResult.OK))
+                Program.Forms.editCode_Form.ReturnableCode = string.Empty;
+                Program.Forms.editCode_Form.ImportExport = true;
+                if (!(Program.Forms.editCode_Form.ShowDialog() == DialogResult.OK))
                     return;
             }
             else
             {
-                DS_Game_Maker.My.MyProject.Forms.Action.AppliesToGroupBox.Enabled = true;
+                Program.Forms.action_Form.AppliesToGroupBox.Enabled = true;
                 if (NoAppliesTo)
                 {
-                    DS_Game_Maker.My.MyProject.Forms.Action.AppliesToGroupBox.Enabled = false;
+                    Program.Forms.action_Form.AppliesToGroupBox.Enabled = false;
                 }
-                DS_Game_Maker.My.MyProject.Forms.Action.ShowDialog();
-                if (!DS_Game_Maker.My.MyProject.Forms.Action.UseData)
+                Program.Forms.action_Form.ShowDialog();
+                if (!Program.Forms.action_Form.UseData)
                 {
                     Cursor = Cursors.Default;
                     return;
@@ -215,28 +215,28 @@ namespace DS_Game_Maker
             {
                 if (JustAdd)
                 {
-                    ActionArguments.Add(DS_Game_Maker.My.MyProject.Forms.EditCode.ReturnableCode);
-                    ActionDisplays.Add(DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, DS_Game_Maker.My.MyProject.Forms.EditCode.ReturnableCode));
+                    ActionArguments.Add(Program.Forms.editCode_Form.ReturnableCode);
+                    ActionDisplays.Add(DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.editCode_Form.ReturnableCode));
                     ActionAppliesTos.Add("this");
                 }
                 else
                 {
-                    ActionArguments.Insert((int)Position, DS_Game_Maker.My.MyProject.Forms.EditCode.ReturnableCode);
-                    ActionDisplays.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, DS_Game_Maker.My.MyProject.Forms.EditCode.ReturnableCode));
+                    ActionArguments.Insert((int)Position, Program.Forms.editCode_Form.ReturnableCode);
+                    ActionDisplays.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.editCode_Form.ReturnableCode));
                     ActionAppliesTos.Insert(Position, "this");
                 }
             }
             else if (JustAdd)
             {
-                ActionArguments.Add(DS_Game_Maker.My.MyProject.Forms.Action.ArgumentString);
-                ActionDisplays.Add(DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, DS_Game_Maker.My.MyProject.Forms.Action.ArgumentString));
-                ActionAppliesTos.Add(DS_Game_Maker.My.MyProject.Forms.Action.AppliesTo);
+                ActionArguments.Add(Program.Forms.action_Form.ArgumentString);
+                ActionDisplays.Add(DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.action_Form.ArgumentString));
+                ActionAppliesTos.Add(Program.Forms.action_Form.AppliesTo);
             }
             else
             {
-                ActionArguments.Insert((int)Position, DS_Game_Maker.My.MyProject.Forms.Action.ArgumentString);
-                ActionDisplays.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, DS_Game_Maker.My.MyProject.Forms.Action.ArgumentString));
-                ActionAppliesTos.Insert((int)Position, DS_Game_Maker.My.MyProject.Forms.Action.AppliesTo);
+                ActionArguments.Insert((int)Position, Program.Forms.action_Form.ArgumentString);
+                ActionDisplays.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.action_Form.ArgumentString));
+                ActionAppliesTos.Insert((int)Position, Program.Forms.action_Form.AppliesTo);
             }
             GenerateIndentIndices();
             ActionsList.SelectedItems.Clear();
@@ -550,7 +550,7 @@ namespace DS_Game_Maker
             }
             // FinalString = UpdateActionsName(FinalString, "Object", ObjectName, NewName, True)
             DS_Game_Maker.DSGMlib.CurrentXDS += Constants.vbCrLf + FinalString + Constants.vbCrLf;
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (X.Name == "Room")
                 {
@@ -581,7 +581,7 @@ namespace DS_Game_Maker
                     DS_Game_Maker.DSGMlib.XDSChangeLine(X, DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ",") + ",6," + NewName);
             }
             DS_Game_Maker.DSGMlib.CurrentXDS = DS_Game_Maker.DSGMlib.UpdateActionsName(DS_Game_Maker.DSGMlib.CurrentXDS, "Object", ObjectName, NewName, true);
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (!DS_Game_Maker.DSGMlib.IsObject(X.Text))
                     continue;
@@ -610,7 +610,7 @@ namespace DS_Game_Maker
                 }
                 DForm.MyXDSLines = LF;
             }
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (!(X.Name == "DObject"))
                     continue;
@@ -618,7 +618,7 @@ namespace DS_Game_Maker
                 DForm.MyXDSLines = DS_Game_Maker.DSGMlib.UpdateActionsName(DForm.MyXDSLines, "Object", ObjectName, NewName, true);
             }
             DS_Game_Maker.DSGMlib.UpdateArrayActionsName("Object", ObjectName, NewName, true);
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (!(X.Name == "DObject"))
                     continue;
@@ -645,7 +645,7 @@ namespace DS_Game_Maker
                     }
                 }
             }
-            foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.DObject].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.DObject].Nodes)
             {
                 if ((X.Text ?? "") == (ObjectName ?? ""))
                     X.Text = NewName;
@@ -723,12 +723,12 @@ namespace DS_Game_Maker
 
         private void AddEventButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.DEvent.Text = "Add Event";
-            DS_Game_Maker.My.MyProject.Forms.DEvent.ShowDialog();
-            if (!DS_Game_Maker.My.MyProject.Forms.DEvent.UseData)
+            Program.Forms.dEvent_Form.Text = "Add Event";
+            Program.Forms.dEvent_Form.ShowDialog();
+            if (!Program.Forms.dEvent_Form.UseData)
                 return;
-            string MainClass = DS_Game_Maker.My.MyProject.Forms.DEvent.MainClass;
-            string SubClass = DS_Game_Maker.My.MyProject.Forms.DEvent.SubClass;
+            string MainClass = Program.Forms.dEvent_Form.MainClass;
+            string SubClass = Program.Forms.dEvent_Form.SubClass;
             if (MainClass == "NoData")
                 return;
             for (short X = 0, loopTo = (short)(DEventMainClasses.Count - 1); X <= loopTo; X++)
@@ -908,17 +908,17 @@ namespace DS_Game_Maker
         {
             if (EventsListBox.SelectedIndices.Count == 0)
                 return;
-            DS_Game_Maker.My.MyProject.Forms.DEvent.ShowDialog();
-            if (DS_Game_Maker.My.MyProject.Forms.DEvent.UseData == false)
+            Program.Forms.dEvent_Form.ShowDialog();
+            if (Program.Forms.dEvent_Form.UseData == false)
                 return;
             short I = (short)EventsListBox.SelectedIndex;
             byte OldMC = DS_Game_Maker.ScriptsLib.MainClassStringToType(DEventMainClasses[I]);
             string OldSC = DEventSubClasses[I];
-            byte MC = DS_Game_Maker.ScriptsLib.MainClassStringToType(DS_Game_Maker.My.MyProject.Forms.DEvent.MainClass);
-            string SC = DS_Game_Maker.My.MyProject.Forms.DEvent.SubClass;
+            byte MC = DS_Game_Maker.ScriptsLib.MainClassStringToType(Program.Forms.dEvent_Form.MainClass);
+            string SC = Program.Forms.dEvent_Form.SubClass;
             if (MC == OldMC & (SC ?? "") == (OldSC ?? ""))
                 return;
-            if (DEventMainClasses.Contains(DS_Game_Maker.My.MyProject.Forms.DEvent.MainClass) & DEventSubClasses.Contains(DS_Game_Maker.My.MyProject.Forms.DEvent.SubClass))
+            if (DEventMainClasses.Contains(Program.Forms.dEvent_Form.MainClass) & DEventSubClasses.Contains(Program.Forms.dEvent_Form.SubClass))
             {
                 DS_Game_Maker.DSGMlib.MsgWarn("That event is already in-use.");
                 return;
@@ -942,7 +942,7 @@ namespace DS_Game_Maker
                 FinalString += P + Constants.vbCrLf;
             }
             MyXDSLines = FinalString;
-            DEventMainClasses[I] = DS_Game_Maker.My.MyProject.Forms.DEvent.MainClass;
+            DEventMainClasses[I] = Program.Forms.dEvent_Form.MainClass;
             DEventSubClasses[I] = SC;
             EventsListBox.Refresh();
             // MsgError(Actions.Count.ToString)
@@ -1196,12 +1196,12 @@ namespace DS_Game_Maker
             short EditingIndex = (short)ActionsList.SelectedIndices[0];
             if (Actions[EditingIndex] == "Execute Code")
             {
-                DS_Game_Maker.My.MyProject.Forms.EditCode.ReturnableCode = ActionArguments[EditingIndex];
-                DS_Game_Maker.My.MyProject.Forms.EditCode.CodeMode = (byte)DS_Game_Maker.DSGMlib.CodeMode.DBAS;
-                DS_Game_Maker.My.MyProject.Forms.EditCode.ImportExport = true;
-                if (DS_Game_Maker.My.MyProject.Forms.EditCode.ShowDialog() == DialogResult.OK)
+                Program.Forms.editCode_Form.ReturnableCode = ActionArguments[EditingIndex];
+                Program.Forms.editCode_Form.CodeMode = (byte)DS_Game_Maker.DSGMlib.CodeMode.DBAS;
+                Program.Forms.editCode_Form.ImportExport = true;
+                if (Program.Forms.editCode_Form.ShowDialog() == DialogResult.OK)
                 {
-                    ActionArguments[EditingIndex] = DS_Game_Maker.My.MyProject.Forms.EditCode.ReturnableCode;
+                    ActionArguments[EditingIndex] = Program.Forms.editCode_Form.ReturnableCode;
                 }
             }
             else
@@ -1209,7 +1209,7 @@ namespace DS_Game_Maker
                 // MsgError("Previous to Opening the dialogue")
                 // MsgError("AppliesTo: """ + ActionAppliesTos(EditingIndex) + """")
                 {
-                    var withBlock = DS_Game_Maker.My.MyProject.Forms.Action;
+                    var withBlock = Program.Forms.action_Form;
                     withBlock.ArgumentString = ActionArguments[EditingIndex];
                     withBlock.ActionName = Actions[EditingIndex];
                     withBlock.AppliesTo = ActionAppliesTos[EditingIndex];

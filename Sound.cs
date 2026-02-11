@@ -103,7 +103,7 @@ namespace DS_Game_Maker
                     DS_Game_Maker.DSGMlib.SoundsToRedo.Add(NewName);
                 }
             }
-            foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Sound].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Sound].Nodes)
             {
                 if ((X.Text ?? "") == (SoundName ?? ""))
                     X.Text = NewName;

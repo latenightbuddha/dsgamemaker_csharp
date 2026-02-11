@@ -280,18 +280,25 @@ namespace DS_Game_Maker
         {
             SnapToGrid = DS_Game_Maker.SettingsLib.GetSetting("SNAP_OBJECTS") == "1";
             ShowGrid = DS_Game_Maker.SettingsLib.GetSetting("SHOW_GRID") == "1";
+
             UseRightClickMenuChecker.Checked = DS_Game_Maker.SettingsLib.GetSetting("RIGHT_CLICK") == "1";
+
             SnapX = Convert.ToByte(DS_Game_Maker.SettingsLib.GetSetting("SNAP_X"));
             SnapY = Convert.ToByte(DS_Game_Maker.SettingsLib.GetSetting("SNAP_Y"));
+
             string ColorString = DS_Game_Maker.SettingsLib.GetSetting("GRID_COLOR");
             byte R = Convert.ToByte(DS_Game_Maker.DSGMlib.iGet(ColorString, (byte)0, ","));
             byte G = Convert.ToByte(DS_Game_Maker.DSGMlib.iGet(ColorString, (byte)1, ","));
             byte B = Convert.ToByte(DS_Game_Maker.DSGMlib.iGet(ColorString, (byte)2, ","));
+
             ShowGridChecker.Checked = ShowGrid;
             SnapToGridChecker.Checked = SnapToGrid;
+
             SnapXTextBox.Text = SnapX.ToString();
             SnapYTextBox.Text = SnapY.ToString();
+
             GridColor = Color.FromArgb(R, G, B);
+
             ObjectRightClickMenu.Renderer = new DS_Game_Maker.clsMenuRenderer();
             string XDSLine = DS_Game_Maker.DSGMlib.GetXDSLine("ROOM " + RoomName + ",");
             XDSLine = XDSLine.Substring(6 + RoomName.Length);
@@ -407,7 +414,7 @@ namespace DS_Game_Maker
                     DS_Game_Maker.DSGMlib.XDSChangeLine("BOOTROOM " + RoomName, "BOOTROOM " + NewName);
                 }
             }
-            foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Room].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Room].Nodes)
             {
                 if ((X.Text ?? "") == (RoomName ?? ""))
                     X.Text = NewName;
@@ -485,14 +492,15 @@ namespace DS_Game_Maker
                 short NewX = default, NewY = default;
                 for (short i = 1, loopTo = TopWidth; i <= loopTo; i++)
                 {
-                    if (Conversions.ToBoolean(!DS_Game_Maker.DSGMlib.CanDevide(i, (short)SnapX)))
+                    if ((bool)DSGMlib.CanDivide(i, SnapX) == false)
                         continue;
+
                     if (X >= i)
                         NewX = i;
                 }
                 for (short i = 1, loopTo1 = TopHeight; i <= loopTo1; i++)
                 {
-                    if (Conversions.ToBoolean(!DS_Game_Maker.DSGMlib.CanDevide(i, (short)SnapY)))
+                    if ((bool)DSGMlib.CanDivide(i, SnapY) == false)
                         continue;
                     if (Y >= i)
                         NewY = i;
@@ -563,14 +571,14 @@ namespace DS_Game_Maker
                 short NewX = default, NewY = default;
                 for (short i = 1, loopTo = BottomWidth; i <= loopTo; i++)
                 {
-                    if (Conversions.ToBoolean(!DS_Game_Maker.DSGMlib.CanDevide(i, (short)SnapX)))
+                    if ((bool)DSGMlib.CanDivide(i, (short)SnapX) == false)
                         continue;
                     if (X >= i)
                         NewX = i;
                 }
                 for (short i = 1, loopTo1 = BottomHeight; i <= loopTo1; i++)
                 {
-                    if (Conversions.ToBoolean(!DS_Game_Maker.DSGMlib.CanDevide(i, (short)SnapY)))
+                    if ((bool)DSGMlib.CanDivide(i, SnapY) == false)
                         continue;
                     if (Y >= i)
                         NewY = i;
@@ -719,14 +727,14 @@ namespace DS_Game_Maker
             short NewX = default, NewY = default;
             for (short i = 1, loopTo = BottomWidth; i <= loopTo; i++)
             {
-                if (Conversions.ToBoolean(!DS_Game_Maker.DSGMlib.CanDevide(i, (short)SnapX)))
+                if ((bool)DSGMlib.CanDivide(i, SnapX) == false)
                     continue;
                 if (X >= i)
                     NewX = i;
             }
             for (short i = 1, loopTo1 = BottomHeight; i <= loopTo1; i++)
             {
-                if (Conversions.ToBoolean(!DS_Game_Maker.DSGMlib.CanDevide(i, (short)SnapY)))
+                if ((bool)DSGMlib.CanDivide(i, SnapY) == false)
                     continue;
                 if (Y >= i)
                     NewY = i;
@@ -820,7 +828,7 @@ namespace DS_Game_Maker
             foreach (string X in ObjectsToOpen)
             {
                 bool DoShow = true;
-                foreach (Form TheForm in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+                foreach (Form TheForm in Program.Forms.main_Form.MdiChildren)
                 {
                     if ((TheForm.Text ?? "") == (X ?? ""))
                     {
@@ -842,12 +850,13 @@ namespace DS_Game_Maker
         private void SetCoOrdinatesButton_Click(object sender, EventArgs e)
         {
             short ID = SlotAppliesTo[0];
-            DS_Game_Maker.My.MyProject.Forms.SetCoOrdinates.X = Objects[ID].X;
-            DS_Game_Maker.My.MyProject.Forms.SetCoOrdinates.Y = Objects[ID].Y;
-            DS_Game_Maker.My.MyProject.Forms.SetCoOrdinates.ShowDialog();
+            Program.Forms.setCoOrdinates_Form.X = Objects[ID].X;
+            Program.Forms.setCoOrdinates_Form.Y = Objects[ID].Y;
+            Program.Forms.setCoOrdinates_Form.ShowDialog();
+
             // If Not SetCoOrdinates.ShowDialog() = Windows.Forms.DialogResult.OK Then Exit Sub
-            Objects[ID].X = DS_Game_Maker.My.MyProject.Forms.SetCoOrdinates.X;
-            Objects[ID].Y = DS_Game_Maker.My.MyProject.Forms.SetCoOrdinates.Y;
+            Objects[ID].X = Program.Forms.setCoOrdinates_Form.X;
+            Objects[ID].Y = Program.Forms.setCoOrdinates_Form.Y;
             RefreshRoom(Objects[ID].Screen);
         }
 

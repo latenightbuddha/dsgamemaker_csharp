@@ -82,7 +82,7 @@ namespace DS_Game_Maker
             // 
             // DAcceptButton
             // 
-            DAcceptButton.Image = DS_Game_Maker.My.Resources.Resources.AcceptIcon;
+            DAcceptButton.Image = Properties.Resources.AcceptIcon;
             DAcceptButton.ImageAlign = ContentAlignment.MiddleLeft;
             DAcceptButton.Location = new Point(12, 62);
             DAcceptButton.Name = "DAcceptButton";

@@ -36,11 +36,11 @@ namespace DS_Game_Maker
         private void InitializeComponent()
         {
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(EditCode));
-            MainTextBox = new ScintillaNET.Scintilla();
+            MainTextBox = new ScintillaNet.Scintilla();
             MainTextBox.KeyDown += new KeyEventHandler(MainTextBox_KeyDown);
             MainTextBox.MouseClick += new MouseEventHandler(MainTextBox_KeyDown);
             MainTextBox.TextChanged += new EventHandler<EventArgs>(MainTextBox_KeyDown);
-            MainTextBox.CharAdded += new EventHandler<ScintillaNET.CharAddedEventArgs>(MainTextBox_CharAdded);
+            MainTextBox.CharAdded += new EventHandler<ScintillaNet.CharAddedEventArgs>(MainTextBox_CharAdded);
             MainToolStrip = new ToolStrip();
             DAcceptButton = new ToolStripButton();
             DAcceptButton.Click += new EventHandler(DAcceptButton_Click);
@@ -183,7 +183,7 @@ namespace DS_Game_Maker
             PerformLayout();
 
         }
-        internal ScintillaNET.Scintilla MainTextBox;
+        internal ScintillaNet.Scintilla MainTextBox;
         internal ToolStrip MainToolStrip;
         internal StatusStrip MainStatusStrip;
         internal ToolStripButton DAcceptButton;

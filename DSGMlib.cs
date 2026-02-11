@@ -204,7 +204,7 @@ namespace DS_Game_Maker
 
         public static void OpenResource(string ResourceName, byte ResourceType, bool SpriteDataChanged)
         {
-            foreach (Form TheForm in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form TheForm in Program.Forms.main_Form.MdiChildren)
             {
                 if ((TheForm.Text ?? "") == (ResourceName ?? ""))
                 {
@@ -315,7 +315,7 @@ namespace DS_Game_Maker
 
         public static bool CompileGame()
         {
-            DS_Game_Maker.My.MyProject.Forms.Compile.CustomPerformStep("Cleaning Temporary Data");
+            Program.Forms.main_Form.compileForm.CustomPerformStep("Cleaning Temporary Data");
             File.Delete(DS_Game_Maker.SessionsLib.CompilePath + "DSGMTemp" + DS_Game_Maker.SessionsLib.Session + ".nds");
             foreach (Process TheProcess in Process.GetProcesses())
             {
@@ -481,7 +481,7 @@ namespace DS_Game_Maker
             }
             FinalString += "#include \"dsgm_gfx.h\"" + Constants.vbCrLf;
             FinalString += "#include \"GameWorks.h\"" + Constants.vbCrLf;
-            DS_Game_Maker.My.MyProject.Forms.Compile.CustomPerformStep("Converting Sounds");
+            Program.Forms.main_Form.compileForm.CustomPerformStep("Converting Sounds");
             string RAWString = string.Empty;
             string MP3String = string.Empty;
             bool DoRAW = false;
@@ -1572,7 +1572,7 @@ namespace DS_Game_Maker
             MF += "MAKEFILE_VER := ver2" + Constants.vbCrLf;
             MF += "include " + CDrive + @"devkitPro\PAlib\lib\PA_Makefile" + Constants.vbCrLf;
             File.WriteAllText(DS_Game_Maker.SessionsLib.CompilePath + "Makefile", MF);
-            DS_Game_Maker.My.MyProject.Forms.Compile.CustomPerformStep("Processing Graphics");
+            Program.Forms.main_Form.compileForm.CustomPerformStep("Processing Graphics");
             var MyProcess = new Process();
             var MyInfo = new ProcessStartInfo();
             if (RedoAllGraphics | BGsToRedo.Count > 0 | RedoSprites)
@@ -1672,7 +1672,7 @@ namespace DS_Game_Maker
                     DSGMH += "  extern const unsigned short DSGMPal" + i.ToString() + "_Pal[256] _GFX_ALIGN;" + Constants.vbCrLf;
             }
             File.WriteAllText(DS_Game_Maker.SessionsLib.CompilePath + @"gfx\dsgm_gfx.h", DSGMH);
-            DS_Game_Maker.My.MyProject.Forms.Compile.CustomPerformStep("Compiling Game");
+            Program.Forms.main_Form.compileForm.CustomPerformStep("Compiling Game");
             MyInfo.FileName = DS_Game_Maker.SessionsLib.CompilePath + "build.bat";
             MyInfo.WorkingDirectory = DS_Game_Maker.SessionsLib.CompilePath;
             MyProcess.StartInfo = MyInfo;
@@ -1757,7 +1757,7 @@ namespace DS_Game_Maker
             MessageBox.Show(msg, title, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public static object CanDevide(short num1, short num2)
+        public static object CanDivide(short num1, short num2)
         {
             if (num1 == 0 | num2 == 0)
                 return false;
@@ -2014,7 +2014,7 @@ namespace DS_Game_Maker
 
         public static void UpdateArrayActionsName(string ResourceTypeString, string OldName, string NewName, bool AppliesToAlso)
         {
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (!(X.Name == "DObject"))
                     continue;
@@ -2063,12 +2063,12 @@ namespace DS_Game_Maker
         private static byte TempSpaces = 0;
         private static byte GAmount = 2;
 
-        public static void IntelliSense(ref ScintillaNET.Scintilla TheControl)
+        public static void IntelliSense(ref ScintillaNet.Scintilla TheControl)
         {
             string[] Starters = new string[] { "if", "while", "for", "with" };
             string[] Enders = new string[] { "end if", "end while", "next", "end with" };
             string[] CapsEnders = new string[] { "End If", "End While", "Next", "End With" };
-            string P = TheControl.Lines[TheControl.CurrentPosition - 1].Text;
+            string P = TheControl.Lines[TheControl.Caret.Position - 1].Text;
             P = P.Substring(0, P.Length - 2);
             if (P.Length == 0)
                 return;
@@ -2096,7 +2096,7 @@ namespace DS_Game_Maker
             {
                 TheControl.InsertText(0, Conversions.ToString(MakeSpaces((byte)(SpaceCount + Amount))));
                 bool DoAdd = true;
-                for (byte i = (byte)TheControl.CurrentLine, loopTo2 = (byte)(TheControl.Lines.Count - 1); i <= loopTo2; i++)
+                for (byte i = (byte)TheControl.Caret.Position, loopTo2 = (byte)(TheControl.Lines.Count - 1); i <= loopTo2; i++)
                 {
                     string L = TheControl.Lines[i].Text;
                     L = L.Substring(0, L.Length - 2).ToLower();
@@ -2108,9 +2108,9 @@ namespace DS_Game_Maker
                 }
                 if (DoAdd)
                 {
-                    short BackupPos = (short)TheControl.CurrentPosition;
+                    short BackupPos = (short)TheControl.Caret.Position;
                     TheControl.InsertText(0, Conversions.ToString(Operators.AddObject(Operators.AddObject(Constants.vbCrLf, MakeSpaces((byte)SpaceCount)), CapsEnders[FID])));
-                    TheControl.CurrentPosition = BackupPos;
+                    TheControl.Caret.Position = BackupPos;
                     // TheControl.SelectedText.Length = 0; Wat?
                 }
                 return;
@@ -2234,7 +2234,7 @@ namespace DS_Game_Maker
                     }
                 }
                 // Update rooms if they contain affected objects >.<
-                foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+                foreach (Form X in Program.Forms.main_Form.MdiChildren)
                 {
                     if (X.Name == "Room")
                     {
@@ -2270,7 +2270,7 @@ namespace DS_Game_Maker
                     }
                 }
                 CurrentXDS = UpdateActionsName(CurrentXDS, "Object", ResourceName, "<Unknown>", false);
-                foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceIDs.Sprite].Nodes)
+                foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceIDs.Sprite].Nodes)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                     {
@@ -2285,7 +2285,7 @@ namespace DS_Game_Maker
                 XDSRemoveFilter("EVENT " + ResourceName + ",");
                 XDSRemoveFilter("ACT " + ResourceName + ",");
                 XDSRemoveFilter("OBJECTPLOT " + ResourceName + ",");
-                foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+                foreach (Form X in Program.Forms.main_Form.MdiChildren)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                         continue;
@@ -2321,8 +2321,9 @@ namespace DS_Game_Maker
                     {
                         DS_Game_Maker.DObject DForm = (DS_Game_Maker.DObject)X;
                         string FinalXDS = string.Empty;
-                        foreach (string Y in DSGMlib.StringToLines(DForm.MyXDSLines))
+                        foreach (string Y_ in DSGMlib.StringToLines(DForm.MyXDSLines))
                         {
+                            string Y = Y_;
                             if (Y.Length == 0)
                                 continue;
                             if (Y.StartsWith("EVENT "))
@@ -2341,7 +2342,7 @@ namespace DS_Game_Maker
                         DForm.MyXDSLines = FinalXDS;
                     }
                 }
-                foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceIDs.DObject].Nodes)
+                foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceIDs.DObject].Nodes)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                     {
@@ -2412,7 +2413,7 @@ namespace DS_Game_Maker
                     if (!(NewLine.Length == X.Length))
                         XDSChangeLine(X, NewLine);
                 }
-                foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+                foreach (Form X in Program.Forms.main_Form.MdiChildren)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                         continue;
@@ -2429,7 +2430,7 @@ namespace DS_Game_Maker
                 }
                 CurrentXDS = UpdateActionsName(CurrentXDS, "Background", ResourceName, "<Unknown>", false);
                 UpdateArrayActionsName("Background", ResourceName, "<Unknown>", false);
-                foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceIDs.Background].Nodes)
+                foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceIDs.Background].Nodes)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                         X.Remove();
@@ -2443,7 +2444,7 @@ namespace DS_Game_Maker
                 File.Delete(DS_Game_Maker.SessionsLib.SessionPath + @"Sounds\" + ResourceName + "." + Extension);
                 CurrentXDS = UpdateActionsName(CurrentXDS, "Sound", ResourceName, "<Unknown>", false);
                 UpdateArrayActionsName("Sound", ResourceName, "<Unknown>", false);
-                foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceIDs.Sound].Nodes)
+                foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceIDs.Sound].Nodes)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                         X.Remove();
@@ -2467,14 +2468,14 @@ namespace DS_Game_Maker
                 CurrentXDS = NewString;
                 CurrentXDS = UpdateActionsName(CurrentXDS, "Room", ResourceName, "<Unknown>", false);
                 UpdateArrayActionsName("Room", ResourceName, "<Unknown>", false);
-                foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceIDs.Room].Nodes)
+                foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceIDs.Room].Nodes)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                         X.Remove();
                 }
                 if ((GetXDSLine("BOOTROOM ").Substring(9) ?? "") == (ResourceName ?? ""))
                 {
-                    string NewRoomName = DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceIDs.Room].Nodes[0].Text;
+                    string NewRoomName = Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceIDs.Room].Nodes[0].Text;
                     XDSChangeLine("BOOTROOM " + ResourceName, "BOOTROOM " + NewRoomName);
                 }
             }
@@ -2484,7 +2485,7 @@ namespace DS_Game_Maker
                 XDSRemoveFilter("PATHPOINT " + ResourceName + ",");
                 CurrentXDS = UpdateActionsName(CurrentXDS, "Path", ResourceName, "<Unknown>", false);
                 UpdateArrayActionsName("Path", ResourceName, "<Unknown>", false);
-                foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceIDs.Path].Nodes)
+                foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceIDs.Path].Nodes)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                         X.Remove();
@@ -2497,13 +2498,13 @@ namespace DS_Game_Maker
                 File.Delete(DS_Game_Maker.SessionsLib.SessionPath + @"Scripts\" + ResourceName + ".dbas");
                 CurrentXDS = UpdateActionsName(CurrentXDS, "Script", ResourceName, "<Unknown>", false);
                 UpdateArrayActionsName("Script", ResourceName, "<Unknown>", false);
-                foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceIDs.Script].Nodes)
+                foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceIDs.Script].Nodes)
                 {
                     if ((X.Text ?? "") == (ResourceName ?? ""))
                         X.Remove();
                 }
             }
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if ((X.Text ?? "") == (ResourceName ?? ""))
                     X.Close();
@@ -2655,8 +2656,8 @@ namespace DS_Game_Maker
             MyNewNode.ImageIndex = ResourceID;
             MyNewNode.SelectedImageIndex = ResourceID;
             MyNewNode.Text = ResourceName;
-            DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)ResourceID].Nodes.Add(MyNewNode);
-            DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.SelectedNode = MyNewNode;
+            Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)ResourceID].Nodes.Add(MyNewNode);
+            Program.Forms.main_Form.ResourcesTreeView.SelectedNode = MyNewNode;
             if (DoShowWindow)
                 OpenResource(ResourceName, ResourceID, true);
         }
@@ -2728,8 +2729,8 @@ namespace DS_Game_Maker
 
         public static void ClearResourcesTreeView()
         {
-            for (byte NodeNo = 0, loopTo = (byte)(DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes.Count - 1); NodeNo <= loopTo; NodeNo++)
-                DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)NodeNo].Nodes.Clear();
+            for (byte NodeNo = 0, loopTo = (byte)(Program.Forms.main_Form.ResourcesTreeView.Nodes.Count - 1); NodeNo <= loopTo; NodeNo++)
+                Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)NodeNo].Nodes.Clear();
         }
 
         public static void CleanFresh(bool WishCloseNews)
@@ -2749,7 +2750,7 @@ namespace DS_Game_Maker
             {
             }
             bool AvoidNewsline = DS_Game_Maker.SettingsLib.GetSetting("CLOSE_NEWS") == "0" ? true : false;
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (X.Name == "Newsline" & AvoidNewsline & WishCloseNews == false)
                     continue;
@@ -2783,7 +2784,7 @@ namespace DS_Game_Maker
             DSGMlib.RunBatchString(MyBAT, DS_Game_Maker.SessionsLib.SessionPath, true);
             // File.Delete(SessionPath + "Project.zip")
             ClearResourcesTreeView();
-            DS_Game_Maker.My.MyProject.Forms.MainForm.Text = TitleDataWorks();
+            Program.Forms.main_Form.Text = TitleDataWorks();
             CurrentXDS = DSGMlib.PathToString(DS_Game_Maker.SessionsLib.SessionPath + "XDS.xds");
             // Project Upgrade
             bool HasMidPointLine = false;
@@ -2918,7 +2919,7 @@ namespace DS_Game_Maker
         public static void ShowInternalForm(ref object Instance)
         {
             ((dynamic)Instance).TopLevel = false;
-            ((dynamic)Instance).MdiParent = DS_Game_Maker.My.MyProject.Forms.MainForm;
+            ((dynamic)Instance).MdiParent = Program.Forms.main_Form;
             ((dynamic)Instance).Show();
         }
 

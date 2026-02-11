@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--Project was exported from assembly: F:\DEV\Devbook_4\CSHARP_CONVERSION\dsgamemaker_csharp\bin\Debug\ScintillaNet.dll-->
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3DD5FFF3-6EA8-4CFF-8F5C-A76DF199443D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>ScintillaNet</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ApplicationVersion>2.2.3581.19319</ApplicationVersion>
+    <FileAlignment>512</FileAlignment>
+    <RootNamespace>ScintillaNet</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="XpmConverter.cs" />
+    <Compile Include="INativeScintilla.cs" />
+    <Compile Include="ScintillaHelperBase.cs" />
+    <Compile Include="TopLevelHelper.cs" />
+    <Compile Include="Indentation.cs" />
+    <Compile Include="HotspotStyle.cs" />
+    <Compile Include="Whitespace.cs" />
+    <Compile Include="IncrementalSearcher.cs" />
+    <Compile Include="IndicatorCollection.cs" />
+    <Compile Include="Indicator.cs" />
+    <Compile Include="Margin.cs" />
+    <Compile Include="MarginCollection.cs" />
+    <Compile Include="GoToDialog.cs" />
+    <Compile Include="LinesCollection.cs" />
+    <Compile Include="DropMarkers.cs" />
+    <Compile Include="DropMarkerList.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="ManagedRange.cs" />
+    <Compile Include="DropMarker.cs" />
+    <Compile Include="CaretInfo.cs" />
+    <Compile Include="LongLines.cs" />
+    <Compile Include="Lexing.cs" />
+    <Compile Include="KeywordCollection.cs" />
+    <Compile Include="Scintilla.cs" />
+    <Compile Include="PageSettings.cs" />
+    <Compile Include="DocumentNavigation.cs" />
+    <Compile Include="SnippetChooser.cs" />
+    <Compile Include="Scrolling.cs" />
+    <Compile Include="Line.cs" />
+    <Compile Include="DropMarkerCollectEventArgs.cs" />
+    <Compile Include="CallTipClickEventArgs.cs" />
+    <Compile Include="CharAddedEventArgs.cs" />
+    <Compile Include="ModifiedEventArgs.cs" />
+    <Compile Include="FoldChangedEventArgs.cs" />
+    <Compile Include="LinesNeedShownEventArgs.cs" />
+    <Compile Include="MarkerChangedEventArgs.cs" />
+    <Compile Include="NativeScintillaEventArgs.cs" />
+    <Compile Include="ScintillaMouseEventArgs.cs" />
+    <Compile Include="StyleChangedEventArgs.cs" />
+    <Compile Include="StyleNeededEventArgs.cs" />
+    <Compile Include="TextModifiedEventArgs.cs" />
+    <Compile Include="UndoRedoFlags.cs" />
+    <Compile Include="UriDroppedEventArgs.cs" />
+    <Compile Include="AutoCompleteAcceptedEventArgs.cs" />
+    <Compile Include="MarginClickEventArgs.cs" />
+    <Compile Include="MacroRecordEventArgs.cs" />
+    <Compile Include="FileDropEventArgs.cs" />
+    <Compile Include="PageInformationBorder.cs" />
+    <Compile Include="InformationType.cs" />
+    <Compile Include="PageInformation.cs" />
+    <Compile Include="HeaderInformation.cs" />
+    <Compile Include="FooterInformation.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="UndoRedo.cs" />
+    <Compile Include="SnippetLinkEnd.cs" />
+    <Compile Include="Snippet.cs" />
+    <Compile Include="SnippetManager.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="LineWrap.cs" />
+    <Compile Include="FindReplaceDialog.cs" />
+    <Compile Include="Clipboard.cs" />
+    <Compile Include="CallTip.cs" />
+    <Compile Include="OverloadList.cs" />
+    <Compile Include="GoTo.cs" />
+    <Compile Include="Commands.cs" />
+    <Compile Include="KeyBinding.cs" />
+    <Compile Include="StyleCollection.cs" />
+    <Compile Include="Style.cs" />
+    <Compile Include="SnippetLinkCollection.cs" />
+    <Compile Include="SnippetLink.cs" />
+    <Compile Include="SnippetLinkRange.cs" />
+    <Compile Include="SearchFlags.cs" />
+    <Compile Include="ScintillaDesigner.cs" />
+    <Compile Include="AutoComplete.cs" />
+    <Compile Include="SnippetList.cs" />
+    <Compile Include="PrintDocument.cs" />
+    <Compile Include="Folding.cs" />
+    <Compile Include="EndOfLine.cs" />
+    <Compile Include="DocumentHandler.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="Selection.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Printing.cs" />
+    <Compile Include="CharacterRange.cs" />
+    <Compile Include="TextRange.cs" />
+    <Compile Include="TextToFind.cs" />
+    <Compile Include="RangeToFormat.cs" />
+    <Compile Include="PrintRectangle.cs" />
+    <Compile Include="NotifyHeader.cs" />
+    <Compile Include="SCNotification.cs" />
+    <Compile Include="RECT.cs" />
+    <Compile Include="FindReplace.cs" />
+    <Compile Include="WhitespaceStringConverter.cs" />
+    <Compile Include="VOID.cs" />
+    <Compile Include="CaretStyle.cs" />
+    <Compile Include="Lexer.cs" />
+    <Compile Include="WhitespaceMode.cs" />
+    <Compile Include="EndOfLineMode.cs" />
+    <Compile Include="MarkerSymbol.cs" />
+    <Compile Include="MarkerOutline.cs" />
+    <Compile Include="MarginType.cs" />
+    <Compile Include="StylesCommon.cs" />
+    <Compile Include="CharacterSet.cs" />
+    <Compile Include="StyleCase.cs" />
+    <Compile Include="IndicatorStyle.cs" />
+    <Compile Include="PrintColorMode.cs" />
+    <Compile Include="FindOption.cs" />
+    <Compile Include="FoldLevel.cs" />
+    <Compile Include="FoldFlag.cs" />
+    <Compile Include="WrapMode.cs" />
+    <Compile Include="WrapVisualFlag.cs" />
+    <Compile Include="WrapVisualLocation.cs" />
+    <Compile Include="LineCache.cs" />
+    <Compile Include="EdgeMode.cs" />
+    <Compile Include="CursorShape.cs" />
+    <Compile Include="CaretPolicy.cs" />
+    <Compile Include="SelectionMode.cs" />
+    <Compile Include="ModificationFlags.cs" />
+    <Compile Include="KeyMod.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="CopyFormat.cs" />
+    <Compile Include="CallTipArrow.cs" />
+    <Compile Include="BindableCommand.cs" />
+    <Compile Include="FoldMarkerScheme.cs" />
+    <Compile Include="SmartIndent.cs" />
+    <Compile Include="MarkerCollection.cs" />
+    <Compile Include="Marker.cs" />
+    <Compile Include="MarkerInstance.cs" />
+    <Compile Include="Configuration\SnippetsConfigList.cs" />
+    <Compile Include="Configuration\SnippetsConfig.cs" />
+    <Compile Include="Configuration\LexerPropertiesConfig.cs" />
+    <Compile Include="Configuration\MarginConfigList.cs" />
+    <Compile Include="Configuration\MarginConfig.cs" />
+    <Compile Include="Configuration\CommandBindingConfigList.cs" />
+    <Compile Include="Configuration\CommandBindingConfig.cs" />
+    <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Configuration\ConfigurationLoadOrder.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\MarkersConfig.cs" />
+    <Compile Include="Configuration\MarkersConfigList.cs" />
+    <Compile Include="Configuration\StyleConfigList.cs" />
+    <Compile Include="Configuration\StyleConfig.cs" />
+    <Compile Include="Configuration\ResolvedStyleList.cs" />
+    <Compile Include="Configuration\IndicatorConfigList.cs" />
+    <Compile Include="Configuration\IndicatorConfig.cs" />
+    <Compile Include="Configuration\KeyWordConfigList.cs" />
+    <Compile Include="Configuration\KeyWordConfig.cs" />
+    <Compile Include="Design\FlagCheckedListBox.cs" />
+    <Compile Include="Design\FlagCheckedListBoxItem.cs" />
+    <Compile Include="Design\FlagEnumUIEditor.cs" />
+    <Compile Include="Properties\Resources.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Configuration\Builtin\cs.xml" />
+    <EmbeddedResource Include="Configuration\Builtin\default.xml" />
+    <EmbeddedResource Include="Configuration\Builtin\html.xml" />
+    <EmbeddedResource Include="Configuration\Builtin\js.xml" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\ada.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\apdl.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\asm.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\asn1.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\au3.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\ave.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\baan.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\bash.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\batch.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\blitsbasic.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\bullant.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\caml.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\clw.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\clwnocase.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\cmake.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\conf.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\cpp.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\cppnocase.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\csound.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\css.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\d.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\diff.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\eiffel.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\eiffelkw.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\erlang.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\errorlist.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\escript.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\f77.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\flagship.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\forth.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\fortran.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\freebasic.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\gap.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\gui4cli.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\haskell.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\hypertext.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\innosetup.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\kix.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\latex.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\lisp.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\lot.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\lout.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\lua.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\make.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\matlab.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\metapost.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\mmixal.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\mssql.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\nncrontab.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\nsis.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\null.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\octave.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\opal.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\pascal.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\perl.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\phpscript.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\plm.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\pov.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\powerbasic.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\progress.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\props.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\ps.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\purebasic.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\python.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\rebol.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\ruby.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\scriptol.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\smalltalk.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\specman.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\spice.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\sql.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\tads3.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\tcl.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\tex.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\vb.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\vbscript.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\verilog.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\vhdl.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\xml.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerKeywordListNames\yaml.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\ada.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\apdl.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\asm.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\asn1.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\au3.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\ave.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\baan.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\bash.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\batch.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\blitsbasic.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\bullant.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\caml.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\clw.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\clwnocase.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\cmake.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\conf.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\cpp.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\cppnocase.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\csound.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\css.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\d.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\diff.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\eiffel.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\eiffelkw.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\erlang.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\errorlist.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\escript.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\f77.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\flagship.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\forth.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\fortran.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\freebasic.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\gap.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\gui4cli.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\haskell.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\hypertext.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\innosetup.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\kix.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\latext.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\lisp.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\lot.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\lout.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\lua.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\make.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\matlab.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\metapost.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\mmixal.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\mssql.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\nncrontab.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\nsis.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\null.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\octave.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\opal.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\pascal.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\perl.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\phpscript.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\plm.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\pov.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\powerbasic.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\progress.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\props.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\ps.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\purebasic.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\python.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\rebol.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\ruby.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\scriptol.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\smalltalk.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\specman.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\spice.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\sql.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\tads3.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\tcl.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\tex.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\vb.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\vbscript.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\verilog.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\vhdl.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\xml.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\LexerStyleNames\yaml.txt" />
+    <EmbeddedResource Include="Configuration\Builtin\mssql.xml" />
+    <EmbeddedResource Include="Configuration\Builtin\pgsql.xml" />
+    <EmbeddedResource Include="Configuration\Builtin\python.xml" />
+    <EmbeddedResource Include="Configuration\Builtin\vbscript.xml" />
+    <EmbeddedResource Include="Configuration\Builtin\xml.xml" />
+    <EmbeddedResource Include="FindReplaceDialog.resx" />
+    <EmbeddedResource Include="GoToDialog.resx" />
+    <EmbeddedResource Include="IncrementalSearcher.resx" />
+    <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="SnippetChooser.resx" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

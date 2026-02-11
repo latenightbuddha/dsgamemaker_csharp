@@ -409,7 +409,7 @@ namespace DS_Game_Maker
             // 
             // GridColorButton
             // 
-            GridColorButton.Image = DS_Game_Maker.My.Resources.Resources.color;
+            GridColorButton.Image = Properties.Resources.color;
             GridColorButton.ImageAlign = ContentAlignment.MiddleLeft;
             GridColorButton.Location = new Point(50, 109);
             GridColorButton.Name = "GridColorButton";
@@ -498,7 +498,7 @@ namespace DS_Game_Maker
             // 
             // DAcceptButton
             // 
-            DAcceptButton.Image = DS_Game_Maker.My.Resources.Resources.AcceptIcon;
+            DAcceptButton.Image = Properties.Resources.AcceptIcon;
             DAcceptButton.ImageTransparentColor = Color.Magenta;
             DAcceptButton.Name = "DAcceptButton";
             DAcceptButton.Size = new Size(60, 22);
@@ -513,7 +513,7 @@ namespace DS_Game_Maker
             // 
             // DeleteObjectButton
             // 
-            DeleteObjectButton.Image = DS_Game_Maker.My.Resources.Resources.DeleteIcon;
+            DeleteObjectButton.Image = Properties.Resources.DeleteIcon;
             DeleteObjectButton.Name = "DeleteObjectButton";
             DeleteObjectButton.Size = new Size(165, 22);
             DeleteObjectButton.Text = "Delete";
@@ -531,7 +531,7 @@ namespace DS_Game_Maker
             // 
             // OpenObjectButton
             // 
-            OpenObjectButton.Image = DS_Game_Maker.My.Resources.Resources.OpenObjectIcon;
+            OpenObjectButton.Image = Properties.Resources.OpenObjectIcon;
             OpenObjectButton.Name = "OpenObjectButton";
             OpenObjectButton.Size = new Size(165, 22);
             OpenObjectButton.Text = "Open Object";

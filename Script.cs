@@ -41,7 +41,7 @@ namespace DS_Game_Maker
                     DS_Game_Maker.DSGMlib.XDSAddLine("SCRIPTARG " + NameTextBox.Text + "," + ArgumentNames[P] + "," + ArgumentTypes[P]);
             }
             File.WriteAllText(DS_Game_Maker.SessionsLib.SessionPath + @"Scripts\" + NameTextBox.Text + ".dbas", MainTextBox.Text);
-            foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Script].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Script].Nodes)
             {
                 if ((X.Text ?? "") == (ScriptName ?? ""))
                     X.Text = NameTextBox.Text;
@@ -286,7 +286,7 @@ namespace DS_Game_Maker
             if (ArgumentsList.SelectedIndices.Count == 0)
                 return;
             // Dim BackupPosition = MainTextBox.Caret.Position + ArgumentsListBox.Text.Length
-            MainTextBox.InsertText(0, ArgumentNames[ArgumentsList.SelectedIndex]);
+            MainTextBox.InsertText(ArgumentNames[ArgumentsList.SelectedIndex]);
             MainTextBox.Focus();
             // MainTextBox.Caret.Position = BackupPosition
         }
@@ -384,11 +384,11 @@ namespace DS_Game_Maker
             // MsgInfo("You must update your code so that it no longer uses or references the deleted argument.")
         }
 
-        private void MainTextBox_CharAdded(object sender, ScintillaNET.CharAddedEventArgs e)
+        private void MainTextBox_CharAdded(object sender, ScintillaNet.CharAddedEventArgs e)
         {
             if (!(e.Ch == '\r'))
                 return;
-            ScintillaNET.Scintilla argTheControl = (ScintillaNET.Scintilla)sender;
+            ScintillaNet.Scintilla argTheControl = (ScintillaNet.Scintilla)sender;
             DS_Game_Maker.DSGMlib.IntelliSense(ref argTheControl);
             sender = argTheControl;
             // Dim pos As Int32 = MainTextBox.NativeInterface.GetCurrentPos()

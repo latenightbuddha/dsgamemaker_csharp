@@ -53,12 +53,12 @@ namespace DS_Game_Maker
             StatsLabel = new ToolStripStatusLabel();
             SpacesLabel = new ToolStripStatusLabel();
             FunctionLabel = new ToolStripStatusLabel();
-            MainTextBox = new ScintillaNET.Scintilla();
+            MainTextBox = new ScintillaNet.Scintilla();
             MainTextBox.KeyDown += new KeyEventHandler(MainTextBox_LineStatCaller);
             MainTextBox.MouseClick += new MouseEventHandler(MainTextBox_LineStatCaller);
             MainTextBox.TextChanged += new EventHandler<EventArgs>(MainTextBox_LineStatCaller);
             MainTextBox.KeyUp += new KeyEventHandler(MainTextBox_KeyUp);
-            MainTextBox.CharAdded += new EventHandler<ScintillaNET.CharAddedEventArgs>(MainTextBox_CharAdded);
+            MainTextBox.CharAdded += new EventHandler<ScintillaNet.CharAddedEventArgs>(MainTextBox_CharAdded);
             SidePanel = new Panel();
             ParseDBASChecker = new CheckBox();
             ArgumentsList = new ListBox();
@@ -330,7 +330,7 @@ namespace DS_Game_Maker
         internal ToolStripSeparator ToolSep1;
         internal ToolStripButton LoadInButton;
         internal ToolStripButton SaveOutButton;
-        internal ScintillaNET.Scintilla MainTextBox;
+        internal ScintillaNet.Scintilla MainTextBox;
         internal Panel SidePanel;
         internal TextBox NameTextBox;
         internal Label NameLabel;

@@ -43,6 +43,26 @@ namespace DS_Game_Maker
             MessageThing();
         }
 
+        public static bool RenameDirectory(string sourceDirName, string destDirName)
+        {
+            if(Directory.Exists(sourceDirName) && Directory.Exists(destDirName) == false)
+            {
+                Directory.Move(sourceDirName, destDirName);
+                return true;
+            }
+
+            return false;
+        }
+
+        public static bool MoveDirectory(string sourceDirName, string destDirName)
+        {
+            if(Directory.Exists(destDirName))
+            {
+                Directory.Delete(destDirName, true);
+            }
+            return Directory.Exists(sourceDirName) == true ? RenameDirectory(sourceDirName, destDirName) : false;
+        }
+
         public static void ReinstallPAlib()
         {
             File.Copy(DS_Game_Maker.DSGMlib.AppPath + "devkitPro32.zip", DS_Game_Maker.DSGMlib.CDrive + "devkitPro32.zip");
@@ -59,8 +79,9 @@ namespace DS_Game_Maker
             File.Delete(DS_Game_Maker.DSGMlib.CDrive + "Generate.bat");
             File.Delete(DS_Game_Maker.DSGMlib.CDrive + "devkitPro32.zip");
             File.Delete(DS_Game_Maker.DSGMlib.CDrive + "zip.exe");
-            DS_Game_Maker.My.MyProject.Computer.FileSystem.MoveDirectory(DS_Game_Maker.DSGMlib.CDrive + "devkitPro", Path.GetTempPath() + "Toolchain");
-            DS_Game_Maker.My.MyProject.Computer.FileSystem.RenameDirectory(DS_Game_Maker.DSGMlib.CDrive + "devkitPro32", "devkitPro");
+
+            MoveDirectory(DS_Game_Maker.DSGMlib.CDrive + "devkitPro", Path.GetTempPath() + "Toolchain");
+            RenameDirectory(DS_Game_Maker.DSGMlib.CDrive + "devkitPro32", "devkitPro");
             DS_Game_Maker.DSGMlib.MsgInfo("Thank you for installing devkitARM and PAlib!");
         }
 

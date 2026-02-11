@@ -18,6 +18,8 @@ namespace DS_Game_Maker
         private bool NeedsDKP = false;
         private bool CacheHasTinternet = true;
 
+        public Compile compileForm;
+
         public MainForm()
         {
             InitializeComponent();
@@ -60,6 +62,8 @@ namespace DS_Game_Maker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            compileForm = new Compile();
+
             // If Not System.IO.Directory.Exists(System.IO.Path.GetTempPath + "DSGameMaker") Then
             // My.Computer.FileSystem.CreateDirectory(System.IO.Path.GetTempPath + "DSGameMaker")
             // End If
@@ -109,24 +113,31 @@ namespace DS_Game_Maker
             }
             string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
             CacheHasTinternet = DS_Game_Maker.DSGMlib.HasInternetConnection("http://google.com");
-            if (!File.Exists(System32Path + @"\SciLexer.dll"))
+
+            if (!File.Exists(System32Path + @"\SciLexer_x64.dll"))
             {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer.dll", System32Path + @"\SciLexer.dll");
+                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer_x64.dll", System32Path + @"\SciLexer_x64.dll");
             }
-            if (!File.Exists(System32Path + @"\ScintillaNet.dll"))
+            
+            /*if (!File.Exists(System32Path + @"\ScintillaNet.dll"))
             {
                 File.Copy(DS_Game_Maker.DSGMlib.AppPath + "ScintillaNet.dll", System32Path + @"\ScintillaNet.dll");
-            }
+            }*/
+
             // Also into Windows... nasty, rare suggested fix
             string WindowsPath = System32Path.Substring(0, System32Path.LastIndexOf(@"\"));
-            if (!File.Exists(WindowsPath + @"\SciLexer.dll"))
+            if (!File.Exists(WindowsPath + @"\SciLexer_x64.dll"))
             {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer.dll", WindowsPath + @"\SciLexer.dll");
+                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer_x64.dll", WindowsPath + @"\SciLexer_x64.dll");
             }
+
+            /*
             if (!File.Exists(WindowsPath + @"\ScintillaNet.dll"))
             {
                 File.Copy(DS_Game_Maker.DSGMlib.AppPath + "ScintillaNet.dll", WindowsPath + @"\ScintillaNet.dll");
             }
+            */
+
             try
             {
                 DS_Game_Maker.RegistryLib.SetFileType(".dsgm", "DSGMFile");
@@ -187,11 +198,15 @@ namespace DS_Game_Maker
             // Resources Setup
             for (byte Resource = 0, loopTo = (byte)(DS_Game_Maker.DSGMlib.ResourceTypes.Length - 1); Resource <= loopTo; Resource++)
                 ResourcesTreeView.Nodes.Add(string.Empty, DS_Game_Maker.DSGMlib.ResourceTypes[(int)Resource], 7, 7);
-            // Settings
-            if (!File.Exists(DS_Game_Maker.DSGMlib.AppPath + "data.dat"))
+
+
+            // Settings 
+            if (File.Exists(DSGMlib.AppPath + "data.dat") == false)
             {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "restore.dat", DS_Game_Maker.DSGMlib.AppPath + "data.dat");
+                File.Copy(DSGMlib.AppPath + "restore.dat", DSGMlib.AppPath + "data.dat");
             }
+
+
             DS_Game_Maker.SettingsLib.SettingsPath = DS_Game_Maker.DSGMlib.AppPath + "data.dat";
             PatchSetting("USE_EXTERNAL_SCRIPT_EDITOR", "0");
             PatchSetting("RIGHT_CLICK", "1");
@@ -384,8 +399,8 @@ namespace DS_Game_Maker
         private void AddSoundButton_Click(object sender, EventArgs e)
         {
             string NewName = DS_Game_Maker.DSGMlib.MakeResourceName("Sound", "SOUND");
-            DS_Game_Maker.My.MyProject.Forms.SoundType.ShowDialog();
-            bool SB = DS_Game_Maker.My.MyProject.Forms.SoundType.IsSoundEffect;
+            Program.Forms.soundType_Form.ShowDialog();
+            bool SB = Program.Forms.soundType_Form.IsSoundEffect;
             File.Copy(DS_Game_Maker.DSGMlib.AppPath + @"DefaultResources\Sound." + (SB ? "wav" : "mp3"), DS_Game_Maker.SessionsLib.SessionPath + @"Sounds\" + NewName + "." + (SB ? "wav" : "mp3"));
             DS_Game_Maker.DSGMlib.XDSAddLine("SOUND " + NewName + "," + (SB ? "0" : "1"));
             byte argResourceID = (byte)DS_Game_Maker.DSGMlib.ResourceIDs.Sound;
@@ -548,7 +563,7 @@ namespace DS_Game_Maker
 
         private void OptionsButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.Options.ShowDialog();
+            Program.Forms.options_Form.ShowDialog();
         }
 
         private void ResourcesTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
@@ -561,16 +576,17 @@ namespace DS_Game_Maker
 
         private void GameSettingsButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.GameSettings.ShowDialog();
+            Program.Forms.gameSettings_Form.ShowDialog();
         }
 
         private void TestGameButton_Click(object sender, EventArgs e)
         {
-            if (Conversions.ToBoolean(!DS_Game_Maker.DSGMlib.CompileWrapper()))
+            if (!(bool)DSGMlib.CompileWrapper())
                 return;
-            DS_Game_Maker.My.MyProject.Forms.Compile.HasDoneIt = false;
-            DS_Game_Maker.My.MyProject.Forms.Compile.ShowDialog();
-            if (DS_Game_Maker.My.MyProject.Forms.Compile.Success)
+
+            Program.Forms.main_Form.compileForm.HasDoneIt = false;
+            Program.Forms.main_Form.compileForm.ShowDialog();
+            if (Program.Forms.main_Form.compileForm.Success)
             {
                 DS_Game_Maker.DSGMlib.NOGBAShizzle();
             }
@@ -582,14 +598,15 @@ namespace DS_Game_Maker
 
         private void CompileGameButton_Click(object sender, EventArgs e)
         {
-            if (Conversions.ToBoolean(!DS_Game_Maker.DSGMlib.CompileWrapper()))
+            if (!(bool)DSGMlib.CompileWrapper())
                 return;
-            DS_Game_Maker.My.MyProject.Forms.Compile.HasDoneIt = false;
-            DS_Game_Maker.My.MyProject.Forms.Compile.ShowDialog();
-            if (DS_Game_Maker.My.MyProject.Forms.Compile.Success)
+
+            Program.Forms.main_Form.compileForm.HasDoneIt = false;
+            Program.Forms.main_Form.compileForm.ShowDialog();
+            if (Program.Forms.main_Form.compileForm.Success)
             {
                 {
-                    var withBlock = DS_Game_Maker.My.MyProject.Forms.Compiled;
+                    var withBlock = Program.Forms.compiled_Form;
                     withBlock.Text = DS_Game_Maker.DSGMlib.CacheProjectName;
                     withBlock.MainLabel.Text = DS_Game_Maker.DSGMlib.CacheProjectName;
                     withBlock.SubLabel.Text = Conversions.ToString(Operators.AddObject("Compiled by " + Environment.UserName + " at ", DS_Game_Maker.DSGMlib.GetTime()));
@@ -613,14 +630,14 @@ namespace DS_Game_Maker
                 }
             }
             // Dim ActionForm As New ActionEditor
-            object argInstance = (object)DS_Game_Maker.My.MyProject.Forms.ActionEditor;
-            DS_Game_Maker.DSGMlib.ShowInternalForm(ref argInstance);
-            DS_Game_Maker.My.MyProject.Forms.ActionEditor = (DS_Game_Maker.ActionEditor)argInstance;
+            object argInstance = Program.Forms.actionEditor_Form;
+            DSGMlib.ShowInternalForm(ref argInstance);
+            Program.Forms.actionEditor_Form = (ActionEditor)argInstance;
         }
 
         private void VariableManagerButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.GlobalVariables.ShowDialog();
+            Program.Forms.globalVariables_Form.ShowDialog();
         }
 
         public void ActuallyCleanUp()
@@ -666,7 +683,7 @@ namespace DS_Game_Maker
 
         private void ProjectStatisticsButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.Statistics.ShowDialog();
+            Program.Forms.statistics_Form.ShowDialog();
         }
 
         private void OpenCompileTempButton_Click(object sender, EventArgs e)
@@ -717,20 +734,20 @@ namespace DS_Game_Maker
                 }
             }
             // Dim ActionForm As New ActionEditor
-            object argInstance = (object)DS_Game_Maker.My.MyProject.Forms.FontViewer;
-            DS_Game_Maker.DSGMlib.ShowInternalForm(ref argInstance);
-            DS_Game_Maker.My.MyProject.Forms.FontViewer = (DS_Game_Maker.FontViewer)argInstance;
+            object argInstance = Program.Forms.fontViewer_Form;
+            DSGMlib.ShowInternalForm(ref argInstance);
+            Program.Forms.fontViewer_Form = (FontViewer)argInstance;
             // FontEditor.ShowDialog()
         }
 
         private void GlobalArraysButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.GlobalArrays.ShowDialog();
+            Program.Forms.globalArrays_Form.ShowDialog();
         }
 
         private void AboutDSGMButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.AboutDSGM.ShowDialog();
+            Program.Forms.aboutDSG_Form.ShowDialog();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -738,7 +755,7 @@ namespace DS_Game_Maker
             bool BlankNew = true;
             if (DS_Game_Maker.DSGMlib.UpdateVersion > DS_Game_Maker.DSGMlib.IDVersion)
             {
-                DS_Game_Maker.My.MyProject.Forms.DUpdate.ShowDialog();
+                Program.Forms.dUpdate_Form.ShowDialog();
             }
             if (!Directory.Exists(DS_Game_Maker.DSGMlib.CDrive + "devkitPro"))
             {
@@ -747,7 +764,7 @@ namespace DS_Game_Maker
             }
             bool SkipAuto = false;
             var Args = new List<string>();
-            foreach (string X in DS_Game_Maker.My.MyProject.Application.CommandLineArgs)
+            foreach (string X in Program.Forms.CommandLineArgs)
             {
                 if (X == "/skipauto")
                 {
@@ -864,7 +881,7 @@ namespace DS_Game_Maker
 
         private void ManualButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.HelpViewer.ShowDialog();
+            Program.Forms.helpViewer_Form.ShowDialog();
         }
 
         private void TutorialsButton_Click(object sender, EventArgs e)
@@ -874,7 +891,7 @@ namespace DS_Game_Maker
 
         private void GlobalStructuresButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.My.MyProject.Forms.GlobalStructures.ShowDialog();
+            Program.Forms.globalStructures_Form.ShowDialog();
         }
 
         private void RunDevkitProUpdaterButton(object sender, EventArgs e)

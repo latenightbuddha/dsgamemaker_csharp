@@ -273,7 +273,7 @@ namespace DS_Game_Maker
                 return;
             byte ID = (byte)MembersList.SelectedIndex;
             {
-                var withBlock = DS_Game_Maker.My.MyProject.Forms.StructureItem;
+                var withBlock = Program.Forms.structureItem_Form;
                 withBlock.MemberName = Names[ID];
                 withBlock.MemberType = Types[ID];
                 withBlock.MemberValue = Values[ID];

@@ -222,7 +222,7 @@ namespace DS_Game_Maker
             // 
             // NewProjectButton
             // 
-            NewProjectButton.Image = DS_Game_Maker.Properties.Resources.NewIcon;
+            NewProjectButton.Image = Properties.Resources.NewIcon;
             NewProjectButton.Name = "NewProjectButton";
             NewProjectButton.ShortcutKeys = Keys.Control | Keys.N;
             NewProjectButton.Size = new Size(230, 22);
@@ -230,7 +230,7 @@ namespace DS_Game_Maker
             // 
             // OpenProjectButton
             // 
-            OpenProjectButton.Image = DS_Game_Maker.Properties.Resources.OpenIcon;
+            OpenProjectButton.Image = Properties.Resources.OpenIcon;
             OpenProjectButton.Name = "OpenProjectButton";
             OpenProjectButton.ShortcutKeys = Keys.Control | Keys.O;
             OpenProjectButton.Size = new Size(230, 22);
@@ -250,7 +250,7 @@ namespace DS_Game_Maker
             // 
             // SaveButton
             // 
-            SaveButton.Image = DS_Game_Maker.Properties.Resources.SaveIcon;
+            SaveButton.Image = Properties.Resources.SaveIcon;
             SaveButton.Name = "SaveButton";
             SaveButton.ShortcutKeys = Keys.Control | Keys.S;
             SaveButton.Size = new Size(230, 22);
@@ -258,7 +258,7 @@ namespace DS_Game_Maker
             // 
             // SaveAsButton
             // 
-            SaveAsButton.Image = DS_Game_Maker.Properties.Resources.SaveAsIcon;
+            SaveAsButton.Image = Properties.Resources.SaveAsIcon;
             SaveAsButton.Name = "SaveAsButton";
             SaveAsButton.ShortcutKeys = Keys.Control | Keys.Shift | Keys.S;
             SaveAsButton.Size = new Size(230, 22);
@@ -271,7 +271,7 @@ namespace DS_Game_Maker
             // 
             // TestGameButton
             // 
-            TestGameButton.Image = DS_Game_Maker.Properties.Resources.TestGameIcon;
+            TestGameButton.Image = Properties.Resources.TestGameIcon;
             TestGameButton.Name = "TestGameButton";
             TestGameButton.ShortcutKeys = Keys.F5;
             TestGameButton.Size = new Size(230, 22);
@@ -279,7 +279,7 @@ namespace DS_Game_Maker
             // 
             // CompileGameButton
             // 
-            CompileGameButton.Image = DS_Game_Maker.Properties.Resources.TestGameSaveIcon;
+            CompileGameButton.Image = Properties.Resources.TestGameSaveIcon;
             CompileGameButton.Name = "CompileGameButton";
             CompileGameButton.ShortcutKeys = Keys.F6;
             CompileGameButton.Size = new Size(230, 22);
@@ -294,14 +294,14 @@ namespace DS_Game_Maker
             // 
             // DuplicateButton
             // 
-            DuplicateButton.Image = DS_Game_Maker.Properties.Resources.CopyIcon;
+            DuplicateButton.Image = Properties.Resources.CopyIcon;
             DuplicateButton.Name = "DuplicateButton";
             DuplicateButton.Size = new Size(224, 22);
             DuplicateButton.Text = "Duplicate";
             // 
             // DeleteButton
             // 
-            DeleteButton.Image = DS_Game_Maker.Properties.Resources.DeleteIcon;
+            DeleteButton.Image = Properties.Resources.DeleteIcon;
             DeleteButton.Name = "DeleteButton";
             DeleteButton.ShortcutKeys = Keys.Control | Keys.Delete;
             DeleteButton.Size = new Size(224, 22);
@@ -347,35 +347,35 @@ namespace DS_Game_Maker
             // 
             // AddSpriteButton
             // 
-            AddSpriteButton.Image = DS_Game_Maker.Properties.Resources.SpriteAddIcon;
+            AddSpriteButton.Image = Properties.Resources.SpriteAddIcon;
             AddSpriteButton.Name = "AddSpriteButton";
             AddSpriteButton.Size = new Size(152, 22);
             AddSpriteButton.Text = "Add Sprite";
             // 
             // AddObjectButton
             // 
-            AddObjectButton.Image = DS_Game_Maker.Properties.Resources.ObjectAddIcon;
+            AddObjectButton.Image = Properties.Resources.ObjectAddIcon;
             AddObjectButton.Name = "AddObjectButton";
             AddObjectButton.Size = new Size(152, 22);
             AddObjectButton.Text = "Add Object";
             // 
             // AddBackgroundButton
             // 
-            AddBackgroundButton.Image = DS_Game_Maker.Properties.Resources.BackgroundAddIcon;
+            AddBackgroundButton.Image = Properties.Resources.BackgroundAddIcon;
             AddBackgroundButton.Name = "AddBackgroundButton";
             AddBackgroundButton.Size = new Size(152, 22);
             AddBackgroundButton.Text = "Add Background";
             // 
             // AddSoundButton
             // 
-            AddSoundButton.Image = DS_Game_Maker.Properties.Resources.SoundAddIcon;
+            AddSoundButton.Image = Properties.Resources.SoundAddIcon;
             AddSoundButton.Name = "AddSoundButton";
             AddSoundButton.Size = new Size(152, 22);
             AddSoundButton.Text = "Add Sound";
             // 
             // AddRoomButton
             // 
-            AddRoomButton.Image = DS_Game_Maker.Properties.Resources.RoomAddIcon;
+            AddRoomButton.Image = Properties.Resources.RoomAddIcon;
             AddRoomButton.Name = "AddRoomButton";
             AddRoomButton.Size = new Size(152, 22);
             AddRoomButton.Text = "Add Room";
@@ -387,7 +387,7 @@ namespace DS_Game_Maker
             // 
             // AddPathButton
             // 
-            AddPathButton.Image = DS_Game_Maker.Properties.Resources.PathAddIcon;
+            AddPathButton.Image = Properties.Resources.PathAddIcon;
             AddPathButton.Name = "AddPathButton";
             AddPathButton.Size = new Size(152, 22);
             AddPathButton.Text = "Add Path";
@@ -395,7 +395,7 @@ namespace DS_Game_Maker
             // 
             // AddScriptButton
             // 
-            AddScriptButton.Image = DS_Game_Maker.Properties.Resources.ScriptAddIcon;
+            AddScriptButton.Image = Properties.Resources.ScriptAddIcon;
             AddScriptButton.Name = "AddScriptButton";
             AddScriptButton.Size = new Size(152, 22);
             AddScriptButton.Text = "Add Script";
@@ -409,35 +409,35 @@ namespace DS_Game_Maker
             // 
             // GameSettingsButton
             // 
-            GameSettingsButton.Image = DS_Game_Maker.Properties.Resources.GameSettingsIcon;
+            GameSettingsButton.Image = Properties.Resources.GameSettingsIcon;
             GameSettingsButton.Name = "GameSettingsButton";
             GameSettingsButton.Size = new Size(168, 22);
             GameSettingsButton.Text = "Game Settings...";
             // 
             // GlobalVariablesButton
             // 
-            GlobalVariablesButton.Image = DS_Game_Maker.Properties.Resources.VariableManagerIcon;
+            GlobalVariablesButton.Image = Properties.Resources.VariableManagerIcon;
             GlobalVariablesButton.Name = "GlobalVariablesButton";
             GlobalVariablesButton.Size = new Size(168, 22);
             GlobalVariablesButton.Text = "Global Variables...";
             // 
             // GlobalArraysButton
             // 
-            GlobalArraysButton.Image = DS_Game_Maker.Properties.Resources.ArrayIcon;
+            GlobalArraysButton.Image = Properties.Resources.ArrayIcon;
             GlobalArraysButton.Name = "GlobalArraysButton";
             GlobalArraysButton.Size = new Size(168, 22);
             GlobalArraysButton.Text = "Global Arrays...";
             // 
             // GlobalStructuresButton
             // 
-            GlobalStructuresButton.Image = DS_Game_Maker.Properties.Resources.StructureIcon;
+            GlobalStructuresButton.Image = Properties.Resources.StructureIcon;
             GlobalStructuresButton.Name = "GlobalStructuresButton";
             GlobalStructuresButton.Size = new Size(168, 22);
             GlobalStructuresButton.Text = "Global Structures...";
             // 
             // OptionsButton
             // 
-            OptionsButton.Image = DS_Game_Maker.Properties.Resources.OptionsIcon;
+            OptionsButton.Image = Properties.Resources.OptionsIcon;
             OptionsButton.Name = "OptionsButton";
             OptionsButton.ShortcutKeys = Keys.Control | Keys.P;
             OptionsButton.Size = new Size(168, 22);
@@ -450,7 +450,7 @@ namespace DS_Game_Maker
             // 
             // ActionEditorButton
             // 
-            ActionEditorButton.Image = DS_Game_Maker.Properties.Resources.ActionEditIcon;
+            ActionEditorButton.Image = Properties.Resources.ActionEditIcon;
             ActionEditorButton.Name = "ActionEditorButton";
             ActionEditorButton.Size = new Size(168, 22);
             ActionEditorButton.Text = "Action Editor";
@@ -541,7 +541,7 @@ namespace DS_Game_Maker
             // 
             // HelpContentsButton
             // 
-            HelpContentsButton.Image = DS_Game_Maker.Properties.Resources.QuestionIcon;
+            HelpContentsButton.Image = Properties.Resources.QuestionIcon;
             HelpContentsButton.Name = "HelpContentsButton";
             HelpContentsButton.ShortcutKeys = Keys.F1;
             HelpContentsButton.Size = new Size(181, 22);
@@ -567,7 +567,7 @@ namespace DS_Game_Maker
             // 
             // WebsiteButton
             // 
-            WebsiteButton.Image = DS_Game_Maker.Properties.Resources.InternetIcon;
+            WebsiteButton.Image = Properties.Resources.InternetIcon;
             WebsiteButton.Name = "WebsiteButton";
             WebsiteButton.Size = new Size(181, 22);
             WebsiteButton.Text = "DSGameMaker.com";
@@ -607,7 +607,7 @@ namespace DS_Game_Maker
             // NewProjectButtonTool
             // 
             NewProjectButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            NewProjectButtonTool.Image = DS_Game_Maker.Properties.Resources.NewIcon;
+            NewProjectButtonTool.Image = Properties.Resources.NewIcon;
             NewProjectButtonTool.ImageTransparentColor = Color.Magenta;
             NewProjectButtonTool.Name = "NewProjectButtonTool";
             NewProjectButtonTool.Size = new Size(23, 22);
@@ -616,7 +616,7 @@ namespace DS_Game_Maker
             // OpenProjectButtonTool
             // 
             OpenProjectButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            OpenProjectButtonTool.Image = DS_Game_Maker.Properties.Resources.OpenIcon;
+            OpenProjectButtonTool.Image = Properties.Resources.OpenIcon;
             OpenProjectButtonTool.ImageTransparentColor = Color.Magenta;
             OpenProjectButtonTool.Name = "OpenProjectButtonTool";
             OpenProjectButtonTool.Size = new Size(23, 22);
@@ -625,7 +625,7 @@ namespace DS_Game_Maker
             // OpenLastProjectButtonTool
             // 
             OpenLastProjectButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            OpenLastProjectButtonTool.Image = DS_Game_Maker.Properties.Resources.OpenLastIcon;
+            OpenLastProjectButtonTool.Image = Properties.Resources.OpenLastIcon;
             OpenLastProjectButtonTool.ImageTransparentColor = Color.Magenta;
             OpenLastProjectButtonTool.Name = "OpenLastProjectButtonTool";
             OpenLastProjectButtonTool.Size = new Size(23, 22);
@@ -634,7 +634,7 @@ namespace DS_Game_Maker
             // SaveButtonTool
             // 
             SaveButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            SaveButtonTool.Image = DS_Game_Maker.Properties.Resources.SaveIcon;
+            SaveButtonTool.Image = Properties.Resources.SaveIcon;
             SaveButtonTool.ImageTransparentColor = Color.Magenta;
             SaveButtonTool.Name = "SaveButtonTool";
             SaveButtonTool.Size = new Size(23, 22);
@@ -643,7 +643,7 @@ namespace DS_Game_Maker
             // SaveAsButtonTool
             // 
             SaveAsButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            SaveAsButtonTool.Image = DS_Game_Maker.Properties.Resources.SaveAsIcon;
+            SaveAsButtonTool.Image = Properties.Resources.SaveAsIcon;
             SaveAsButtonTool.ImageTransparentColor = Color.Magenta;
             SaveAsButtonTool.Name = "SaveAsButtonTool";
             SaveAsButtonTool.Size = new Size(23, 22);
@@ -657,7 +657,7 @@ namespace DS_Game_Maker
             // TestGameButtonTool
             // 
             TestGameButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            TestGameButtonTool.Image = DS_Game_Maker.Properties.Resources.TestGameIcon;
+            TestGameButtonTool.Image = Properties.Resources.TestGameIcon;
             TestGameButtonTool.ImageTransparentColor = Color.Magenta;
             TestGameButtonTool.Name = "TestGameButtonTool";
             TestGameButtonTool.Size = new Size(23, 22);
@@ -666,7 +666,7 @@ namespace DS_Game_Maker
             // CompileGameButtonTool
             // 
             CompileGameButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            CompileGameButtonTool.Image = DS_Game_Maker.Properties.Resources.TestGameSaveIcon;
+            CompileGameButtonTool.Image = Properties.Resources.TestGameSaveIcon;
             CompileGameButtonTool.ImageTransparentColor = Color.Magenta;
             CompileGameButtonTool.Name = "CompileGameButtonTool";
             CompileGameButtonTool.Size = new Size(23, 22);
@@ -675,7 +675,7 @@ namespace DS_Game_Maker
             // OptionsButtonTool
             // 
             OptionsButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            OptionsButtonTool.Image = DS_Game_Maker.Properties.Resources.OptionsIcon;
+            OptionsButtonTool.Image = Properties.Resources.OptionsIcon;
             OptionsButtonTool.ImageTransparentColor = Color.Magenta;
             OptionsButtonTool.Name = "OptionsButtonTool";
             OptionsButtonTool.Size = new Size(23, 22);
@@ -689,7 +689,7 @@ namespace DS_Game_Maker
             // AddSpriteButtonTool
             // 
             AddSpriteButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            AddSpriteButtonTool.Image = DS_Game_Maker.Properties.Resources.SpriteAddIcon;
+            AddSpriteButtonTool.Image = Properties.Resources.SpriteAddIcon;
             AddSpriteButtonTool.ImageTransparentColor = Color.Magenta;
             AddSpriteButtonTool.Name = "AddSpriteButtonTool";
             AddSpriteButtonTool.Size = new Size(23, 22);
@@ -698,7 +698,7 @@ namespace DS_Game_Maker
             // AddObjectButtonTool
             // 
             AddObjectButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            AddObjectButtonTool.Image = DS_Game_Maker.Properties.Resources.ObjectAddIcon;
+            AddObjectButtonTool.Image = Properties.Resources.ObjectAddIcon;
             AddObjectButtonTool.ImageTransparentColor = Color.Magenta;
             AddObjectButtonTool.Name = "AddObjectButtonTool";
             AddObjectButtonTool.Size = new Size(23, 22);
@@ -707,7 +707,7 @@ namespace DS_Game_Maker
             // AddBackgroundButtonTool
             // 
             AddBackgroundButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            AddBackgroundButtonTool.Image = DS_Game_Maker.Properties.Resources.BackgroundAddIcon;
+            AddBackgroundButtonTool.Image = Properties.Resources.BackgroundAddIcon;
             AddBackgroundButtonTool.ImageTransparentColor = Color.Magenta;
             AddBackgroundButtonTool.Name = "AddBackgroundButtonTool";
             AddBackgroundButtonTool.Size = new Size(23, 22);
@@ -716,7 +716,7 @@ namespace DS_Game_Maker
             // AddSoundButtonTool
             // 
             AddSoundButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            AddSoundButtonTool.Image = DS_Game_Maker.Properties.Resources.SoundAddIcon;
+            AddSoundButtonTool.Image = Properties.Resources.SoundAddIcon;
             AddSoundButtonTool.ImageTransparentColor = Color.Magenta;
             AddSoundButtonTool.Name = "AddSoundButtonTool";
             AddSoundButtonTool.Size = new Size(23, 22);
@@ -725,7 +725,7 @@ namespace DS_Game_Maker
             // AddRoomButtonTool
             // 
             AddRoomButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            AddRoomButtonTool.Image = DS_Game_Maker.Properties.Resources.RoomAddIcon;
+            AddRoomButtonTool.Image = Properties.Resources.RoomAddIcon;
             AddRoomButtonTool.ImageTransparentColor = Color.Magenta;
             AddRoomButtonTool.Name = "AddRoomButtonTool";
             AddRoomButtonTool.Size = new Size(23, 22);
@@ -734,7 +734,7 @@ namespace DS_Game_Maker
             // AddPathButtonTool
             // 
             AddPathButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            AddPathButtonTool.Image = DS_Game_Maker.Properties.Resources.PathAddIcon;
+            AddPathButtonTool.Image = Properties.Resources.PathAddIcon;
             AddPathButtonTool.ImageTransparentColor = Color.Magenta;
             AddPathButtonTool.Name = "AddPathButtonTool";
             AddPathButtonTool.Size = new Size(23, 22);
@@ -744,7 +744,7 @@ namespace DS_Game_Maker
             // AddScriptButtonTool
             // 
             AddScriptButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            AddScriptButtonTool.Image = DS_Game_Maker.Properties.Resources.ScriptAddIcon;
+            AddScriptButtonTool.Image = Properties.Resources.ScriptAddIcon;
             AddScriptButtonTool.ImageTransparentColor = Color.Magenta;
             AddScriptButtonTool.Name = "AddScriptButtonTool";
             AddScriptButtonTool.Size = new Size(23, 22);
@@ -758,7 +758,7 @@ namespace DS_Game_Maker
             // GameSettingsButtonTool
             // 
             GameSettingsButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            GameSettingsButtonTool.Image = DS_Game_Maker.Properties.Resources.GameSettingsIcon;
+            GameSettingsButtonTool.Image = Properties.Resources.GameSettingsIcon;
             GameSettingsButtonTool.ImageTransparentColor = Color.Magenta;
             GameSettingsButtonTool.Name = "GameSettingsButtonTool";
             GameSettingsButtonTool.Size = new Size(23, 22);
@@ -767,7 +767,7 @@ namespace DS_Game_Maker
             // GlobalVariablesButtonTool
             // 
             GlobalVariablesButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            GlobalVariablesButtonTool.Image = DS_Game_Maker.Properties.Resources.VariableManagerIcon;
+            GlobalVariablesButtonTool.Image = Properties.Resources.VariableManagerIcon;
             GlobalVariablesButtonTool.ImageTransparentColor = Color.Magenta;
             GlobalVariablesButtonTool.Name = "GlobalVariablesButtonTool";
             GlobalVariablesButtonTool.Size = new Size(23, 22);
@@ -776,7 +776,7 @@ namespace DS_Game_Maker
             // GlobalArraysButtonTool
             // 
             GlobalArraysButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            GlobalArraysButtonTool.Image = DS_Game_Maker.Properties.Resources.ArrayIcon;
+            GlobalArraysButtonTool.Image = Properties.Resources.ArrayIcon;
             GlobalArraysButtonTool.ImageTransparentColor = Color.Magenta;
             GlobalArraysButtonTool.Name = "GlobalArraysButtonTool";
             GlobalArraysButtonTool.Size = new Size(23, 22);
@@ -785,7 +785,7 @@ namespace DS_Game_Maker
             // GlobalStructuresButtonTool
             // 
             GlobalStructuresButtonTool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            GlobalStructuresButtonTool.Image = DS_Game_Maker.Properties.Resources.StructureIcon;
+            GlobalStructuresButtonTool.Image = Properties.Resources.StructureIcon;
             GlobalStructuresButtonTool.ImageTransparentColor = Color.Magenta;
             GlobalStructuresButtonTool.Name = "GlobalStructuresButtonTool";
             GlobalStructuresButtonTool.Size = new Size(23, 22);
@@ -840,7 +840,7 @@ namespace DS_Game_Maker
             // DuplicateResourceRightClickButton
             // 
             DuplicateResourceRightClickButton.Enabled = false;
-            DuplicateResourceRightClickButton.Image = DS_Game_Maker.Properties.Resources.CopyIcon;
+            DuplicateResourceRightClickButton.Image = Properties.Resources.CopyIcon;
             DuplicateResourceRightClickButton.Name = "DuplicateResourceRightClickButton";
             DuplicateResourceRightClickButton.Size = new Size(167, 22);
             DuplicateResourceRightClickButton.Text = "Duplicate";
@@ -848,7 +848,7 @@ namespace DS_Game_Maker
             // DeleteResourceRightClickButton
             // 
             DeleteResourceRightClickButton.Enabled = false;
-            DeleteResourceRightClickButton.Image = DS_Game_Maker.Properties.Resources.DeleteIcon;
+            DeleteResourceRightClickButton.Image = Properties.Resources.DeleteIcon;
             DeleteResourceRightClickButton.Name = "DeleteResourceRightClickButton";
             DeleteResourceRightClickButton.Size = new Size(167, 22);
             DeleteResourceRightClickButton.Text = "Delete";
@@ -860,7 +860,7 @@ namespace DS_Game_Maker
             // 
             // CompilesToNitroFSButton
             // 
-            CompilesToNitroFSButton.Image = DS_Game_Maker.Properties.Resources.DeleteIcon;
+            CompilesToNitroFSButton.Image = Properties.Resources.DeleteIcon;
             CompilesToNitroFSButton.Name = "CompilesToNitroFSButton";
             CompilesToNitroFSButton.Size = new Size(167, 22);
             CompilesToNitroFSButton.Text = "Compiles to NitroFS";

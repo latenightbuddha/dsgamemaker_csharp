@@ -15,7 +15,7 @@ namespace DS_Game_Maker
         private void GameSettings_Load(object sender, EventArgs e)
         {
             StartingRoomDropper.Items.Clear();
-            foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Room].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Room].Nodes)
                 StartingRoomDropper.Items.Add(X.Text);
             StartingRoomDropper.Text = DS_Game_Maker.DSGMlib.GetXDSLine("BOOTROOM ").Substring(9);
             ProjectNameTextBox.Text = DS_Game_Maker.DSGMlib.GetXDSLine("PROJECTNAME ").Substring(12);

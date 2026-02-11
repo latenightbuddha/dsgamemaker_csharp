@@ -92,11 +92,11 @@ namespace DS_Game_Maker
             System.IO.File.WriteAllText(Response, ToWrite);
         }
 
-        private void MainTextBox_CharAdded(object sender, ScintillaNET.CharAddedEventArgs e)
+        private void MainTextBox_CharAdded(object sender, ScintillaNet.CharAddedEventArgs e)
         {
             if (!(e.Ch == '\r'))
                 return;
-            ScintillaNET.Scintilla argTheControl = (ScintillaNET.Scintilla)sender;
+            ScintillaNet.Scintilla argTheControl = (ScintillaNet.Scintilla)sender;
             DS_Game_Maker.DSGMlib.IntelliSense(ref argTheControl);
             sender = argTheControl;
         }

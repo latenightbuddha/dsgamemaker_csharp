@@ -36,12 +36,14 @@ namespace DS_Game_Maker
                 X = X.Substring(X.LastIndexOf(@"\") + 1);
                 X = X.Substring(0, X.LastIndexOf("."));
                 X = X.Substring(X.IndexOf("_") + 1);
-                if ((X ?? "") == (SpriteName ?? ""))
+
+                string Y = X;
+                if (X == SpriteName)
                 {
                     if (ImageCount == 0)
                     {
                         // First image! Grab the size....
-                        MainImageList.ImageSize = DS_Game_Maker.DSGMlib.PathToImage(X).Size;
+                        MainImageList.ImageSize = DS_Game_Maker.DSGMlib.PathToImage(Y).Size;
                     }
                     ImageCount = (short)(ImageCount + 1);
                 }
@@ -95,10 +97,11 @@ namespace DS_Game_Maker
                 DS_Game_Maker.DSGMlib.MsgError("You must enter a valid value for FPS between 1 and 60.");
                 return;
             }
-            DS_Game_Maker.My.MyProject.Forms.Preview.ImageSize = MainImageList.ImageSize;
-            DS_Game_Maker.My.MyProject.Forms.Preview.Speed = Convert.ToByte(FPSTextBox.Text);
-            DS_Game_Maker.My.MyProject.Forms.Preview.TheImage = DS_Game_Maker.DSGMlib.GenerateDSSprite(SpriteName);
-            DS_Game_Maker.My.MyProject.Forms.Preview.ShowDialog();
+
+            Program.Forms.preview_Form.ImageSize = MainImageList.ImageSize;
+            Program.Forms.preview_Form.Speed = Convert.ToByte(FPSTextBox.Text);
+            Program.Forms.preview_Form.TheImage = DSGMlib.GenerateDSSprite(SpriteName);
+            Program.Forms.preview_Form.ShowDialog();
         }
 
         public bool IsSpriteSizeOkay(Size TheSize)
@@ -134,7 +137,7 @@ namespace DS_Game_Maker
             var NIS = DS_Game_Maker.DSGMlib.PathToImage(Result).Size;
             if (!this.IsSpriteSizeOkay(NIS))
             {
-                DS_Game_Maker.My.MyProject.Forms.BadSpriteSize.ShowDialog();
+                Program.Forms.badSpriteSize_Form.ShowDialog();
                 return;
             }
             short CW = (short)MainImageList.ImageSize.Width;
@@ -341,13 +344,14 @@ namespace DS_Game_Maker
                     MainListView.SelectedIndices.Add(X);
                 // MsgWarn("You must select a Frame to Transform.") : Exit Sub
             }
-            DS_Game_Maker.My.MyProject.Forms.TransformSprite.Text = "Transform " + MainListView.SelectedIndices.Count.ToString() + " Frame";
-            DS_Game_Maker.My.MyProject.Forms.TransformSprite.Text += MainListView.SelectedIndices.Count > 1 ? "s" : string.Empty;
+
+            Program.Forms.transformSprite_Form.Text = "Transform " + MainListView.SelectedIndices.Count.ToString() + " Frame";
+            Program.Forms.transformSprite_Form.Text += MainListView.SelectedIndices.Count > 1 ? "s" : string.Empty;
             // TransformSprite.MainTabControl.TabPages(0).Text += If(MainListView.SelectedIndices.Count > 1, "s", String.Empty)
-            DS_Game_Maker.My.MyProject.Forms.TransformSprite.ImagePaths.Clear();
+            Program.Forms.transformSprite_Form.ImagePaths.Clear();
             foreach (byte X in MainListView.SelectedIndices)
-                DS_Game_Maker.My.MyProject.Forms.TransformSprite.ImagePaths.Add(DS_Game_Maker.SessionsLib.SessionPath + @"Sprites\" + X.ToString() + "_" + SpriteName + ".png");
-            DS_Game_Maker.My.MyProject.Forms.TransformSprite.ShowDialog();
+                Program.Forms.transformSprite_Form.ImagePaths.Add(DS_Game_Maker.SessionsLib.SessionPath + @"Sprites\" + X.ToString() + "_" + SpriteName + ".png");
+            Program.Forms.transformSprite_Form.ShowDialog();
             DataChanged = true;
         }
 
@@ -361,10 +365,12 @@ namespace DS_Game_Maker
                 return;
             string ThePath = DS_Game_Maker.SessionsLib.SessionPath + @"Sprites\" + SpriteName + "_Import";
             Directory.CreateDirectory(ThePath);
-            DS_Game_Maker.My.MyProject.Forms.ImportSprite.FileName = Response;
-            DS_Game_Maker.My.MyProject.Forms.ImportSprite.ToDirectory = ThePath;
-            DS_Game_Maker.My.MyProject.Forms.ImportSprite.ShowDialog();
-            if ((int)DS_Game_Maker.My.MyProject.Forms.ImportSprite.ImportedCount == 0)
+
+
+            Program.Forms.importSprite_Form.FileName = Response;
+            Program.Forms.importSprite_Form.ToDirectory = ThePath;
+            Program.Forms.importSprite_Form.ShowDialog();
+            if ((int)Program.Forms.importSprite_Form.ImportedCount == 0)
                 return;
             // For Each X As String In Directory.GetFiles(SessionPath + "Sprites")
             // Dim Backup As String = X
@@ -490,15 +496,17 @@ namespace DS_Game_Maker
             {
                 string X = X_;
                 string Backup = X;
+
                 X = X.Substring(X.LastIndexOf(@"\") + 1);
                 X = X.Substring(0, X.LastIndexOf("."));
                 X = X.Substring(X.IndexOf("_") + 1);
-                if ((X ?? "") == (SpriteName ?? ""))
+
+                if (X == SpriteName)
                     File.Delete(Backup);
             }
             for (short X = 0, loopTo = (short)(MainImageList.Images.Count - 1); X <= loopTo; X++)
                 MainImageList.Images[X].Save(DS_Game_Maker.SessionsLib.SessionPath + @"Sprites\" + X.ToString() + "_" + NewName + ".png");
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (X.Name == "DObject")
                 {
@@ -530,7 +538,7 @@ namespace DS_Game_Maker
             }
             DS_Game_Maker.DSGMlib.UpdateArrayActionsName("Sprite", SpriteName, NewName, false);
             DS_Game_Maker.DSGMlib.CurrentXDS = DS_Game_Maker.DSGMlib.UpdateActionsName(DS_Game_Maker.DSGMlib.CurrentXDS, "Sprite", SpriteName, NewName, false);
-            foreach (TreeNode X in DS_Game_Maker.My.MyProject.Forms.MainForm.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Sprite].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Sprite].Nodes)
             {
                 if ((X.Text ?? "") == (SpriteName ?? ""))
                     X.Text = NewName;
@@ -570,7 +578,7 @@ namespace DS_Game_Maker
             Bitmap TMP = (Bitmap)DS_Game_Maker.DSGMlib.PathToImage(Result);
             if (!IsSpriteSizeOkay(TMP.Size))
             {
-                DS_Game_Maker.My.MyProject.Forms.BadSpriteSize.ShowDialog();
+                Program.Forms.badSpriteSize_Form.ShowDialog();
                 return;
             }
             MainImageList.ImageSize = TMP.Size;

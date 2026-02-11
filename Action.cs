@@ -142,7 +142,7 @@ namespace DS_Game_Maker
             foreach (string X_ in File.ReadAllLines(DS_Game_Maker.DSGMlib.AppPath + @"Actions\" + ActionName + ".action"))
             {
                 string X = X_;
-                if (X_.StartsWith("ARG "))
+                if (X.StartsWith("ARG "))
                 {
                     X = X.Substring(4);
                     string ArgumentName = X.Substring(0, X.IndexOf(","));

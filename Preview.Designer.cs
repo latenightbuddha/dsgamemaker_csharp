@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
-using formTimer = System.Windows.Forms;
 
 namespace DS_Game_Maker
 {
@@ -39,8 +38,8 @@ namespace DS_Game_Maker
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(Preview));
             PreviewPanel = new Panel();
-            MainTimer = new formTimer.Timer(components);
-            MainTimer.Tick += new EventHandler(MainTimer_Tick);
+            MainTimer = new System.Timers.Timer(components.Components.Count);
+            MainTimer.Elapsed += new System.Timers.ElapsedEventHandler(MainTimer_Tick);
             SuspendLayout();
             // 
             // PreviewPanel
@@ -75,6 +74,6 @@ namespace DS_Game_Maker
 
         }
         internal Panel PreviewPanel;
-        internal formTimer.Timer MainTimer;
+        internal System.Timers.Timer MainTimer;
     }
 }

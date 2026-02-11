@@ -23,29 +23,40 @@ namespace DS_Game_Maker
                 return;
             }
             bool IsNumber = true;
-            foreach (string X in DefaultRoomWidthTB.Text)
+
+            foreach (char X in DefaultRoomWidthTB.Text.ToArray())
             {
-                if (!DS_Game_Maker.DSGMlib.Numbers.Contains(X))
+                if (DSGMlib.Numbers.Contains(X.ToString()) == false)
+                {
                     IsNumber = false;
+                }
+
             }
+
             if (!IsNumber)
             {
                 DS_Game_Maker.DSGMlib.MsgWarn("Default Room Width must be a number.");
                 DefaultRoomWidthTB.Focus();
                 return;
             }
+
             IsNumber = true;
-            foreach (string X in DefaultRoomHeightTB.Text)
+
+            foreach (char X in DefaultRoomHeightTB.Text.ToArray())
             {
-                if (!DS_Game_Maker.DSGMlib.Numbers.Contains(X))
+                if (DSGMlib.Numbers.Contains(X.ToString()) == false)
+                {
                     IsNumber = false;
+                }
             }
+
             if (!IsNumber)
             {
                 DS_Game_Maker.DSGMlib.MsgWarn("Default Room Height must be a number.");
                 DefaultRoomHeightTB.Focus();
                 return;
             }
+
             if (Convert.ToInt16(DefaultRoomWidthTB.Text) < 256 | Convert.ToInt16(DefaultRoomWidthTB.Text) > 4096)
             {
                 DS_Game_Maker.DSGMlib.MsgWarn("Default Room Width must be between 256 and 4096.");
@@ -75,7 +86,7 @@ namespace DS_Game_Maker
             DS_Game_Maker.SettingsLib.SetSetting("DEFAULT_ROOM_HEIGHT", DefaultRoomHeightTB.Text);
             DS_Game_Maker.SettingsLib.SetSetting("EMULATOR_PATH", CustomEmulatorTextBox.Text);
             DS_Game_Maker.SettingsLib.SaveSettings();
-            foreach (Form X in DS_Game_Maker.My.MyProject.Forms.MainForm.MdiChildren)
+            foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 string TheText = X.Text;
                 if (TheText.StartsWith("Outputted C Preview for "))
@@ -88,8 +99,8 @@ namespace DS_Game_Maker
                 {
                     if (SC.Name == "MainTextBox")
                     {
-                        ((ScintillaNET.Scintilla)SC).Caret.HighlightCurrentLine = HighlightCurrentLineCheckBox.Checked;
-                        ((ScintillaNET.Scintilla)SC).MatchBraces = MatchBracesCheckBox.Checked;
+                        ((ScintillaNet.Scintilla)SC).Caret.HighlightCurrentLine = HighlightCurrentLineCheckBox.Checked;
+                        ((ScintillaNet.Scintilla)SC).MatchBraces = MatchBracesCheckBox.Checked;
                     }
                 }
             }

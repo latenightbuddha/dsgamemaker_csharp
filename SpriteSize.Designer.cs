@@ -46,7 +46,7 @@ namespace DS_Game_Maker
             // 
             // TablePanel
             // 
-            TablePanel.BackgroundImage = DS_Game_Maker.Properties.Resources.SpriteSizesTable;
+            TablePanel.BackgroundImage = Properties.Resources.SpriteSizesTable;
             TablePanel.Location = new Point(46, 94);
             TablePanel.Name = "TablePanel";
             TablePanel.Size = new Size(151, 70);

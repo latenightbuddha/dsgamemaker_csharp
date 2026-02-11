@@ -51,7 +51,7 @@ namespace DS_Game_Maker
             // 
             // DSGMTopPanel
             // 
-            DSGMTopPanel.BackgroundImage = DS_Game_Maker.Properties.Resources.DSGMTopBanner;
+            DSGMTopPanel.BackgroundImage = Properties.Resources.DSGMTopBanner;
             DSGMTopPanel.Location = new Point(0, 0);
             DSGMTopPanel.Name = "DSGMTopPanel";
             DSGMTopPanel.Size = new Size(338, 130);
