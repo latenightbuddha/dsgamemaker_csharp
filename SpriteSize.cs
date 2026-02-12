@@ -20,7 +20,7 @@ namespace DS_Game_Maker
         private void OpenEditorButton_Click(object sender, EventArgs e)
         {
             string X = SpritePath;
-            X = X.Substring(X.LastIndexOf(@"\") + 1);
+            X = X.Substring(X.LastIndexOf("/") + 1);
             X = X.Substring(0, X.IndexOf("."));
             DSGMlib.EditImage(SpritePath, X, false);
             Close();
