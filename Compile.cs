@@ -25,8 +25,8 @@ namespace DS_Game_Maker
 
         private void Compile_Shown(object sender, EventArgs e)
         {
-            DS_Game_Maker.DSGMlib.CompileWrapper();
-            Success = DS_Game_Maker.DSGMlib.CompileGame();
+            DSGMlib.CompileWrapper();
+            Success = DSGMlib.CompileGame();
             Close();
         }
 

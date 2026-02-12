@@ -21,20 +21,20 @@ namespace DS_Game_Maker
 
         private void OpenCompileFolderButton_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer", DS_Game_Maker.SessionsLib.CompilePath);
+            Process.Start("explorer", SessionsLib.CompilePath);
         }
 
         private void PlayButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.DSGMlib.NOGBAShizzle();
+            DSGMlib.NOGBAShizzle();
         }
 
         private void SaveNDSFileButton_Click(object sender, EventArgs e)
         {
-            string Response = DS_Game_Maker.DSGMlib.SaveFile(string.Empty, "NDS Binaries|*.nds", DS_Game_Maker.DSGMlib.CacheProjectName + ".nds");
+            string Response = DSGMlib.SaveFile(string.Empty, "NDS Binaries|*.nds", DSGMlib.CacheProjectName + ".nds");
             if (Response.Length == 0)
                 return;
-            File.Copy(DS_Game_Maker.SessionsLib.CompilePath + DS_Game_Maker.SessionsLib.CompileName + ".nds", Response, true);
+            File.Copy(SessionsLib.CompilePath + SessionsLib.CompileName + ".nds", Response, true);
         }
 
         private void SavetoKitButton_Click(object sender, EventArgs e)
@@ -50,14 +50,14 @@ namespace DS_Game_Maker
             }
             if (HBKitDrive.Length == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("There is no USB Reader for a DS Homebrew Kit connected.");
+                DSGMlib.MsgWarn("There is no USB Reader for a DS Homebrew Kit connected.");
                 return;
             }
-            File.Copy(DS_Game_Maker.SessionsLib.CompilePath + DS_Game_Maker.SessionsLib.CompileName + ".nds", HBKitDrive + DS_Game_Maker.DSGMlib.CacheProjectName + ".nds", true);
-            byte Response = (byte)MessageBox.Show("'" + DS_Game_Maker.DSGMlib.CacheProjectName + "' was copied successfully." + Constants.vbCrLf + Constants.vbCrLf + "Safely disconnect USB Reader now?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            File.Copy(SessionsLib.CompilePath + SessionsLib.CompileName + ".nds", HBKitDrive + DSGMlib.CacheProjectName + ".nds", true);
+            byte Response = (byte)MessageBox.Show("'" + DSGMlib.CacheProjectName + "' was copied successfully." + Constants.vbCrLf + Constants.vbCrLf + "Safely disconnect USB Reader now?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (!(Response == (int)MsgBoxResult.Yes))
                 return;
-            DS_Game_Maker.DSGMlib.RunBatchString("EjectMedia " + HBKitDrive + Constants.vbCrLf + "RemoveDrive " + HBKitDrive, Constants.AppDirectory, false);
+            DSGMlib.RunBatchString("EjectMedia " + HBKitDrive + Constants.vbCrLf + "RemoveDrive " + HBKitDrive, Constants.AppDirectory, false);
         }
     }
 }

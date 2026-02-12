@@ -31,17 +31,17 @@ namespace DS_Game_Maker
         {
             if (!((ScriptName ?? "") == (NameTextBox.Text ?? "")))
             {
-                File.Move(DS_Game_Maker.SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas", DS_Game_Maker.SessionsLib.SessionPath + @"Scripts\" + NameTextBox.Text + ".dbas");
+                File.Move(SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas", SessionsLib.SessionPath + @"Scripts\" + NameTextBox.Text + ".dbas");
             }
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("SCRIPT " + ScriptName + ","), "SCRIPT " + NameTextBox.Text + "," + (ParseDBASChecker.Checked ? "1" : "0"));
-            DS_Game_Maker.DSGMlib.XDSRemoveFilter("SCRIPTARG " + ScriptName + ",");
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("SCRIPT " + ScriptName + ","), "SCRIPT " + NameTextBox.Text + "," + (ParseDBASChecker.Checked ? "1" : "0"));
+            DSGMlib.XDSRemoveFilter("SCRIPTARG " + ScriptName + ",");
             if (ArgumentNames.Count > 0)
             {
                 for (byte P = 0, loopTo = (byte)(ArgumentNames.Count - 1); P <= loopTo; P++)
-                    DS_Game_Maker.DSGMlib.XDSAddLine("SCRIPTARG " + NameTextBox.Text + "," + ArgumentNames[P] + "," + ArgumentTypes[P]);
+                    DSGMlib.XDSAddLine("SCRIPTARG " + NameTextBox.Text + "," + ArgumentNames[P] + "," + ArgumentTypes[P]);
             }
-            File.WriteAllText(DS_Game_Maker.SessionsLib.SessionPath + @"Scripts\" + NameTextBox.Text + ".dbas", MainTextBox.Text);
-            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Script].Nodes)
+            File.WriteAllText(SessionsLib.SessionPath + @"Scripts\" + NameTextBox.Text + ".dbas", MainTextBox.Text);
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DSGMlib.ResourceIDs.Script].Nodes)
             {
                 if ((X.Text ?? "") == (ScriptName ?? ""))
                     X.Text = NameTextBox.Text;
@@ -85,22 +85,22 @@ namespace DS_Game_Maker
             // '.SingleLineAccept = False
             // '.StopCharacters = String.Empty
             // End With
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
             //MainTextBox.AcceptsTab = true;
-            //MainTextBox.Caret.HighlightCurrentLine = (int)Convert.ToByte(DS_Game_Maker.SettingsLib.GetSetting("HIGHLIGHT_CURRENT_LINE")) == 1;
+            //MainTextBox.Caret.HighlightCurrentLine = (int)Convert.ToByte(SettingsLib.GetSetting("HIGHLIGHT_CURRENT_LINE")) == 1;
             // MsgError("""" + ScriptName + """")
-            ScriptContent = DS_Game_Maker.DSGMlib.PathToString(DS_Game_Maker.SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas");
+            ScriptContent = DSGMlib.PathToString(SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas");
             MainTextBox.Text = ScriptContent;
             Text = ScriptName;
             NameTextBox.Text = ScriptName;
             TidyUp();
-            string XDSLine = DS_Game_Maker.DSGMlib.GetXDSLine("SCRIPT " + ScriptName + ",");
+            string XDSLine = DSGMlib.GetXDSLine("SCRIPT " + ScriptName + ",");
             XDSLine = XDSLine.Substring(XDSLine.LastIndexOf(",") + 1);
             ParseDBASChecker.Checked = XDSLine == "1";
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("SCRIPTARG " + ScriptName + ","))
+            foreach (string X in DSGMlib.GetXDSFilter("SCRIPTARG " + ScriptName + ","))
             {
-                string TheName = DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",");
-                string TheType = DS_Game_Maker.DSGMlib.iGet(X, (byte)2, ",");
+                string TheName = DSGMlib.iGet(X, (byte)1, ",");
+                string TheType = DSGMlib.iGet(X, (byte)2, ",");
                 ArgumentNames.Add(TheName);
                 ArgumentTypes.Add(TheType);
             }
@@ -115,7 +115,7 @@ namespace DS_Game_Maker
             string NewName = NameTextBox.Text;
             if (!((ScriptName ?? "") == (NewName ?? "")))
             {
-                if (DS_Game_Maker.DSGMlib.GUIResNameChecker(NameTextBox.Text))
+                if (DSGMlib.GUIResNameChecker(NameTextBox.Text))
                     return;
             }
             SaveChanges();
@@ -134,7 +134,7 @@ namespace DS_Game_Maker
             if (DoIt)
             {
                 string NewText = ((TextBox)sender).Text;
-                NewText = DS_Game_Maker.DSGMlib.ResurrectResourceName(NewText);
+                NewText = DSGMlib.ResurrectResourceName(NewText);
                 short LengthDifference = (short)(((TextBox)sender).Text.Length - NewText.Length);
                 byte BackupCaret = (byte)NameTextBox.SelectionStart;
                 ((TextBox)sender).Text = NewText;
@@ -207,13 +207,13 @@ namespace DS_Game_Maker
             byte MsgResponse = (byte)MessageBox.Show("Importing a Script will erase and replace the current code." + Constants.vbCrLf + Constants.vbCrLf + "Would you like to Continue?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (!(MsgResponse == (int)MsgBoxResult.Yes))
                 return;
-            string Response = DS_Game_Maker.DSGMlib.OpenFile(string.Empty, "Dynamic Basic Files|*.dbas");
+            string Response = DSGMlib.OpenFile(string.Empty, "Dynamic Basic Files|*.dbas");
             if (Response.Length == 0)
                 return;
-            string Content = DS_Game_Maker.DSGMlib.PathToString(Response);
+            string Content = DSGMlib.PathToString(Response);
             string FinalContent = string.Empty;
             TidyUp();
-            foreach (string X_ in DS_Game_Maker.DSGMlib.StringToLines(Content))
+            foreach (string X_ in DSGMlib.StringToLines(Content))
             {
                 string X = X_;
                 if (X.StartsWith("SCRIPTARG "))
@@ -236,7 +236,7 @@ namespace DS_Game_Maker
 
         private void SaveOutButton_Click(object sender, EventArgs e)
         {
-            string Response = DS_Game_Maker.DSGMlib.SaveFile(string.Empty, "Dynamic Basic Files|*.dbas", ScriptName + ".dbas");
+            string Response = DSGMlib.SaveFile(string.Empty, "Dynamic Basic Files|*.dbas", ScriptName + ".dbas");
             if (Response.Length == 0)
                 return;
             string ToWrite = MainTextBox.Text + Constants.vbCrLf;
@@ -293,7 +293,7 @@ namespace DS_Game_Maker
 
         private void AddArgumentButton_Click(object sender, EventArgs e)
         {
-            var ArgumentForm = new DS_Game_Maker.Argument();
+            var ArgumentForm = new Argument();
             ArgumentForm.ArgumentName = string.Empty;
             ArgumentForm.ArgumentType = "Integer";
             ArgumentForm.Text = "Add Argument";
@@ -305,14 +305,14 @@ namespace DS_Game_Maker
             string NewName = ArgumentForm.ArgumentName;
             string NewType = ArgumentForm.ArgumentType;
             ArgumentForm.Dispose();
-            if (!DS_Game_Maker.DSGMlib.ValidateSomething(NewName, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.Tight))
+            if (!DSGMlib.ValidateSomething(NewName, (byte)DSGMlib.ValidateLevel.Tight))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must enter a valid name for the new Argument.");
+                DSGMlib.MsgWarn("You must enter a valid name for the new Argument.");
                 return;
             }
-            if (!DS_Game_Maker.DSGMlib.ValidateSomething(NewName, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.NumberStart))
+            if (!DSGMlib.ValidateSomething(NewName, (byte)DSGMlib.ValidateLevel.NumberStart))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("An Argument name may not start with a number.");
+                DSGMlib.MsgWarn("An Argument name may not start with a number.");
                 return;
             }
             bool AlreadyDone = false;
@@ -323,7 +323,7 @@ namespace DS_Game_Maker
             }
             if (AlreadyDone)
             {
-                DS_Game_Maker.DSGMlib.MsgError("There is already an Argument called '" + NewName + "'." + Constants.vbCrLf + Constants.vbCrLf + "You must choose another name.");
+                DSGMlib.MsgError("There is already an Argument called '" + NewName + "'." + Constants.vbCrLf + Constants.vbCrLf + "You must choose another name.");
                 return;
             }
             ArgumentNames.Add(NewName);
@@ -336,7 +336,7 @@ namespace DS_Game_Maker
             if (ArgumentsList.SelectedIndices.Count == 0)
                 return;
             byte ID = (byte)ArgumentsList.SelectedIndex;
-            var ArgumentForm = new DS_Game_Maker.Argument();
+            var ArgumentForm = new Argument();
             ArgumentForm.ArgumentName = ArgumentNames[ID];
             ArgumentForm.ArgumentType = ArgumentTypes[ID];
             ArgumentForm.Text = "Edit Argument";
@@ -348,9 +348,9 @@ namespace DS_Game_Maker
             string NewName = ArgumentForm.ArgumentName;
             string NewType = ArgumentForm.ArgumentType;
             ArgumentForm.Dispose();
-            if (!DS_Game_Maker.DSGMlib.ValidateSomething(NewName, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.Tight))
+            if (!DSGMlib.ValidateSomething(NewName, (byte)DSGMlib.ValidateLevel.Tight))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must enter a valid name for the Argument.");
+                DSGMlib.MsgWarn("You must enter a valid name for the Argument.");
                 return;
             }
             if (!((NewName ?? "") == (ArgumentNames[ID] ?? "")))
@@ -363,14 +363,14 @@ namespace DS_Game_Maker
                 }
                 if (AlreadyDone)
                 {
-                    DS_Game_Maker.DSGMlib.MsgError("There is already an Argument called '" + NewName + "'." + Constants.vbCrLf + Constants.vbCrLf + "You must choose another name.");
+                    DSGMlib.MsgError("There is already an Argument called '" + NewName + "'." + Constants.vbCrLf + Constants.vbCrLf + "You must choose another name.");
                     return;
                 }
             }
             ArgumentNames[ID] = NewName;
             ArgumentTypes[ID] = NewType;
             ArgumentsList.Refresh();
-            DS_Game_Maker.DSGMlib.MsgInfo(Application.ProductName + " cannot update your code to use the new Argument name." + Constants.vbCrLf + Constants.vbCrLf + "You must do this yourself.");
+            DSGMlib.MsgInfo(Application.ProductName + " cannot update your code to use the new Argument name." + Constants.vbCrLf + Constants.vbCrLf + "You must do this yourself.");
         }
 
         private void DeleteArgumentButton_Click(object sender, EventArgs e)
@@ -389,7 +389,7 @@ namespace DS_Game_Maker
             //if (!(e.Ch == '\r'))
             //    return;
             ScintillaNET.Scintilla argTheControl = (ScintillaNET.Scintilla)sender;
-            DS_Game_Maker.DSGMlib.IntelliSense(ref argTheControl);
+            DSGMlib.IntelliSense(ref argTheControl);
             sender = argTheControl;
             // Dim pos As Int32 = MainTextBox.NativeInterface.GetCurrentPos()
             // Dim length As Int32 = pos - MainTextBox.NativeInterface.WordStartPosition(pos, True)

@@ -68,7 +68,7 @@ namespace DS_Game_Maker
 
         public Bitmap GetBGImage(string BackgroundName)
         {
-            return (Bitmap)DS_Game_Maker.DSGMlib.MakeBMPTransparent(DS_Game_Maker.DSGMlib.PathToImage(DS_Game_Maker.SessionsLib.SessionPath + @"Backgrounds\" + BackgroundName + ".png"), Color.Magenta);
+            return (Bitmap)DSGMlib.MakeBMPTransparent(DSGMlib.PathToImage(SessionsLib.SessionPath + @"Backgrounds\" + BackgroundName + ".png"), Color.Magenta);
         }
 
         public Bitmap MakeRoomImage(bool WhichScreen)
@@ -278,18 +278,18 @@ namespace DS_Game_Maker
 
         private void Room_Load(object sender, EventArgs e)
         {
-            SnapToGrid = DS_Game_Maker.SettingsLib.GetSetting("SNAP_OBJECTS") == "1";
-            ShowGrid = DS_Game_Maker.SettingsLib.GetSetting("SHOW_GRID") == "1";
+            SnapToGrid = SettingsLib.GetSetting("SNAP_OBJECTS") == "1";
+            ShowGrid = SettingsLib.GetSetting("SHOW_GRID") == "1";
 
-            UseRightClickMenuChecker.Checked = DS_Game_Maker.SettingsLib.GetSetting("RIGHT_CLICK") == "1";
+            UseRightClickMenuChecker.Checked = SettingsLib.GetSetting("RIGHT_CLICK") == "1";
 
-            SnapX = Convert.ToByte(DS_Game_Maker.SettingsLib.GetSetting("SNAP_X"));
-            SnapY = Convert.ToByte(DS_Game_Maker.SettingsLib.GetSetting("SNAP_Y"));
+            SnapX = Convert.ToByte(SettingsLib.GetSetting("SNAP_X"));
+            SnapY = Convert.ToByte(SettingsLib.GetSetting("SNAP_Y"));
 
-            string ColorString = DS_Game_Maker.SettingsLib.GetSetting("GRID_COLOR");
-            byte R = Convert.ToByte(DS_Game_Maker.DSGMlib.iGet(ColorString, (byte)0, ","));
-            byte G = Convert.ToByte(DS_Game_Maker.DSGMlib.iGet(ColorString, (byte)1, ","));
-            byte B = Convert.ToByte(DS_Game_Maker.DSGMlib.iGet(ColorString, (byte)2, ","));
+            string ColorString = SettingsLib.GetSetting("GRID_COLOR");
+            byte R = Convert.ToByte(DSGMlib.iGet(ColorString, (byte)0, ","));
+            byte G = Convert.ToByte(DSGMlib.iGet(ColorString, (byte)1, ","));
+            byte B = Convert.ToByte(DSGMlib.iGet(ColorString, (byte)2, ","));
 
             ShowGridChecker.Checked = ShowGrid;
             SnapToGridChecker.Checked = SnapToGrid;
@@ -299,14 +299,14 @@ namespace DS_Game_Maker
 
             GridColor = Color.FromArgb(R, G, B);
 
-            ObjectRightClickMenu.Renderer = new DS_Game_Maker.clsMenuRenderer();
-            string XDSLine = DS_Game_Maker.DSGMlib.GetXDSLine("ROOM " + RoomName + ",");
+            ObjectRightClickMenu.Renderer = new clsMenuRenderer();
+            string XDSLine = DSGMlib.GetXDSLine("ROOM " + RoomName + ",");
             XDSLine = XDSLine.Substring(6 + RoomName.Length);
-            TopWidth = Convert.ToInt16(DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)0, ","));
-            TopHeight = Convert.ToInt16(DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)1, ","));
-            BottomWidth = Convert.ToInt16(DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)4, ","));
+            TopWidth = Convert.ToInt16(DSGMlib.iGet(XDSLine, (byte)0, ","));
+            TopHeight = Convert.ToInt16(DSGMlib.iGet(XDSLine, (byte)1, ","));
+            BottomWidth = Convert.ToInt16(DSGMlib.iGet(XDSLine, (byte)4, ","));
             // MsgError("Extracted BottomWidth is " + BottomWidth.ToString)
-            BottomHeight = Convert.ToInt16(DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)5, ","));
+            BottomHeight = Convert.ToInt16(DSGMlib.iGet(XDSLine, (byte)5, ","));
             short MidWidth = TopWidth;
             if (BottomWidth > MidWidth)
                 MidWidth = BottomWidth;
@@ -319,37 +319,37 @@ namespace DS_Game_Maker
             // Dim DoBottomScroll As Boolean = If(BottomWidth > BottomScreen.Width, True, False)
             // If DoTopScroll Then Me.Height += 36
             // If DoBottomScroll Then Me.Height += 36
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
             NameTextBox.Text = RoomName;
             Text = RoomName;
             TopScreenBGDropper.Items.Clear();
             TopScreenBGDropper.Items.Add(string.Empty);
             BottomScreenBGDropper.Items.Clear();
             BottomScreenBGDropper.Items.Add(string.Empty);
-            foreach (string X_ in DS_Game_Maker.DSGMlib.GetXDSFilter("BACKGROUND "))
+            foreach (string X_ in DSGMlib.GetXDSFilter("BACKGROUND "))
             {
                 string X = X_;
                 X = X.Substring(11);
-                TopScreenBGDropper.Items.Add(DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ","));
-                BottomScreenBGDropper.Items.Add(DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ","));
+                TopScreenBGDropper.Items.Add(DSGMlib.iGet(X, (byte)0, ","));
+                BottomScreenBGDropper.Items.Add(DSGMlib.iGet(X, (byte)0, ","));
             }
             ObjectDropper.Items.Clear();
-            foreach (string X_ in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECT "))
+            foreach (string X_ in DSGMlib.GetXDSFilter("OBJECT "))
             {
                 string X = X_;
                 X = X.Substring(7);
-                ObjectDropper.Items.Add(DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ","));
+                ObjectDropper.Items.Add(DSGMlib.iGet(X, (byte)0, ","));
             }
-            TopScroll = DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)2, ",") == "1";
-            TopBG = DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)3, ",");
+            TopScroll = DSGMlib.iGet(XDSLine, (byte)2, ",") == "1";
+            TopBG = DSGMlib.iGet(XDSLine, (byte)3, ",");
             BottomWidthDropper.Value = BottomWidth;
             // MsgError(BottomHeight.ToString)
             BottomHeightDropper.Value = BottomHeight;
             TopWidthDropper.Value = TopWidth;
             TopHeightDropper.Value = TopHeight;
             TopScreenScrollChecker.Checked = TopScroll;
-            BottomScroll = DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)6, ",") == "1";
-            BottomBG = DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)7, ",");
+            BottomScroll = DSGMlib.iGet(XDSLine, (byte)6, ",") == "1";
+            BottomBG = DSGMlib.iGet(XDSLine, (byte)7, ",");
             Width = MidWidth + 194;
             Height = (int)Math.Round((TopHeight + BottomHeight) / 2d + 259d);
             TopScreen.Width = 256 + (Width - BackupWidth);
@@ -358,16 +358,16 @@ namespace DS_Game_Maker
             TopScreenBGDropper.Text = TopBG;
             BottomScreenBGDropper.Text = BottomBG;
             ClearObjects();
-            foreach (string TheLine_ in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECTPLOT "))
+            foreach (string TheLine_ in DSGMlib.GetXDSFilter("OBJECTPLOT "))
             {
                 string TheLine = TheLine_;
                 TheLine = TheLine.Substring(11);
-                if (!((DS_Game_Maker.DSGMlib.iGet(TheLine, (byte)1, ",") ?? "") == (RoomName ?? "")))
+                if (!((DSGMlib.iGet(TheLine, (byte)1, ",") ?? "") == (RoomName ?? "")))
                     continue;
-                string ObjectName = DS_Game_Maker.DSGMlib.iGet(TheLine, (byte)0, ",");
-                bool Screen = DS_Game_Maker.DSGMlib.iGet(TheLine, (byte)2, ",") == "1";
-                short X = Convert.ToInt16(DS_Game_Maker.DSGMlib.iGet(TheLine, (byte)3, ","));
-                short Y = Convert.ToInt16(DS_Game_Maker.DSGMlib.iGet(TheLine, (byte)4, ","));
+                string ObjectName = DSGMlib.iGet(TheLine, (byte)0, ",");
+                bool Screen = DSGMlib.iGet(TheLine, (byte)2, ",") == "1";
+                short X = Convert.ToInt16(DSGMlib.iGet(TheLine, (byte)3, ","));
+                short Y = Convert.ToInt16(DSGMlib.iGet(TheLine, (byte)4, ","));
                 PlotObject(ObjectName, Screen, X, Y);
             }
             RefreshRoom(true);
@@ -380,20 +380,20 @@ namespace DS_Game_Maker
             string NewName = NameTextBox.Text;
             if (!((NewName ?? "") == (RoomName ?? "")))
             {
-                if (DS_Game_Maker.DSGMlib.GUIResNameChecker(NewName))
+                if (DSGMlib.GUIResNameChecker(NewName))
                     return;
             }
-            string OldLine = DS_Game_Maker.DSGMlib.GetXDSLine("ROOM " + RoomName + ",");
+            string OldLine = DSGMlib.GetXDSLine("ROOM " + RoomName + ",");
             string NewLine = "ROOM " + NewName + ",";
             NewLine += TopWidthDropper.Value.ToString() + "," + TopHeightDropper.Value.ToString() + "," + (TopScreenScrollChecker.Checked ? "1" : "0") + "," + TopBG + ",";
             NewLine += BottomWidthDropper.Value.ToString() + "," + BottomHeightDropper.Value.ToString() + "," + (BottomScreenScrollChecker.Checked ? "1" : "0") + "," + BottomBG;
-            DS_Game_Maker.DSGMlib.XDSChangeLine(OldLine, NewLine);
-            DS_Game_Maker.DSGMlib.UpdateArrayActionsName("Room", RoomName, NewName, false);
-            DS_Game_Maker.DSGMlib.CurrentXDS = DS_Game_Maker.DSGMlib.UpdateActionsName(DS_Game_Maker.DSGMlib.CurrentXDS, "Room", RoomName, NewName, false);
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECTPLOT "))
+            DSGMlib.XDSChangeLine(OldLine, NewLine);
+            DSGMlib.UpdateArrayActionsName("Room", RoomName, NewName, false);
+            DSGMlib.CurrentXDS = DSGMlib.UpdateActionsName(DSGMlib.CurrentXDS, "Room", RoomName, NewName, false);
+            foreach (string X in DSGMlib.GetXDSFilter("OBJECTPLOT "))
             {
-                if ((DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",") ?? "") == (RoomName ?? ""))
-                    DS_Game_Maker.DSGMlib.XDSRemoveLine(X);
+                if ((DSGMlib.iGet(X, (byte)1, ",") ?? "") == (RoomName ?? ""))
+                    DSGMlib.XDSRemoveLine(X);
             }
             foreach (AnObject X in Objects)
             {
@@ -405,23 +405,23 @@ namespace DS_Game_Maker
                 else
                     TheLine += "0";
                 TheLine += "," + X.X.ToString() + "," + X.Y.ToString();
-                DS_Game_Maker.DSGMlib.XDSAddLine(TheLine);
+                DSGMlib.XDSAddLine(TheLine);
             }
             if (!((NewName ?? "") == (RoomName ?? "")))
             {
-                if ((DS_Game_Maker.DSGMlib.GetXDSLine("BOOTROOM ").Substring(9) ?? "") == (RoomName ?? ""))
+                if ((DSGMlib.GetXDSLine("BOOTROOM ").Substring(9) ?? "") == (RoomName ?? ""))
                 {
-                    DS_Game_Maker.DSGMlib.XDSChangeLine("BOOTROOM " + RoomName, "BOOTROOM " + NewName);
+                    DSGMlib.XDSChangeLine("BOOTROOM " + RoomName, "BOOTROOM " + NewName);
                 }
             }
-            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Room].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DSGMlib.ResourceIDs.Room].Nodes)
             {
                 if ((X.Text ?? "") == (RoomName ?? ""))
                     X.Text = NewName;
             }
-            DS_Game_Maker.SettingsLib.SetSetting("SNAP_OBJECTS", SnapToGrid ? "1" : "0");
-            DS_Game_Maker.SettingsLib.SetSetting("SHOW_GRID", ShowGrid ? "1" : "0");
-            DS_Game_Maker.SettingsLib.SetSetting("RIGHT_CLICK", UseRightClickMenuChecker.Checked ? "1" : "0");
+            SettingsLib.SetSetting("SNAP_OBJECTS", SnapToGrid ? "1" : "0");
+            SettingsLib.SetSetting("SHOW_GRID", ShowGrid ? "1" : "0");
+            SettingsLib.SetSetting("RIGHT_CLICK", UseRightClickMenuChecker.Checked ? "1" : "0");
             Close();
         }
 
@@ -433,7 +433,7 @@ namespace DS_Game_Maker
             ToAdd.Y = Y;
             ToAdd.Screen = Screen;
             ToAdd.ObjectName = ObjectName;
-            ToAdd.CacheImage = DS_Game_Maker.DSGMlib.ObjectGetImage(ObjectName);
+            ToAdd.CacheImage = DSGMlib.ObjectGetImage(ObjectName);
             Objects[InstanceOn] = ToAdd;
             InstanceOn = (byte)(InstanceOn + 1);
             RefreshRoom(Screen);
@@ -463,7 +463,7 @@ namespace DS_Game_Maker
             }
             if (PlottedCount >= 128)
             {
-                DS_Game_Maker.DSGMlib.MsgError("You can only plot 128 instances.");
+                DSGMlib.MsgError("You can only plot 128 instances.");
                 return;
             }
             short X = (short)e.Location.X;
@@ -666,19 +666,19 @@ namespace DS_Game_Maker
         private void Snappers_TextChanged(object sender, EventArgs e)
         {
             string TheValue = ((TextBox)sender).Text;
-            if (!DS_Game_Maker.DSGMlib.IsNumeric(TheValue, System.Globalization.NumberStyles.Integer))
+            if (!DSGMlib.IsNumeric(TheValue, System.Globalization.NumberStyles.Integer))
                 return;
             if (Convert.ToInt16(TheValue) == 0 | Convert.ToInt16(TheValue) > 255)
                 return;
             if (((dynamic)sender).name.ToString().Contains("X"))
             {
                 SnapX = Convert.ToByte(TheValue);
-                DS_Game_Maker.SettingsLib.SetSetting("SNAP_X", TheValue);
+                SettingsLib.SetSetting("SNAP_X", TheValue);
             }
             else
             {
                 SnapY = Convert.ToByte(TheValue);
-                DS_Game_Maker.SettingsLib.SetSetting("SNAP_Y", TheValue);
+                SettingsLib.SetSetting("SNAP_Y", TheValue);
             }
             if (ShowGrid)
             {
@@ -708,13 +708,13 @@ namespace DS_Game_Maker
             // DOn += 1
             // End If
             // Next
-            GridColor = DS_Game_Maker.DSGMlib.SelectColor(GridColor);
+            GridColor = DSGMlib.SelectColor(GridColor);
             if (ShowGrid)
             {
                 TopScreen.Refresh();
                 BottomScreen.Refresh();
             }
-            DS_Game_Maker.SettingsLib.SetSetting("GRID_COLOR", GridColor.R.ToString() + "," + GridColor.G.ToString() + "," + GridColor.B.ToString());
+            SettingsLib.SetSetting("GRID_COLOR", GridColor.R.ToString() + "," + GridColor.G.ToString() + "," + GridColor.B.ToString());
         }
 
         private void Screens_MouseMove(object sender, MouseEventArgs e)
@@ -838,11 +838,11 @@ namespace DS_Game_Maker
                 }
                 if (DoShow)
                 {
-                    var ObjectForm = new DS_Game_Maker.DObject();
+                    var ObjectForm = new DObject();
                     ObjectForm.ObjectName = X;
                     object argInstance = (object)ObjectForm;
-                    DS_Game_Maker.DSGMlib.ShowInternalForm(ref argInstance);
-                    ObjectForm = (DS_Game_Maker.DObject)argInstance;
+                    DSGMlib.ShowInternalForm(ref argInstance);
+                    ObjectForm = (DObject)argInstance;
                 }
             }
         }

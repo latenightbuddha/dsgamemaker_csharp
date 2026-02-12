@@ -24,10 +24,10 @@ namespace DS_Game_Maker
 
         private void Sprite_Load(object sender, EventArgs e)
         {
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
             Text = SpriteName;
             NameTextBox.Text = SpriteName;
-            TheLine = DS_Game_Maker.DSGMlib.GetXDSLine("SPRITE " + SpriteName + ",");
+            TheLine = DSGMlib.GetXDSLine("SPRITE " + SpriteName + ",");
             short ImageCount = 0;
             MainImageList.Images.Clear();
             foreach (string X_ in Directory.GetFiles(SessionsLib.SessionPath + "Sprites"))
@@ -42,16 +42,16 @@ namespace DS_Game_Maker
                     if (ImageCount == 0)
                     {
                         // First image! Grab the size....
-                        MainImageList.ImageSize = DS_Game_Maker.DSGMlib.PathToImage(X).Size;
+                        MainImageList.ImageSize = DSGMlib.PathToImage(X_).Size;
                     }
                     ImageCount = (short)(ImageCount + 1);
                 }
             }
             for (short X = 0, loopTo = (short)(ImageCount - 1); X <= loopTo; X++)
             {
-                string ThePath = DS_Game_Maker.SessionsLib.SessionPath + "Sprites/" + X.ToString() + "_" + SpriteName + ".png";
+                string ThePath = SessionsLib.SessionPath + "Sprites/" + X.ToString() + "_" + SpriteName + ".png";
                 string Key = "Frame_" + X.ToString();
-                MainImageList.Images.Add(Key, DS_Game_Maker.DSGMlib.PathToImage(ThePath));
+                MainImageList.Images.Add(Key, DSGMlib.PathToImage(ThePath));
                 MainListView.Items.Add("Frame " + X.ToString(), X);
             }
         }
@@ -60,7 +60,7 @@ namespace DS_Game_Maker
         {
             if (FPSTextBox.Text.Length == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("Please enter a Speed.");
+                DSGMlib.MsgWarn("Please enter a Speed.");
                 return;
             }
             bool CanProceed = false;
@@ -68,7 +68,7 @@ namespace DS_Game_Maker
             {
                 bool Okay1 = false;
                 bool Okay2 = false;
-                foreach (var X in DS_Game_Maker.DSGMlib.Numbers)
+                foreach (var X in DSGMlib.Numbers)
                 {
                     if ((FPSTextBox.Text.Substring(0, 1) ?? "") == (X ?? ""))
                         Okay1 = true;
@@ -80,7 +80,7 @@ namespace DS_Game_Maker
             }
             else if (FPSTextBox.Text.Length == 1)
             {
-                foreach (string X in DS_Game_Maker.DSGMlib.Numbers)
+                foreach (string X in DSGMlib.Numbers)
                 {
                     if ((FPSTextBox.Text ?? "") == (X ?? ""))
                     {
@@ -93,7 +93,7 @@ namespace DS_Game_Maker
                 CanProceed = false;
             if (!CanProceed)
             {
-                DS_Game_Maker.DSGMlib.MsgError("You must enter a valid value for FPS between 1 and 60.");
+                DSGMlib.MsgError("You must enter a valid value for FPS between 1 and 60.");
                 return;
             }
 
@@ -127,13 +127,13 @@ namespace DS_Game_Maker
         {
             if (MainListView.SelectedIndices.Count == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must select a Frame into which to copy an existing image file.");
+                DSGMlib.MsgWarn("You must select a Frame into which to copy an existing image file.");
                 return;
             }
-            string Result = DS_Game_Maker.DSGMlib.OpenFile(string.Empty, DS_Game_Maker.DSGMlib.ImageFilter);
+            string Result = DSGMlib.OpenFile(string.Empty, DSGMlib.ImageFilter);
             if (Result.Length == 0)
                 return;
-            var NIS = DS_Game_Maker.DSGMlib.PathToImage(Result).Size;
+            var NIS = DSGMlib.PathToImage(Result).Size;
             if (!this.IsSpriteSizeOkay(NIS))
             {
                 Program.Forms.badSpriteSize_Form.ShowDialog();
@@ -181,11 +181,11 @@ namespace DS_Game_Maker
 
         private void AddFrameFromFileButton_Click(object sender, EventArgs e)
         {
-            string Response = DS_Game_Maker.DSGMlib.OpenFile(string.Empty, DS_Game_Maker.DSGMlib.ImageFilter);
+            string Response = DSGMlib.OpenFile(string.Empty, DSGMlib.ImageFilter);
             if (Response.Length == 0)
                 return;
             string TheKey = "Frame_" + MainImageList.Images.Count.ToString();
-            var NIS = DS_Game_Maker.DSGMlib.PathToImage(Response).Size;
+            var NIS = DSGMlib.PathToImage(Response).Size;
             short CW = (short)MainImageList.ImageSize.Width;
             short CH = (short)MainImageList.ImageSize.Height;
             if (NIS.Width == (int)CW & NIS.Height == (int)CH)
@@ -222,15 +222,15 @@ namespace DS_Game_Maker
                 return;
             if (MainListView.SelectedIndices.Count > 1)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You may only edit one Frame at once.");
+                DSGMlib.MsgWarn("You may only edit one Frame at once.");
                 return;
             }
             short ID = (short)MainListView.SelectedIndices[0];
-            string CopyPath = DS_Game_Maker.SessionsLib.SessionPath + "Sprite_Edit.png";
-            MainImageList.Images[ID].Save(DS_Game_Maker.SessionsLib.SessionPath + "Sprite_Edit.png");
-            if (DS_Game_Maker.DSGMlib.EditImage(CopyPath, SpriteName, false))
+            string CopyPath = SessionsLib.SessionPath + "Sprite_Edit.png";
+            MainImageList.Images[ID].Save(SessionsLib.SessionPath + "Sprite_Edit.png");
+            if (DSGMlib.EditImage(CopyPath, SpriteName, false))
             {
-                MainImageList.Images[ID] = DS_Game_Maker.DSGMlib.PathToImage(CopyPath);
+                MainImageList.Images[ID] = DSGMlib.PathToImage(CopyPath);
                 File.Delete(CopyPath);
                 DataChanged = true;
             }
@@ -242,12 +242,12 @@ namespace DS_Game_Maker
                 return;
             if (MainListView.Items.Count == 1)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("A Sprite must have at least one Frame.");
+                DSGMlib.MsgWarn("A Sprite must have at least one Frame.");
                 return;
             }
             if (MainListView.Items.Count == MainListView.SelectedIndices.Count)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You cannot delete all of the Frames at once: at least one frame must remain.");
+                DSGMlib.MsgWarn("You cannot delete all of the Frames at once: at least one frame must remain.");
                 return;
             }
             short ID = (short)MainListView.SelectedIndices[0];
@@ -281,8 +281,8 @@ namespace DS_Game_Maker
 
         private void ExportDSSpriteStripButton_Click(object sender, EventArgs e)
         {
-            Image ToSave = DS_Game_Maker.DSGMlib.GenerateDSSprite(SpriteName);
-            string Response = DS_Game_Maker.DSGMlib.SaveFile(string.Empty, DS_Game_Maker.DSGMlib.ImageFilter, SpriteName + "_DS");
+            Image ToSave = DSGMlib.GenerateDSSprite(SpriteName);
+            string Response = DSGMlib.SaveFile(string.Empty, DSGMlib.ImageFilter, SpriteName + "_DS");
             if (Response.Length == 0)
                 return;
             ToSave.Save(Response);
@@ -300,7 +300,7 @@ namespace DS_Game_Maker
             }
             catch (Exception ex)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("There is no image on the clipboard." + Constants.vbCrLf + Constants.vbCrLf + "(" + ex.Message + ")");
+                DSGMlib.MsgWarn("There is no image on the clipboard." + Constants.vbCrLf + Constants.vbCrLf + "(" + ex.Message + ")");
             }
         }
 
@@ -308,12 +308,12 @@ namespace DS_Game_Maker
         {
             if (MainListView.SelectedIndices.Count == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must select a Frame to Copy.");
+                DSGMlib.MsgWarn("You must select a Frame to Copy.");
                 return;
             }
             if (MainListView.SelectedIndices.Count > 1)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You may only copy on Frame at a time.");
+                DSGMlib.MsgWarn("You may only copy on Frame at a time.");
                 return;
             }
             Clipboard.SetImage(MainImageList.Images[MainListView.SelectedIndices[0]]);
@@ -323,12 +323,12 @@ namespace DS_Game_Maker
         {
             if (MainListView.SelectedIndices.Count == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must select a Frame to Copy.");
+                DSGMlib.MsgWarn("You must select a Frame to Copy.");
                 return;
             }
             if (MainListView.SelectedIndices.Count > 1)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You may only copy on Frame at a time.");
+                DSGMlib.MsgWarn("You may only copy on Frame at a time.");
                 return;
             }
             Clipboard.SetImage(MainImageList.Images[MainListView.SelectedIndices[0]]);
@@ -349,7 +349,7 @@ namespace DS_Game_Maker
             // TransformSprite.MainTabControl.TabPages(0).Text += If(MainListView.SelectedIndices.Count > 1, "s", String.Empty)
             Program.Forms.transformSprite_Form.ImagePaths.Clear();
             foreach (byte X in MainListView.SelectedIndices)
-                Program.Forms.transformSprite_Form.ImagePaths.Add(DS_Game_Maker.SessionsLib.SessionPath + "Sprites/" + X.ToString() + "_" + SpriteName + ".png");
+                Program.Forms.transformSprite_Form.ImagePaths.Add(SessionsLib.SessionPath + "Sprites/" + X.ToString() + "_" + SpriteName + ".png");
             Program.Forms.transformSprite_Form.ShowDialog();
             DataChanged = true;
         }
@@ -359,10 +359,10 @@ namespace DS_Game_Maker
             byte MSResponse = (byte)MessageBox.Show("Importing from a Sheet will remove all existing frames." + Constants.vbCrLf + Constants.vbCrLf + "Would you like to Continue?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (!(MSResponse == (int)MsgBoxResult.Yes))
                 return;
-            string Response = DS_Game_Maker.DSGMlib.OpenFile(string.Empty, DS_Game_Maker.DSGMlib.ImageFilter);
+            string Response = DSGMlib.OpenFile(string.Empty, DSGMlib.ImageFilter);
             if (Response.Length == 0)
                 return;
-            string ThePath = DS_Game_Maker.SessionsLib.SessionPath + "Sprites/" + SpriteName + "_Import";
+            string ThePath = SessionsLib.SessionPath + "Sprites/" + SpriteName + "_Import";
             Directory.CreateDirectory(ThePath);
 
 
@@ -384,14 +384,14 @@ namespace DS_Game_Maker
             foreach (string X in Directory.GetFiles(ThePath))
             {
                 if (ImageCount == 0)
-                    MainImageList.ImageSize = DS_Game_Maker.DSGMlib.PathToImage(X).Size;
+                    MainImageList.ImageSize = DSGMlib.PathToImage(X).Size;
                 ImageCount = (short)(ImageCount + 1);
             }
             TimesChanged = 0;
             for (short X = 0, loopTo = (short)(ImageCount - 1); X <= loopTo; X++)
             {
                 string TheKey = "Frame_" + MainImageList.Images.Count.ToString();
-                MainImageList.Images.Add(TheKey, DS_Game_Maker.DSGMlib.PathToImage(ThePath + @"\" + X.ToString() + ".png"));
+                MainImageList.Images.Add(TheKey, DSGMlib.PathToImage(ThePath + @"\" + X.ToString() + ".png"));
                 MainListView.Items.Add(TheKey.Replace("_", " "), MainImageList.Images.Count - 1);
                 File.Delete(ThePath + @"\" + X.ToString() + ".png");
                 // File.Move(ThePath + "\" + X.ToString + ".png", SessionPath + "Sprites\" + X.ToString + "_" + SpriteName + ".png")
@@ -436,25 +436,25 @@ namespace DS_Game_Maker
             string NewName = NameTextBox.Text;
             if (NewName == "None")
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("'None' is not a valid name.");
+                DSGMlib.MsgWarn("'None' is not a valid name.");
                 return;
             }
             if (!((SpriteName ?? "") == (NewName ?? "")))
             {
-                if (DS_Game_Maker.DSGMlib.GUIResNameChecker(NewName))
+                if (DSGMlib.GUIResNameChecker(NewName))
                     return;
-                if (File.Exists(DS_Game_Maker.SessionsLib.CompilePath + "gfx/" + SpriteName + ".png"))
+                if (File.Exists(SessionsLib.CompilePath + "gfx/" + SpriteName + ".png"))
                 {
-                    DS_Game_Maker.DSGMlib.SilentMoveFile(DS_Game_Maker.SessionsLib.CompilePath + "gfx/" + SpriteName + ".png", DS_Game_Maker.SessionsLib.CompilePath + "gfx/" + NewName + ".png");
+                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + "gfx/" + SpriteName + ".png", SessionsLib.CompilePath + "gfx/" + NewName + ".png");
                 }
-                if (File.Exists(DS_Game_Maker.SessionsLib.CompilePath + "gfx/bin/" + SpriteName + "_Sprite.bin"))
+                if (File.Exists(SessionsLib.CompilePath + "gfx/bin/" + SpriteName + "_Sprite.bin"))
                 {
-                    DS_Game_Maker.DSGMlib.SilentMoveFile(DS_Game_Maker.SessionsLib.CompilePath + "gfx/bin/" + SpriteName + "_Sprite.bin", DS_Game_Maker.SessionsLib.CompilePath + "gfx/bin/" + NewName + "_Sprite.bin");
+                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + "gfx/bin/" + SpriteName + "_Sprite.bin", SessionsLib.CompilePath + "gfx/bin/" + NewName + "_Sprite.bin");
                 }
-                var BackupDate = File.GetLastWriteTime(DS_Game_Maker.SessionsLib.CompilePath + "gfx/dsgm_gfx.h");
+                var BackupDate = File.GetLastWriteTime(SessionsLib.CompilePath + "gfx/dsgm_gfx.h");
                 string FinalString = string.Empty;
                 string ToAdd = string.Empty;
-                foreach (string X in DS_Game_Maker.DSGMlib.StringToLines(DS_Game_Maker.DSGMlib.PathToString(DS_Game_Maker.SessionsLib.CompilePath + "gfx/dsgm_gfx.h")))
+                foreach (string X in DSGMlib.StringToLines(DSGMlib.PathToString(SessionsLib.CompilePath + "gfx/dsgm_gfx.h")))
                 {
                     ToAdd = X;
                     if (X.Contains(" char " + SpriteName + "_Sprite["))
@@ -463,35 +463,35 @@ namespace DS_Game_Maker
                     }
                     FinalString += ToAdd + Constants.vbCrLf;
                 }
-                File.WriteAllText(DS_Game_Maker.SessionsLib.CompilePath + @"gfx\dsgm_gfx.h", FinalString);
-                File.SetLastWriteTime(DS_Game_Maker.SessionsLib.CompilePath + @"gfx\dsgm_gfx.h", BackupDate);
+                File.WriteAllText(SessionsLib.CompilePath + @"gfx\dsgm_gfx.h", FinalString);
+                File.SetLastWriteTime(SessionsLib.CompilePath + @"gfx\dsgm_gfx.h", BackupDate);
             }
-            if (File.Exists(DS_Game_Maker.SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.h"))
+            if (File.Exists(SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.h"))
             {
-                File.Delete(DS_Game_Maker.SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.h");
+                File.Delete(SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.h");
             }
-            if (File.Exists(DS_Game_Maker.SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.o"))
+            if (File.Exists(SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.o"))
             {
-                File.Delete(DS_Game_Maker.SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.o");
+                File.Delete(SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.o");
             }
-            string OldLine = DS_Game_Maker.DSGMlib.GetXDSLine("SPRITE " + SpriteName + ",");
+            string OldLine = DSGMlib.GetXDSLine("SPRITE " + SpriteName + ",");
             string NewLine = "SPRITE " + NewName + "," + MainImageList.ImageSize.Width.ToString() + "," + MainImageList.ImageSize.Height.ToString();
-            DS_Game_Maker.DSGMlib.XDSChangeLine(OldLine, NewLine);
+            DSGMlib.XDSChangeLine(OldLine, NewLine);
             var AffectedObjects = new List<string>();
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECT "))
+            foreach (string X in DSGMlib.GetXDSFilter("OBJECT "))
             {
-                if ((DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",") ?? "") == (SpriteName ?? ""))
-                    AffectedObjects.Add(DS_Game_Maker.DSGMlib.iGet(X.Substring(7), (byte)0, ","));
+                if ((DSGMlib.iGet(X, (byte)1, ",") ?? "") == (SpriteName ?? ""))
+                    AffectedObjects.Add(DSGMlib.iGet(X.Substring(7), (byte)0, ","));
             }
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECT "))
+            foreach (string X in DSGMlib.GetXDSFilter("OBJECT "))
             {
-                if (!((DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",") ?? "") == (SpriteName ?? "")))
+                if (!((DSGMlib.iGet(X, (byte)1, ",") ?? "") == (SpriteName ?? "")))
                     continue;
-                string ObjectName = DS_Game_Maker.DSGMlib.iGet(X.Substring(7), (byte)0, ",");
-                string ObjectFrame = DS_Game_Maker.DSGMlib.iGet(X.Substring(7), (byte)2, ",");
-                DS_Game_Maker.DSGMlib.XDSChangeLine(X, "OBJECT " + ObjectName + "," + NewName + "," + ObjectFrame);
+                string ObjectName = DSGMlib.iGet(X.Substring(7), (byte)0, ",");
+                string ObjectFrame = DSGMlib.iGet(X.Substring(7), (byte)2, ",");
+                DSGMlib.XDSChangeLine(X, "OBJECT " + ObjectName + "," + NewName + "," + ObjectFrame);
             }
-            foreach (string X_ in Directory.GetFiles(DS_Game_Maker.SessionsLib.SessionPath + "Sprites"))
+            foreach (string X_ in Directory.GetFiles(SessionsLib.SessionPath + "Sprites"))
             {
                 string X = X_;
                 string Backup = X;
@@ -504,18 +504,18 @@ namespace DS_Game_Maker
                     File.Delete(Backup);
             }
             for (short X = 0, loopTo = (short)(MainImageList.Images.Count - 1); X <= loopTo; X++)
-                MainImageList.Images[X].Save(DS_Game_Maker.SessionsLib.SessionPath + "Sprites/" + X.ToString() + "_" + NewName + ".png");
+                MainImageList.Images[X].Save(SessionsLib.SessionPath + "Sprites/" + X.ToString() + "_" + NewName + ".png");
             foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (X.Name == "DObject")
                 {
-                    DS_Game_Maker.DObject DForm = (DS_Game_Maker.DObject)X;
+                    DObject DForm = (DObject)X;
                     // MsgError(DForm.SpriteDropper.Text)
                     DForm.ChangeSprite(SpriteName, NewName);
                 }
                 else if (X.Name == "Room")
                 {
-                    DS_Game_Maker.Room DForm = (DS_Game_Maker.Room)X;
+                    Room DForm = (Room)X;
                     byte TopAffected = 0;
                     byte BottomAffected = 0;
                     for (byte DOn = 0, loopTo1 = (byte)(DForm.Objects.Count() - 1); DOn <= loopTo1; DOn++)
@@ -526,7 +526,7 @@ namespace DS_Game_Maker
                                 TopAffected = (byte)(TopAffected + 1);
                             else
                                 BottomAffected = (byte)(BottomAffected + 1);
-                            DForm.Objects[(int)DOn].CacheImage = DS_Game_Maker.DSGMlib.ObjectGetImage(DForm.Objects[(int)DOn].ObjectName);
+                            DForm.Objects[(int)DOn].CacheImage = DSGMlib.ObjectGetImage(DForm.Objects[(int)DOn].ObjectName);
                         }
                     }
                     if (TopAffected > 0)
@@ -535,20 +535,20 @@ namespace DS_Game_Maker
                         DForm.RefreshRoom(false);
                 }
             }
-            DS_Game_Maker.DSGMlib.UpdateArrayActionsName("Sprite", SpriteName, NewName, false);
-            DS_Game_Maker.DSGMlib.CurrentXDS = DS_Game_Maker.DSGMlib.UpdateActionsName(DS_Game_Maker.DSGMlib.CurrentXDS, "Sprite", SpriteName, NewName, false);
-            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Sprite].Nodes)
+            DSGMlib.UpdateArrayActionsName("Sprite", SpriteName, NewName, false);
+            DSGMlib.CurrentXDS = DSGMlib.UpdateActionsName(DSGMlib.CurrentXDS, "Sprite", SpriteName, NewName, false);
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DSGMlib.ResourceIDs.Sprite].Nodes)
             {
                 if ((X.Text ?? "") == (SpriteName ?? ""))
                     X.Text = NewName;
             }
-            DS_Game_Maker.DSGMlib.RedoSprites = DataChanged;
+            DSGMlib.RedoSprites = DataChanged;
             Close();
         }
 
         public Bitmap GetMagentaedBMP(string Path)
         {
-            Bitmap TMP = (Bitmap)DS_Game_Maker.DSGMlib.PathToImage(Path);
+            Bitmap TMP = (Bitmap)DSGMlib.PathToImage(Path);
             for (byte x = 0, loopTo = (byte)(TMP.Width - 1); x <= loopTo; x++)
             {
                 for (byte y = 0, loopTo1 = (byte)(TMP.Height - 1); y <= loopTo1; y++)
@@ -571,10 +571,10 @@ namespace DS_Game_Maker
         {
             MainImageList.Images.Clear();
             MainListView.Items.Clear();
-            string Result = DS_Game_Maker.DSGMlib.OpenFile(string.Empty, DS_Game_Maker.DSGMlib.ImageFilter);
+            string Result = DSGMlib.OpenFile(string.Empty, DSGMlib.ImageFilter);
             if (Result.Length == 0)
                 return;
-            Bitmap TMP = (Bitmap)DS_Game_Maker.DSGMlib.PathToImage(Result);
+            Bitmap TMP = (Bitmap)DSGMlib.PathToImage(Result);
             if (!IsSpriteSizeOkay(TMP.Size))
             {
                 Program.Forms.badSpriteSize_Form.ShowDialog();

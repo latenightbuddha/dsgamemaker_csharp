@@ -30,16 +30,16 @@ namespace DS_Game_Maker
 
         private void Sound_Load(object sender, EventArgs e)
         {
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
             Text = SoundName;
             NameTextBox.Text = SoundName;
-            XDSLine = DS_Game_Maker.DSGMlib.GetXDSLine("SOUND " + SoundName + ",");
-            if (DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)1, ",") == "1")
+            XDSLine = DSGMlib.GetXDSLine("SOUND " + SoundName + ",");
+            if (DSGMlib.iGet(XDSLine, (byte)1, ",") == "1")
                 SoundType = true;
             else
                 SoundType = false;
             SoundTypeString = "." + (SoundType ? "mp3" : "wav");
-            OldPath = DS_Game_Maker.SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString;
+            OldPath = SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString;
             NewPath = OldPath;
             InfoLabel.Text = SoundType ? "Background Sound" : "Sound Effect";
             if (!SoundType)
@@ -59,7 +59,7 @@ namespace DS_Game_Maker
             string NewName = NameTextBox.Text;
             if (!((NewName ?? "") == (SoundName ?? "")))
             {
-                if (DS_Game_Maker.DSGMlib.GUIResNameChecker(NewName))
+                if (DSGMlib.GUIResNameChecker(NewName))
                     return;
             }
             if (!SoundType)
@@ -75,7 +75,7 @@ namespace DS_Game_Maker
             if (!((NewName ?? "") == (SoundName ?? "")))
             {
                 string NewLine = "SOUND " + NewName + "," + (SoundType ? "1" : "0");
-                DS_Game_Maker.DSGMlib.XDSChangeLine(XDSLine, NewLine);
+                DSGMlib.XDSChangeLine(XDSLine, NewLine);
             }
             if (!((OldPath ?? "") == (NewPath ?? "")))
             {
@@ -85,25 +85,25 @@ namespace DS_Game_Maker
             string SoundTypeString = "." + (SoundType ? "mp3" : "wav");
             if (!((NewName ?? "") == (SoundName ?? "")))
             {
-                File.Move(DS_Game_Maker.SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString, DS_Game_Maker.SessionsLib.SessionPath + @"Sounds\" + NewName + SoundTypeString);
+                File.Move(SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString, SessionsLib.SessionPath + @"Sounds\" + NewName + SoundTypeString);
                 if (SoundType)
                 {
-                    if (File.Exists(DS_Game_Maker.SessionsLib.CompilePath + @"nitrofiles\" + SoundName + ".mp3"))
+                    if (File.Exists(SessionsLib.CompilePath + @"nitrofiles\" + SoundName + ".mp3"))
                     {
-                        File.Move(DS_Game_Maker.SessionsLib.CompilePath + @"nitrofiles\" + SoundName + ".mp3", DS_Game_Maker.SessionsLib.CompilePath + @"nitrofiles\" + NewName + ".mp3");
+                        File.Move(SessionsLib.CompilePath + @"nitrofiles\" + SoundName + ".mp3", SessionsLib.CompilePath + @"nitrofiles\" + NewName + ".mp3");
                     }
                 }
-                else if (File.Exists(DS_Game_Maker.SessionsLib.CompilePath + @"data\" + SoundName + ".raw"))
+                else if (File.Exists(SessionsLib.CompilePath + @"data\" + SoundName + ".raw"))
                 {
-                    File.Move(DS_Game_Maker.SessionsLib.CompilePath + @"data\" + SoundName + ".raw", DS_Game_Maker.SessionsLib.CompilePath + @"nitrofiles\" + NewName + ".raw");
+                    File.Move(SessionsLib.CompilePath + @"data\" + SoundName + ".raw", SessionsLib.CompilePath + @"nitrofiles\" + NewName + ".raw");
                 }
-                if (DS_Game_Maker.DSGMlib.SoundsToRedo.Contains(SoundName))
+                if (DSGMlib.SoundsToRedo.Contains(SoundName))
                 {
-                    DS_Game_Maker.DSGMlib.SoundsToRedo.Remove(SoundName);
-                    DS_Game_Maker.DSGMlib.SoundsToRedo.Add(NewName);
+                    DSGMlib.SoundsToRedo.Remove(SoundName);
+                    DSGMlib.SoundsToRedo.Add(NewName);
                 }
             }
-            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Sound].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DSGMlib.ResourceIDs.Sound].Nodes)
             {
                 if ((X.Text ?? "") == (SoundName ?? ""))
                     X.Text = NewName;
@@ -114,13 +114,13 @@ namespace DS_Game_Maker
         private void LoadButton_Click(object sender, EventArgs e)
         {
             string Filter = (SoundType ? "MP3" : "WAV") + " Files|*." + (SoundType ? "mp3" : "wav");
-            string Result = DS_Game_Maker.DSGMlib.OpenFile(string.Empty, Filter);
+            string Result = DSGMlib.OpenFile(string.Empty, Filter);
             if (Result.Length == 0)
                 return;
             NewPath = Result;
             if (!SoundType)
                 P.SoundLocation = Result;
-            DS_Game_Maker.DSGMlib.AddSoundToRedo(SoundName);
+            DSGMlib.AddSoundToRedo(SoundName);
             if (SoundType)
             {
                 SProc.Arguments = "\"" + NewPath + "\"";
@@ -129,19 +129,19 @@ namespace DS_Game_Maker
 
         private void EditButton_Click(object sender, EventArgs e)
         {
-            string FinalEXE = DS_Game_Maker.SettingsLib.GetSetting("SOUND_EDITOR_PATH");
+            string FinalEXE = SettingsLib.GetSetting("SOUND_EDITOR_PATH");
             if (FinalEXE.Length == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("No Sound Editor has been defined. See 'Options'.");
+                DSGMlib.MsgWarn("No Sound Editor has been defined. See 'Options'.");
                 return;
             }
             if (!File.Exists(FinalEXE))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("Your Sound Editor EXE is not present. See 'Options'.");
+                DSGMlib.MsgWarn("Your Sound Editor EXE is not present. See 'Options'.");
                 return;
             }
-            string ThePath = DS_Game_Maker.SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString;
-            string CopyPath = DS_Game_Maker.SessionsLib.SessionPath + @"Sounds\" + SoundName + "_Copy" + SoundTypeString;
+            string ThePath = SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString;
+            string CopyPath = SessionsLib.SessionPath + @"Sounds\" + SoundName + "_Copy" + SoundTypeString;
             try
             {
                 if (File.Exists(CopyPath))
@@ -150,17 +150,17 @@ namespace DS_Game_Maker
             }
             catch (Exception ex)
             {
-                DS_Game_Maker.DSGMlib.MsgError("This sound cannot be edited because its file is locked." + Constants.vbCrLf + Constants.vbCrLf + "(" + ex.Message + ")");
+                DSGMlib.MsgError("This sound cannot be edited because its file is locked." + Constants.vbCrLf + Constants.vbCrLf + "(" + ex.Message + ")");
                 return;
             }
-            if (!DS_Game_Maker.DSGMlib.EditSound(CopyPath, SoundName))
+            if (!DSGMlib.EditSound(CopyPath, SoundName))
             {
                 File.Delete(CopyPath);
                 return;
             }
             File.Delete(ThePath);
             File.Move(CopyPath, ThePath);
-            DS_Game_Maker.DSGMlib.AddSoundToRedo(SoundName);
+            DSGMlib.AddSoundToRedo(SoundName);
         }
 
         private void PlayButton_Click(object sender, EventArgs e)

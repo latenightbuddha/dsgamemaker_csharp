@@ -35,7 +35,7 @@ namespace DS_Game_Maker
             Names.Clear();
             Types.Clear();
             Values.Clear();
-            foreach (string X_ in DS_Game_Maker.DSGMlib.GetXDSFilter("STRUCT "))
+            foreach (string X_ in DSGMlib.GetXDSFilter("STRUCT "))
             {
                 string X = X_;
                 X = X.Substring(7);
@@ -98,15 +98,15 @@ namespace DS_Game_Maker
             short ToUse = 1;
             for (int i = 1; i <= 1000; i++)
             {
-                if (!DS_Game_Maker.DSGMlib.DoesXDSLineExist("STRUCT Structure_" + i.ToString()))
+                if (!DSGMlib.DoesXDSLineExist("STRUCT Structure_" + i.ToString()))
                 {
                     ToUse = (short)i;
                     break;
                 }
             }
             string TheName = "Structure_" + ToUse.ToString();
-            DS_Game_Maker.DSGMlib.XDSAddLine("STRUCT " + TheName);
-            DS_Game_Maker.DSGMlib.XDSAddLine("STRUCTMEMBER " + TheName + ",Item_1,Integer,0");
+            DSGMlib.XDSAddLine("STRUCT " + TheName);
+            DSGMlib.XDSAddLine("STRUCTMEMBER " + TheName + ",Item_1,Integer,0");
             Structures.Add(TheName);
             SaveOnChange = StructuresList.SelectedIndices.Count == 1;
             StructuresList.Items.Add(TheName);
@@ -124,11 +124,11 @@ namespace DS_Game_Maker
             Values.Clear();
             MembersList.Items.Clear();
             NameTextBox.Text = string.Empty;
-            DS_Game_Maker.DSGMlib.XDSRemoveLine("STRUCT " + CurrentName);
-            DS_Game_Maker.DSGMlib.XDSRemoveFilter("STRUCTMEMBER " + CurrentName + ",");
+            DSGMlib.XDSRemoveLine("STRUCT " + CurrentName);
+            DSGMlib.XDSRemoveFilter("STRUCTMEMBER " + CurrentName + ",");
             string Message = "You have just deleted '" + CurrentName + "'." + Constants.vbCrLf + Constants.vbCrLf;
             Message += "Be sure to update any logic that uses this Structure.";
-            DS_Game_Maker.DSGMlib.MsgInfo(Message);
+            DSGMlib.MsgInfo(Message);
             SaveOnChange = false;
             if (StructuresList.Items.Count > 0)
             {
@@ -144,7 +144,7 @@ namespace DS_Game_Maker
         {
             if (Structures.Count == 0)
                 return;
-            if (DS_Game_Maker.DSGMlib.ValidateSomething(NameTextBox.Text, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.Tight))
+            if (DSGMlib.ValidateSomething(NameTextBox.Text, (byte)DSGMlib.ValidateLevel.Tight))
             {
                 NameTextBox.BackColor = Color.FromArgb(64, 64, 64);
                 AllowChangeOrQuit = true;
@@ -168,8 +168,8 @@ namespace DS_Game_Maker
             string OldName = Structures[OldIndex];
             // Structures(OldIndex) = NameTextBox.Text
             // StructuresList.Items(OldIndex) = NameTextBox.Text
-            DS_Game_Maker.DSGMlib.XDSChangeLine("STRUCT " + OldName, "STRUCT " + NameTextBox.Text);
-            DS_Game_Maker.DSGMlib.XDSRemoveFilter("STRUCTMEMBER " + OldName + ",");
+            DSGMlib.XDSChangeLine("STRUCT " + OldName, "STRUCT " + NameTextBox.Text);
+            DSGMlib.XDSRemoveFilter("STRUCTMEMBER " + OldName + ",");
             if (Names.Count > 0)
             {
                 for (byte P = 0, loopTo = (byte)(Names.Count - 1); P <= loopTo; P++)
@@ -178,7 +178,7 @@ namespace DS_Game_Maker
                     FS += Names[P] + ",";
                     FS += Types[P] + ",";
                     FS += Values[P].Replace(",", "<comma>");
-                    DS_Game_Maker.DSGMlib.XDSAddLine(FS);
+                    DSGMlib.XDSAddLine(FS);
                 }
             }
 
@@ -204,8 +204,8 @@ namespace DS_Game_Maker
                 string OldName = Structures[OldIndex];
                 Structures[OldIndex] = NameTextBox.Text;
                 StructuresList.Items[OldIndex] = NameTextBox.Text;
-                DS_Game_Maker.DSGMlib.XDSChangeLine("STRUCT " + OldName, "STRUCT " + NameTextBox.Text);
-                DS_Game_Maker.DSGMlib.XDSRemoveFilter("STRUCTMEMBER " + OldName + ",");
+                DSGMlib.XDSChangeLine("STRUCT " + OldName, "STRUCT " + NameTextBox.Text);
+                DSGMlib.XDSRemoveFilter("STRUCTMEMBER " + OldName + ",");
                 if (Names.Count > 0)
                 {
                     for (byte P = 0, loopTo = (byte)(Names.Count - 1); P <= loopTo; P++)
@@ -214,7 +214,7 @@ namespace DS_Game_Maker
                         FS += Names[P] + ",";
                         FS += Types[P] + ",";
                         FS += Values[P].Replace(",", "<comma>");
-                        DS_Game_Maker.DSGMlib.XDSAddLine(FS);
+                        DSGMlib.XDSAddLine(FS);
                     }
                 }
                 // For Each X As String In GetXDSFilter("STRUCTMEMBER " + OldName + ",")
@@ -227,7 +227,7 @@ namespace DS_Game_Maker
             Types.Clear();
             Values.Clear();
             MembersList.Items.Clear();
-            foreach (string P_ in DS_Game_Maker.DSGMlib.GetXDSFilter("STRUCTMEMBER " + CurrentName + ","))
+            foreach (string P_ in DSGMlib.GetXDSFilter("STRUCTMEMBER " + CurrentName + ","))
             {
                 string P = P_;
                 P = P.Substring(("STRUCTMEMBER " + CurrentName).Length + 1);

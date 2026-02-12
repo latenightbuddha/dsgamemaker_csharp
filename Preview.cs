@@ -23,8 +23,8 @@ namespace DS_Game_Maker
             var NewGFX = Graphics.FromImage(Returnable);
             NewGFX.DrawImage(TheImage, new Point(0, FrameNumber * ImageSize.Height * -1));
             NewGFX.Dispose();
-            if ((int)Convert.ToByte(DS_Game_Maker.SettingsLib.GetSetting("TRANSPARENT_ANIMATIONS")) == 1)
-                Returnable = (Bitmap)DS_Game_Maker.DSGMlib.MakeBMPTransparent(Returnable, Color.Magenta);
+            if ((int)Convert.ToByte(SettingsLib.GetSetting("TRANSPARENT_ANIMATIONS")) == 1)
+                Returnable = (Bitmap)DSGMlib.MakeBMPTransparent(Returnable, Color.Magenta);
             return Returnable;
         }
 

@@ -21,9 +21,9 @@ namespace DS_Game_Maker
                 return ActionName;
             foreach (string Y in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + ActionName + ".action"))
             {
-                for (int Z = 0, loopTo = (int)DS_Game_Maker.DSGMlib.HowManyChar(ActionArguments, ";"); Z <= loopTo; Z++)
+                for (int Z = 0, loopTo = (int)DSGMlib.HowManyChar(ActionArguments, ";"); Z <= loopTo; Z++)
                 {
-                    string Argument = DS_Game_Maker.DSGMlib.iGet(ActionArguments, (byte)Z, ";");
+                    string Argument = DSGMlib.iGet(ActionArguments, (byte)Z, ";");
                     string StringThing = Argument;
                     if (StringThing == "1")
                         StringThing = "true";
@@ -31,7 +31,7 @@ namespace DS_Game_Maker
                         StringThing = "false";
                     if (StringThing == "<" | StringThing == ">" | StringThing == ">=" | StringThing == "<=" | StringThing == "==")
                     {
-                        StringThing = DS_Game_Maker.ScriptsLib.ComparativeToString(StringThing);
+                        StringThing = ScriptsLib.ComparativeToString(StringThing);
                     }
                     string ScreenThing = Argument;
                     if (ScreenThing == "1")
@@ -80,7 +80,7 @@ namespace DS_Game_Maker
         {
             var TBMP = new Bitmap(32, 32);
             var TBMPGFX = Graphics.FromImage(TBMP);
-            Bitmap TIcon = (Bitmap)DS_Game_Maker.DSGMlib.PathToImage(ActionGetIconPath(ActionName, true));
+            Bitmap TIcon = (Bitmap)DSGMlib.PathToImage(ActionGetIconPath(ActionName, true));
             if (TIcon.Width == 32)
             {
                 TBMPGFX.DrawImageUnscaled(Properties.Resources.ActionBacker, 0, 0);
@@ -90,11 +90,11 @@ namespace DS_Game_Maker
             {
                 if (ActionIsConditional(ActionName))
                 {
-                    TBMPGFX.DrawImageUnscaled(DS_Game_Maker.DSGMlib.ActionConditionalBG, 0, 0);
+                    TBMPGFX.DrawImageUnscaled(DSGMlib.ActionConditionalBG, 0, 0);
                 }
                 else
                 {
-                    TBMPGFX.DrawImageUnscaled(DS_Game_Maker.DSGMlib.ActionBG, 0, 0);
+                    TBMPGFX.DrawImageUnscaled(DSGMlib.ActionBG, 0, 0);
                 }
                 TBMPGFX.DrawImageUnscaled(TIcon, new Point(8, 8));
             }

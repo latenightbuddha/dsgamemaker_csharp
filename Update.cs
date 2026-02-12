@@ -21,8 +21,8 @@ namespace DS_Game_Maker
 
         private void InstallButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.DSGMlib.URL(DS_Game_Maker.DSGMlib.Domain + "downloads/Install" + DS_Game_Maker.DSGMlib.UpdateVersion.ToString() + ".exe");
-            DS_Game_Maker.DSGMlib.MsgInfo("Thanks for choosing to keep " + Application.ProductName + " up to date." + Constants.vbCrLf + Constants.vbCrLf + "The program will now exit so that the update may install.");
+            DSGMlib.URL(DSGMlib.Domain + "downloads/Install" + DSGMlib.UpdateVersion.ToString() + ".exe");
+            DSGMlib.MsgInfo("Thanks for choosing to keep " + Application.ProductName + " up to date." + Constants.vbCrLf + Constants.vbCrLf + "The program will now exit so that the update may install.");
             Environment.Exit(0);
         }
 
@@ -31,13 +31,13 @@ namespace DS_Game_Maker
             if (HasShown)
                 return;
             InstallButton.Focus();
-            MainWebBrowser.Navigate(DS_Game_Maker.DSGMlib.Domain + "DSGM5RegClient/" + DS_Game_Maker.DSGMlib.UpdateVersion.ToString() + ".php");
+            MainWebBrowser.Navigate(DSGMlib.Domain + "DSGM5RegClient/" + DSGMlib.UpdateVersion.ToString() + ".php");
             HasShown = true;
         }
 
         private void Update_Load(object sender, EventArgs e)
         {
-            string VersionString = DS_Game_Maker.DSGMlib.UpdateVersion.ToString();
+            string VersionString = DSGMlib.UpdateVersion.ToString();
             TitleLabel.Text = "Version " + VersionString.Substring(0, 1) + "." + VersionString.Substring(1, 2) + " is Available";
         }
 
@@ -45,7 +45,7 @@ namespace DS_Game_Maker
         {
             if (e.Url.ToString().Contains("dsgmforum"))
             {
-                DS_Game_Maker.DSGMlib.URL(e.Url.ToString());
+                DSGMlib.URL(e.Url.ToString());
                 e.Cancel = true;
             }
         }

@@ -27,20 +27,20 @@ namespace DS_Game_Maker
         {
             SetEnablity(false);
             TypeList.Items.Clear();
-            foreach (string X in DS_Game_Maker.ScriptsLib.VariableTypes)
+            foreach (string X in ScriptsLib.VariableTypes)
                 TypeList.Items.Add(X);
-            foreach (string P in DS_Game_Maker.DSGMlib.GetXDSFilter("STRUCT "))
+            foreach (string P in DSGMlib.GetXDSFilter("STRUCT "))
                 TypeList.Items.Add(P.Substring(7));
             Variables.Clear();
             MyVariableTypes.Clear();
             VariableValues.Clear();
-            foreach (string X_ in DS_Game_Maker.DSGMlib.GetXDSFilter("GLOBAL "))
+            foreach (string X_ in DSGMlib.GetXDSFilter("GLOBAL "))
             {
                 string X = X_;
                 X = X.Substring(7);
-                Variables.Add(DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ","));
-                MyVariableTypes.Add(DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ","));
-                VariableValues.Add(DS_Game_Maker.DSGMlib.iGet(X, (byte)2, ","));
+                Variables.Add(DSGMlib.iGet(X, (byte)0, ","));
+                MyVariableTypes.Add(DSGMlib.iGet(X, (byte)1, ","));
+                VariableValues.Add(DSGMlib.iGet(X, (byte)2, ","));
             }
             VariablesList.Items.Clear();
             if (Variables.Count > 0)
@@ -88,7 +88,7 @@ namespace DS_Game_Maker
                 SetEnablity(false);
             }
             Message += "Be sure to update any logic that uses this Variable.";
-            DS_Game_Maker.DSGMlib.MsgInfo(Message);
+            DSGMlib.MsgInfo(Message);
             CurrentName = string.Empty;
         }
 
@@ -189,7 +189,7 @@ namespace DS_Game_Maker
         {
             if (Variables.Count == 0)
                 return;
-            if (DS_Game_Maker.DSGMlib.ValidateSomething(NameTextBox.Text, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.Tight))
+            if (DSGMlib.ValidateSomething(NameTextBox.Text, (byte)DSGMlib.ValidateLevel.Tight))
             {
                 NameTextBox.BackColor = Color.FromArgb(64, 64, 64);
                 Variables[VariablesList.SelectedIndex] = NameTextBox.Text;
@@ -277,13 +277,13 @@ namespace DS_Game_Maker
                 e.Cancel = true;
                 return;
             }
-            DS_Game_Maker.DSGMlib.XDSRemoveFilter("GLOBAL ");
+            DSGMlib.XDSRemoveFilter("GLOBAL ");
             for (short i = 0, loopTo = (short)(Variables.Count - 1); i <= loopTo; i++)
             {
                 string NewLine = "GLOBAL " + Variables[i] + ",";
                 NewLine += MyVariableTypes[i] + ",";
                 NewLine += VariableValues[i];
-                DS_Game_Maker.DSGMlib.XDSAddLine(NewLine);
+                DSGMlib.XDSAddLine(NewLine);
             }
         }
     }

@@ -16,13 +16,13 @@ namespace DS_Game_Maker
             {
                 FinalString = "int " + ScriptName + "(";
                 string ArgumentString = string.Empty;
-                byte CommaCount = (byte)DS_Game_Maker.DSGMlib.HowManyChar(Arguments, ",");
+                byte CommaCount = (byte)DSGMlib.HowManyChar(Arguments, ",");
                 if (Arguments.Length > 0)
                 {
                     for (byte i = 0, loopTo = CommaCount; i <= loopTo; i++)
                     {
-                        string ArgumentType = ScriptsLib.GenerateCType(DS_Game_Maker.DSGMlib.iGet(ArgumentTypes, i, ","));
-                        string ArgumentName = DS_Game_Maker.DSGMlib.iGet(Arguments, i, ",");
+                        string ArgumentType = ScriptsLib.GenerateCType(DSGMlib.iGet(ArgumentTypes, i, ","));
+                        string ArgumentName = DSGMlib.iGet(Arguments, i, ",");
                         ArgumentString += ArgumentType + " ";
                         if (ArgumentType == "char")
                             ArgumentString += "*";
@@ -39,11 +39,11 @@ namespace DS_Game_Maker
             }
             if (IsC)
             {
-                foreach (string P in DS_Game_Maker.DSGMlib.StringToLines(ScriptContent))
+                foreach (string P in DSGMlib.StringToLines(ScriptContent))
                 {
                     if (P.Length == 0)
                         continue;
-                    FinalString = Conversions.ToString(FinalString + Operators.AddObject(Operators.AddObject(DS_Game_Maker.DSGMlib.MakeSpaces((byte)2), P), Constants.vbCrLf));
+                    FinalString = Conversions.ToString(FinalString + Operators.AddObject(Operators.AddObject(DSGMlib.MakeSpaces((byte)2), P), Constants.vbCrLf));
                 }
                 FinalString += "  return 0;" + Constants.vbCrLf;
                 FinalString += "}";
@@ -52,7 +52,7 @@ namespace DS_Game_Maker
             byte IndentChange = 0;
             byte CurrentIndent = (byte)(IsLocal ? 0 : 1);
             var StringVariables = new List<string>();
-            foreach (string X_ in DS_Game_Maker.DSGMlib.StringToLines(ScriptContent))
+            foreach (string X_ in DSGMlib.StringToLines(ScriptContent))
             {
                 string X = X_;
                 if (X.Length == 0)
@@ -319,19 +319,19 @@ namespace DS_Game_Maker
         {
             string ArgumentsString = string.Empty;
             string ArgumentTypesString = string.Empty;
-            foreach (string X_ in DS_Game_Maker.DSGMlib.GetXDSFilter("SCRIPTARG " + ScriptName + ","))
+            foreach (string X_ in DSGMlib.GetXDSFilter("SCRIPTARG " + ScriptName + ","))
             {
                 string X = X_;
                 X = X.Substring(10);
-                ArgumentsString += DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",") + ",";
-                ArgumentTypesString += DS_Game_Maker.DSGMlib.iGet(X, (byte)2, ",") + ",";
+                ArgumentsString += DSGMlib.iGet(X, (byte)1, ",") + ",";
+                ArgumentTypesString += DSGMlib.iGet(X, (byte)2, ",") + ",";
             }
             if (ArgumentsString.Length > 0)
             {
                 ArgumentsString = ArgumentsString.Substring(0, ArgumentsString.Length - 1);
                 ArgumentTypesString = ArgumentTypesString.Substring(0, ArgumentTypesString.Length - 1);
             }
-            return ScriptsLib.ScriptParseFromContent(ScriptName, DS_Game_Maker.DSGMlib.PathToString(DS_Game_Maker.SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas"), ArgumentsString, ArgumentTypesString, false, false, IsC);
+            return ScriptsLib.ScriptParseFromContent(ScriptName, DSGMlib.PathToString(SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas"), ArgumentsString, ArgumentTypesString, false, false, IsC);
         }
 
         public static string ActionTypeToString(byte ActionType)

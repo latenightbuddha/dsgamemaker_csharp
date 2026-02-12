@@ -18,7 +18,7 @@ namespace DS_Game_Maker
 
         private void EditCode_Load(object sender, EventArgs e)
         {
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
             LoadInButton.Enabled = ImportExport;
             SaveOutButton.Enabled = ImportExport;
             string NewCode = ReturnableCode;
@@ -67,12 +67,12 @@ namespace DS_Game_Maker
             byte MsgResponse = (byte)MessageBox.Show("Importing a Script will erase and replace the current code." + Constants.vbCrLf + Constants.vbCrLf + "Would you like to Continue?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (!(MsgResponse == (int)MsgBoxResult.Yes))
                 return;
-            string Response = DS_Game_Maker.DSGMlib.OpenFile(string.Empty, "Dynamic Basic Files|*.dbas");
+            string Response = DSGMlib.OpenFile(string.Empty, "Dynamic Basic Files|*.dbas");
             if (Response.Length == 0)
                 return;
-            string Content = DS_Game_Maker.DSGMlib.PathToString(Response);
+            string Content = DSGMlib.PathToString(Response);
             string FinalContent = string.Empty;
-            foreach (string X in DS_Game_Maker.DSGMlib.StringToLines(Content))
+            foreach (string X in DSGMlib.StringToLines(Content))
             {
                 if (X.StartsWith("SCRIPTARG "))
                     continue;
@@ -84,7 +84,7 @@ namespace DS_Game_Maker
 
         private void SaveOutButton_Click(object sender, EventArgs e)
         {
-            string Response = DS_Game_Maker.DSGMlib.SaveFile(string.Empty, "Dynamic Basic Files|*.dbas", "Expoted Code.dbas");
+            string Response = DSGMlib.SaveFile(string.Empty, "Dynamic Basic Files|*.dbas", "Expoted Code.dbas");
             if (Response.Length == 0)
                 return;
             string ToWrite = MainTextBox.Text;
@@ -97,7 +97,7 @@ namespace DS_Game_Maker
             //if (!(e.Ch == '\r'))
             //    return;
             ScintillaNET.Scintilla argTheControl = (ScintillaNET.Scintilla)sender;
-            DS_Game_Maker.DSGMlib.IntelliSense(ref argTheControl);
+            DSGMlib.IntelliSense(ref argTheControl);
             sender = argTheControl;
         }
 

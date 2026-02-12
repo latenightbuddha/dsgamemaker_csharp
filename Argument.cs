@@ -23,13 +23,13 @@ namespace DS_Game_Maker
             if (IsAction)
             {
                 for (byte X = 1; X <= 16; X++)
-                    TypeDropper.Items.Add(DS_Game_Maker.ScriptsLib.ArgumentTypeToString(X));
-                TypeDropper.Text = DS_Game_Maker.ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgumentType));
+                    TypeDropper.Items.Add(ScriptsLib.ArgumentTypeToString(X));
+                TypeDropper.Text = ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgumentType));
             }
             else
             {
-                for (byte X = 0, loopTo = (byte)(DS_Game_Maker.ScriptsLib.VariableTypes.Count - 1); X <= loopTo; X++)
-                    TypeDropper.Items.Add(DS_Game_Maker.ScriptsLib.VariableTypes[(int)X]);
+                for (byte X = 0, loopTo = (byte)(ScriptsLib.VariableTypes.Count - 1); X <= loopTo; X++)
+                    TypeDropper.Items.Add(ScriptsLib.VariableTypes[(int)X]);
                 TypeDropper.Text = ArgumentType;
             }
             NameTextBox.Text = ArgumentName;
@@ -40,7 +40,7 @@ namespace DS_Game_Maker
             ArgumentName = NameTextBox.Text;
             if (IsAction)
             {
-                ArgumentType = DS_Game_Maker.ScriptsLib.ArgumentStringToType(TypeDropper.Text).ToString();
+                ArgumentType = ScriptsLib.ArgumentStringToType(TypeDropper.Text).ToString();
             }
             else
             {

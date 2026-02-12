@@ -36,10 +36,10 @@ namespace DS_Game_Maker
                 return;
             byte XCount = 0;
             byte YCount = 0;
-            foreach (string X in DS_Game_Maker.DSGMlib.Numbers)
-                XCount = (byte)(XCount + DS_Game_Maker.DSGMlib.HowManyChar(XTextBox.Text, X));
-            foreach (string Y in DS_Game_Maker.DSGMlib.Numbers)
-                YCount = (byte)(YCount + DS_Game_Maker.DSGMlib.HowManyChar(YTextBox.Text, Y));
+            foreach (string X in DSGMlib.Numbers)
+                XCount = (byte)(XCount + DSGMlib.HowManyChar(XTextBox.Text, X));
+            foreach (string Y in DSGMlib.Numbers)
+                YCount = (byte)(YCount + DSGMlib.HowManyChar(YTextBox.Text, Y));
             if (!(XCount == XTextBox.Text.Length))
                 Enabled = false;
             if (!(YCount == YTextBox.Text.Length))
