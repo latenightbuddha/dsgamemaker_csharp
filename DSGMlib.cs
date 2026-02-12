@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Drawing;
 using System.Net;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace DS_Game_Maker
 {
@@ -1821,26 +1822,29 @@ namespace DS_Game_Maker
 
         public static bool EditImage(string FilePath, string ResourceName, bool CustomMessage)
         {
-            string FinalName = string.Empty;
-            string FinalEXE = string.Empty;
-            FinalEXE = SettingsLib.GetSetting("IMAGE_EDITOR_PATH");
+            string FinalEXE = SettingsLib.GetSetting("IMAGE_EDITOR_PATH");
+            FinalEXE = File.Exists(FinalEXE) ? FinalEXE : Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "mspaint.exe");
 
-            if (File.Exists(FinalEXE))
+            ProcessStartInfo startInfo = new()
             {
-                Process.Start(FinalEXE, "\"" + FilePath + "\"");
-            }
-            else
-            {
-                Process.Start(Environment.GetFolderPath(Environment.SpecialFolder.System) + "/mspaint.exe", "\"" + FilePath + "\"");
-            }
+                FileName = FinalEXE,
+                Arguments = $"\"{FilePath}\"",
+                WorkingDirectory = Path.GetDirectoryName(FilePath) ?? string.Empty,
+                UseShellExecute = true
+            };
+
+            Process.Start(startInfo);
+
+            //Process.Start(FinalEXE, "\"" + FilePath + ".png\"");
+
             string Message = "'" + ResourceName + "' has been opened. When you are finished, click 'OK'." + Constants.vbCrLf + Constants.vbCrLf + "To reverse any changes, please click 'Cancel'.";
             if (CustomMessage)
             {
                 Message = "'" + ResourceName + "' has been opened. When you are finished, click 'OK'." + Constants.vbCrLf + Constants.vbCrLf + "You should then re-add the Frame to the Sprite.";
             }
-            byte Response = (byte)MessageBox.Show(Message, Application.ProductName, CustomMessage ? MessageBoxButtons.OK : MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            DialogResult Response = MessageBox.Show(Message, Application.ProductName, CustomMessage ? MessageBoxButtons.OK : MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
 
-            if (MessageBox.Show(Message, "DSGMLib: Compile") == DialogResult.OK)
+            if (Response == DialogResult.OK)
             {
                 return true;
             }
@@ -1922,7 +1926,7 @@ namespace DS_Game_Maker
             if (!(OFD.ShowDialog() == DialogResult.OK))
                 Returnable = string.Empty;
             else
-                Returnable = OFD.FileName;
+                Returnable = OFD.FileName.Replace('\\', '/');
             OFD.Dispose();
             if (Returnable.Length > 0)
             {
