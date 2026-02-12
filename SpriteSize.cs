@@ -22,7 +22,7 @@ namespace DS_Game_Maker
             string X = SpritePath;
             X = X.Substring(X.LastIndexOf(@"\") + 1);
             X = X.Substring(0, X.IndexOf("."));
-            DS_Game_Maker.DSGMlib.EditImage(SpritePath, X, false);
+            DSGMlib.EditImage(SpritePath, X, false);
             Close();
         }
 

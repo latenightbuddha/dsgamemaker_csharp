@@ -58,7 +58,7 @@ namespace DS_Game_Maker
                 if (X.StartsWith("ARG "))
                 {
                     X = X.Substring(4);
-                    string ArgumentName = DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ",");
+                    string ArgumentName = DSGMlib.iGet(X, (byte)0, ",");
                     ArgumentsListLabel.Text += ArgumentName + Constants.vbCrLf;
                     ArgumentCount = (byte)(ArgumentCount + 1);
                 }
@@ -66,7 +66,7 @@ namespace DS_Game_Maker
             if (ArgumentCount == 0)
                 ArgumentsListLabel.Text = "<No Arguments>";
             bool RequiresPro = false;
-            foreach (string X in DS_Game_Maker.DSGMlib.ProActions)
+            foreach (string X in DSGMlib.ProActions)
             {
                 if ((X ?? "") == (ActionName ?? ""))
                     RequiresPro = true;
@@ -90,7 +90,7 @@ namespace DS_Game_Maker
             string ActionName = (string)DraggingFromBottom.Tag;
             if (SelectedEvent == 100)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must add an Event, to which to add Actions.");
+                DSGMlib.MsgWarn("You must add an Event, to which to add Actions.");
                 return;
             }
             if (!DragFromBottom)
@@ -135,9 +135,9 @@ namespace DS_Game_Maker
                 if (JustAdd)
                 {
                     Actions.Add(ActionName);
-                    ActionImages.Add(DS_Game_Maker.ActionsLib.ActionGetIconPath(ActionName, false));
+                    ActionImages.Add(ActionsLib.ActionGetIconPath(ActionName, false));
                     ActionArguments.Add(string.Empty);
-                    ActionDisplays.Add(DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, string.Empty));
+                    ActionDisplays.Add(ActionsLib.ActionEquateDisplay(ActionName, string.Empty));
                     ActionAppliesTos.Add("this");
                     GenerateIndentIndices();
                     ActionsList.Items.Add(string.Empty);
@@ -147,9 +147,9 @@ namespace DS_Game_Maker
                 else
                 {
                     Actions.Insert(Position, ActionName);
-                    ActionImages.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionGetIconPath(ActionName, false));
+                    ActionImages.Insert((int)Position, ActionsLib.ActionGetIconPath(ActionName, false));
                     ActionArguments.Insert(Position, string.Empty);
-                    ActionDisplays.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, string.Empty));
+                    ActionDisplays.Insert((int)Position, ActionsLib.ActionEquateDisplay(ActionName, string.Empty));
                     ActionAppliesTos.Insert(Position, "this");
                     GenerateIndentIndices();
                     ActionsList.Items.Insert(Position, string.Empty);
@@ -196,38 +196,38 @@ namespace DS_Game_Maker
             if (JustAdd)
             {
                 Actions.Add(ActionName);
-                ActionImages.Add(DS_Game_Maker.ActionsLib.ActionGetIconPath(ActionName, false));
+                ActionImages.Add(ActionsLib.ActionGetIconPath(ActionName, false));
             }
             else
             {
                 Actions.Insert(Position, ActionName);
-                ActionImages.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionGetIconPath(ActionName, false));
+                ActionImages.Insert((int)Position, ActionsLib.ActionGetIconPath(ActionName, false));
             }
             if (Code)
             {
                 if (JustAdd)
                 {
                     ActionArguments.Add(Program.Forms.editCode_Form.ReturnableCode);
-                    ActionDisplays.Add(DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.editCode_Form.ReturnableCode));
+                    ActionDisplays.Add(ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.editCode_Form.ReturnableCode));
                     ActionAppliesTos.Add("this");
                 }
                 else
                 {
                     ActionArguments.Insert((int)Position, Program.Forms.editCode_Form.ReturnableCode);
-                    ActionDisplays.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.editCode_Form.ReturnableCode));
+                    ActionDisplays.Insert((int)Position, ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.editCode_Form.ReturnableCode));
                     ActionAppliesTos.Insert(Position, "this");
                 }
             }
             else if (JustAdd)
             {
                 ActionArguments.Add(Program.Forms.action_Form.ArgumentString);
-                ActionDisplays.Add(DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.action_Form.ArgumentString));
+                ActionDisplays.Add(ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.action_Form.ArgumentString));
                 ActionAppliesTos.Add(Program.Forms.action_Form.AppliesTo);
             }
             else
             {
                 ActionArguments.Insert((int)Position, Program.Forms.action_Form.ArgumentString);
-                ActionDisplays.Insert((int)Position, DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.action_Form.ArgumentString));
+                ActionDisplays.Insert((int)Position, ActionsLib.ActionEquateDisplay(ActionName, Program.Forms.action_Form.ArgumentString));
                 ActionAppliesTos.Insert((int)Position, Program.Forms.action_Form.AppliesTo);
             }
             GenerateIndentIndices();
@@ -324,17 +324,17 @@ namespace DS_Game_Maker
             }
             else
             {
-                ImagePath = DS_Game_Maker.SessionsLib.SessionPath + @"Sprites\" + Frame.ToString() + "_" + SpriteDropper.Text + ".png";
+                ImagePath = SessionsLib.SessionPath + @"Sprites\" + Frame.ToString() + "_" + SpriteDropper.Text + ".png";
             }
-            var Drawable = DS_Game_Maker.DSGMlib.PathToImage(ImagePath);
-            Drawable = DS_Game_Maker.DSGMlib.MakeBMPTransparent(Drawable, Color.Magenta);
+            var Drawable = DSGMlib.PathToImage(ImagePath);
+            Drawable = DSGMlib.MakeBMPTransparent(Drawable, Color.Magenta);
             FinalGFX.DrawImage(Drawable, new Point((int)Math.Round(32d - (double)Drawable.Width / 2d), (int)Math.Round(32d - (double)Drawable.Height / 2d)));
             SpritePanel.BackgroundImage = Final;
         }
 
         public void PopulateActionsTabControl(ref TabControl RAppliesTo)
         {
-            bool Hide = DS_Game_Maker.SettingsLib.GetSetting("HIDE_OLD_ACTIONS") == "1";
+            bool Hide = SettingsLib.GetSetting("HIDE_OLD_ACTIONS") == "1";
             var BannedActions = new List<string>();
             BannedActions.Add("load collision map");
             BannedActions.Add("if position free");
@@ -375,8 +375,8 @@ namespace DS_Game_Maker
             for (byte X = 0; X <= 5; X++)
             {
                 var Y = new TabPage();
-                Y.Text = DS_Game_Maker.ScriptsLib.ActionTypeToString(X);
-                Y.Name = DS_Game_Maker.ScriptsLib.ActionTypeToString(X) + "TabPage";
+                Y.Text = ScriptsLib.ActionTypeToString(X);
+                Y.Name = ScriptsLib.ActionTypeToString(X) + "TabPage";
 
                 Y.AutoScroll = true;
                 Y.SetAutoScrollMargin(8, 8);
@@ -414,7 +414,7 @@ namespace DS_Game_Maker
                     NewPanel.Name = Z.Replace(" ", "_") + "ActionPanel";
                     NewPanel.Location = new Point(10 + XOn * 32 + XOn * 10, 10 + YOn * 32 + YOn * 10);
                     // MsgError(Z + " at " + NewPanel.Location.ToString)
-                    NewPanel.BackgroundImage = DS_Game_Maker.ActionsLib.ActionGetIcon(Z);
+                    NewPanel.BackgroundImage = ActionsLib.ActionGetIcon(Z);
                     Y.Controls.Add(NewPanel);
                     // AddHandler NewPanel.Click, AddressOf ActionPanelClicked
                     NewPanel.MouseDown += ActionMouseDown;
@@ -468,7 +468,7 @@ namespace DS_Game_Maker
             foreach (string X in DSGMlib.GetXDSFilter("EVENT " + ObjectName + ","))
             {
                 MyXDSLines += X + Constants.vbCrLf;
-                //DEventMainClasses.Add(DS_Game_Maker.ScriptsLib.MainClassTypeToString(Conversions.ToByte(DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ","))));
+                //DEventMainClasses.Add(ScriptsLib.MainClassTypeToString(Conversions.ToByte(DSGMlib.iGet(X, (byte)1, ","))));
                 DEventMainClasses.Add(ScriptsLib.MainClassTypeToString(Convert.ToByte(DSGMlib.iGet(X, 1, ","))));
                 DEventSubClasses.Add(DSGMlib.iGet(X, 2, ","));
             }
@@ -505,26 +505,26 @@ namespace DS_Game_Maker
             string NewName = NameTextBox.Text;
             if (!((ObjectName ?? "") == (NewName ?? "")))
             {
-                if (DS_Game_Maker.DSGMlib.GUIResNameChecker(NameTextBox.Text))
+                if (DSGMlib.GUIResNameChecker(NameTextBox.Text))
                     return;
             }
             if (NewName == "NoData")
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("'NoData' is not a valid name. You must choose another name.");
+                DSGMlib.MsgWarn("'NoData' is not a valid name. You must choose another name.");
                 return;
             }
             if (NewName == "this")
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("'this' is not a valid name. You must choose another name.");
+                DSGMlib.MsgWarn("'this' is not a valid name. You must choose another name.");
                 return;
             }
-            string OldLine = DS_Game_Maker.DSGMlib.GetXDSLine("OBJECT " + ObjectName + ",");
+            string OldLine = DSGMlib.GetXDSLine("OBJECT " + ObjectName + ",");
             string NewLine = "OBJECT " + NewName + "," + SpriteDropper.Text + "," + Frame.ToString();
-            DS_Game_Maker.DSGMlib.XDSChangeLine(OldLine, NewLine);
-            DS_Game_Maker.DSGMlib.XDSRemoveFilter("EVENT " + ObjectName + ",");
-            DS_Game_Maker.DSGMlib.XDSRemoveFilter("ACT " + ObjectName + ",");
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECTPLOT " + ObjectName + ","))
-                DS_Game_Maker.DSGMlib.XDSChangeLine(X, "OBJECTPLOT " + NewName + X.Substring(X.IndexOf(",")));
+            DSGMlib.XDSChangeLine(OldLine, NewLine);
+            DSGMlib.XDSRemoveFilter("EVENT " + ObjectName + ",");
+            DSGMlib.XDSRemoveFilter("ACT " + ObjectName + ",");
+            foreach (string X in DSGMlib.GetXDSFilter("OBJECTPLOT " + ObjectName + ","))
+                DSGMlib.XDSChangeLine(X, "OBJECTPLOT " + NewName + X.Substring(X.IndexOf(",")));
             string FinalString = string.Empty;
             if ((NewName ?? "") == (ObjectName ?? ""))
             {
@@ -532,7 +532,7 @@ namespace DS_Game_Maker
             }
             else if (MyXDSLines.Length > 0)
             {
-                foreach (string X_ in DS_Game_Maker.DSGMlib.StringToLines(MyXDSLines))
+                foreach (string X_ in DSGMlib.StringToLines(MyXDSLines))
                 {
                     string X = X_;
                     if (X.StartsWith("EVENT "))
@@ -547,12 +547,12 @@ namespace DS_Game_Maker
                 }
             }
             // FinalString = UpdateActionsName(FinalString, "Object", ObjectName, NewName, True)
-            DS_Game_Maker.DSGMlib.CurrentXDS += Constants.vbCrLf + FinalString + Constants.vbCrLf;
+            DSGMlib.CurrentXDS += Constants.vbCrLf + FinalString + Constants.vbCrLf;
             foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (X.Name == "Room")
                 {
-                    DS_Game_Maker.Room DForm = (DS_Game_Maker.Room)X;
+                    Room DForm = (Room)X;
                     DForm.RenameObjectDropper(ObjectName, NewName);
                     for (byte DOn = 0, loopTo = (byte)(DForm.Objects.Length - 1); DOn <= loopTo; DOn++)
                     {
@@ -561,45 +561,45 @@ namespace DS_Game_Maker
                     }
                 }
             }
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("ACT "))
+            foreach (string X in DSGMlib.GetXDSFilter("ACT "))
             {
-                short SubPoint = (short)(DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ",").Length + 1 + DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",").Length);
-                short SubPoint2 = (short)(SubPoint + 1 + DS_Game_Maker.DSGMlib.iGet(X, (byte)2, ",").Length + 1);
-                if (DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",") == "6")
+                short SubPoint = (short)(DSGMlib.iGet(X, (byte)0, ",").Length + 1 + DSGMlib.iGet(X, (byte)1, ",").Length);
+                short SubPoint2 = (short)(SubPoint + 1 + DSGMlib.iGet(X, (byte)2, ",").Length + 1);
+                if (DSGMlib.iGet(X, (byte)1, ",") == "6")
                 {
-                    if ((DS_Game_Maker.DSGMlib.iGet(X, (byte)2, ",") ?? "") == (ObjectName ?? ""))
+                    if ((DSGMlib.iGet(X, (byte)2, ",") ?? "") == (ObjectName ?? ""))
                     {
-                        DS_Game_Maker.DSGMlib.XDSChangeLine(X, X.Substring(0, SubPoint) + "," + NewName + "," + X.Substring(SubPoint2));
+                        DSGMlib.XDSChangeLine(X, X.Substring(0, SubPoint) + "," + NewName + "," + X.Substring(SubPoint2));
                     }
                 }
             }
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("EVENT "))
+            foreach (string X in DSGMlib.GetXDSFilter("EVENT "))
             {
-                if (DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",") == "6" & (DS_Game_Maker.DSGMlib.iGet(X, (byte)2, ",") ?? "") == (ObjectName ?? ""))
-                    DS_Game_Maker.DSGMlib.XDSChangeLine(X, DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ",") + ",6," + NewName);
+                if (DSGMlib.iGet(X, (byte)1, ",") == "6" & (DSGMlib.iGet(X, (byte)2, ",") ?? "") == (ObjectName ?? ""))
+                    DSGMlib.XDSChangeLine(X, DSGMlib.iGet(X, (byte)0, ",") + ",6," + NewName);
             }
-            DS_Game_Maker.DSGMlib.CurrentXDS = DS_Game_Maker.DSGMlib.UpdateActionsName(DS_Game_Maker.DSGMlib.CurrentXDS, "Object", ObjectName, NewName, true);
+            DSGMlib.CurrentXDS = DSGMlib.UpdateActionsName(DSGMlib.CurrentXDS, "Object", ObjectName, NewName, true);
             foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
-                if (!DS_Game_Maker.DSGMlib.IsObject(X.Text))
+                if (!DSGMlib.IsObject(X.Text))
                     continue;
                 DObject DForm = (DObject)X;
                 if (DForm.MyXDSLines.Length == 0)
                     continue;
                 string LF = string.Empty;
-                foreach (string Y_ in DS_Game_Maker.DSGMlib.StringToLines(DForm.MyXDSLines))
+                foreach (string Y_ in DSGMlib.StringToLines(DForm.MyXDSLines))
                 {
                     string Y = Y_;
                     if (Y.StartsWith("EVENT "))
                     {
-                        if (DS_Game_Maker.DSGMlib.iGet(Y, (byte)1, ",") == "6" & (DS_Game_Maker.DSGMlib.iGet(Y, (byte)2, ",") ?? "") == (ObjectName ?? ""))
-                            Y = DS_Game_Maker.DSGMlib.iGet(Y, (byte)0, ",") + ",6," + NewName;
+                        if (DSGMlib.iGet(Y, (byte)1, ",") == "6" & (DSGMlib.iGet(Y, (byte)2, ",") ?? "") == (ObjectName ?? ""))
+                            Y = DSGMlib.iGet(Y, (byte)0, ",") + ",6," + NewName;
                     }
                     if (Y.StartsWith("ACT "))
                     {
-                        short SubPoint = (short)(DS_Game_Maker.DSGMlib.iGet(Y, (byte)0, ",").Length + 1 + DS_Game_Maker.DSGMlib.iGet(Y, (byte)1, ",").Length);
-                        short SubPoint2 = (short)(SubPoint + 1 + DS_Game_Maker.DSGMlib.iGet(Y, (byte)2, ",").Length + 1);
-                        if (DS_Game_Maker.DSGMlib.iGet(Y, (byte)1, ",") == "6" & (DS_Game_Maker.DSGMlib.iGet(Y, (byte)2, ",") ?? "") == (ObjectName ?? ""))
+                        short SubPoint = (short)(DSGMlib.iGet(Y, (byte)0, ",").Length + 1 + DSGMlib.iGet(Y, (byte)1, ",").Length);
+                        short SubPoint2 = (short)(SubPoint + 1 + DSGMlib.iGet(Y, (byte)2, ",").Length + 1);
+                        if (DSGMlib.iGet(Y, (byte)1, ",") == "6" & (DSGMlib.iGet(Y, (byte)2, ",") ?? "") == (ObjectName ?? ""))
                         {
                             Y = Y.Substring(0, SubPoint) + "," + NewName + "," + Y.Substring(SubPoint2);
                         }
@@ -613,9 +613,9 @@ namespace DS_Game_Maker
                 if (!(X.Name == "DObject"))
                     continue;
                 DObject DForm = (DObject)X;
-                DForm.MyXDSLines = DS_Game_Maker.DSGMlib.UpdateActionsName(DForm.MyXDSLines, "Object", ObjectName, NewName, true);
+                DForm.MyXDSLines = DSGMlib.UpdateActionsName(DForm.MyXDSLines, "Object", ObjectName, NewName, true);
             }
-            DS_Game_Maker.DSGMlib.UpdateArrayActionsName("Object", ObjectName, NewName, true);
+            DSGMlib.UpdateArrayActionsName("Object", ObjectName, NewName, true);
             foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
                 if (!(X.Name == "DObject"))
@@ -643,7 +643,7 @@ namespace DS_Game_Maker
                     }
                 }
             }
-            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.DObject].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DSGMlib.ResourceIDs.DObject].Nodes)
             {
                 if ((X.Text ?? "") == (ObjectName ?? ""))
                     X.Text = NewName;
@@ -677,7 +677,7 @@ namespace DS_Game_Maker
             }
             else
             {
-                foreach (string X_ in Directory.GetFiles(DS_Game_Maker.SessionsLib.SessionPath + "Sprites"))
+                foreach (string X_ in Directory.GetFiles(SessionsLib.SessionPath + "Sprites"))
                 {
                     string X = X_;
                     X = X.Substring(X.LastIndexOf(@"\") + 1);
@@ -738,7 +738,7 @@ namespace DS_Game_Maker
                     return;
                 }
             }
-            string NewLine = "EVENT " + NameTextBox.Text + "," + DS_Game_Maker.ScriptsLib.MainClassStringToType(MainClass).ToString() + "," + SubClass;
+            string NewLine = "EVENT " + NameTextBox.Text + "," + ScriptsLib.MainClassStringToType(MainClass).ToString() + "," + SubClass;
             MyXDSLines += NewLine + Constants.vbCrLf;
             if (DEventMainClasses.Count == 0)
             {
@@ -768,7 +768,7 @@ namespace DS_Game_Maker
                 IsSelected = true;
             var Drawable = new Bitmap(16, 16);
             string FinalText = string.Empty;
-            switch (DS_Game_Maker.ScriptsLib.MainClassStringToType(DEventMainClasses[e.Index]))
+            switch (ScriptsLib.MainClassStringToType(DEventMainClasses[e.Index]))
             {
                 case (byte)0:
                     {
@@ -859,13 +859,13 @@ namespace DS_Game_Maker
                 SelectedEvent = 100;
             }
             string FinalString = string.Empty;
-            foreach (string X in DS_Game_Maker.DSGMlib.StringToLines(MyXDSLines))
+            foreach (string X in DSGMlib.StringToLines(MyXDSLines))
             {
-                if (X.StartsWith("EVENT " + ObjectName + "," + DS_Game_Maker.ScriptsLib.MainClassStringToType(DEventMainClasses[TheIndex]).ToString() + "," + DEventSubClasses[TheIndex]))
+                if (X.StartsWith("EVENT " + ObjectName + "," + ScriptsLib.MainClassStringToType(DEventMainClasses[TheIndex]).ToString() + "," + DEventSubClasses[TheIndex]))
                 {
                     continue;
                 }
-                if (X.StartsWith("ACT " + ObjectName + "," + DS_Game_Maker.ScriptsLib.MainClassStringToType(DEventMainClasses[TheIndex]).ToString() + "," + DEventSubClasses[TheIndex] + ","))
+                if (X.StartsWith("ACT " + ObjectName + "," + ScriptsLib.MainClassStringToType(DEventMainClasses[TheIndex]).ToString() + "," + DEventSubClasses[TheIndex] + ","))
                 {
                     continue;
                 }
@@ -910,19 +910,19 @@ namespace DS_Game_Maker
             if (Program.Forms.dEvent_Form.UseData == false)
                 return;
             short I = (short)EventsListBox.SelectedIndex;
-            byte OldMC = DS_Game_Maker.ScriptsLib.MainClassStringToType(DEventMainClasses[I]);
+            byte OldMC = ScriptsLib.MainClassStringToType(DEventMainClasses[I]);
             string OldSC = DEventSubClasses[I];
-            byte MC = DS_Game_Maker.ScriptsLib.MainClassStringToType(Program.Forms.dEvent_Form.MainClass);
+            byte MC = ScriptsLib.MainClassStringToType(Program.Forms.dEvent_Form.MainClass);
             string SC = Program.Forms.dEvent_Form.SubClass;
             if (MC == OldMC & (SC ?? "") == (OldSC ?? ""))
                 return;
             if (DEventMainClasses.Contains(Program.Forms.dEvent_Form.MainClass) & DEventSubClasses.Contains(Program.Forms.dEvent_Form.SubClass))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("That event is already in-use.");
+                DSGMlib.MsgWarn("That event is already in-use.");
                 return;
             }
             string FinalString = string.Empty;
-            foreach (string P_ in DS_Game_Maker.DSGMlib.StringToLines(MyXDSLines))
+            foreach (string P_ in DSGMlib.StringToLines(MyXDSLines))
             {
                 string P = P_;
                 if (P.Length == 0)
@@ -982,14 +982,14 @@ namespace DS_Game_Maker
             if (ThinList)
             {
                 e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                e.Graphics.DrawImage(DS_Game_Maker.ActionsLib.ActionGetIcon(Actions[e.Index]), new Rectangle(MyX + 2, e.Bounds.Y + 2, 20, 20));
+                e.Graphics.DrawImage(ActionsLib.ActionGetIcon(Actions[e.Index]), new Rectangle(MyX + 2, e.Bounds.Y + 2, 20, 20));
                 e.Graphics.DrawString(ActionDisplays[e.Index], new Font("Tahoma", 11f, FontStyle.Regular, GraphicsUnit.Pixel), Brushes.White, MyX + ThinNum, e.Bounds.Y + 5 + 1);
                 e.Graphics.DrawString(ActionDisplays[e.Index], new Font("Tahoma", 11f, FontStyle.Regular, GraphicsUnit.Pixel), Brushes.Black, MyX + ThinNum, e.Bounds.Y + 5);
                 return;
             }
             else
             {
-                e.Graphics.DrawImageUnscaled(DS_Game_Maker.ActionsLib.ActionGetIcon(Actions[e.Index]), new Point(MyX + 2, e.Bounds.Y + 2));
+                e.Graphics.DrawImageUnscaled(ActionsLib.ActionGetIcon(Actions[e.Index]), new Point(MyX + 2, e.Bounds.Y + 2));
                 if (NiceArgs.Length > 0)
                 {
                     if (ThingString == "this")
@@ -1003,7 +1003,7 @@ namespace DS_Game_Maker
                             ArgString = "Arguments of " + NiceArgs;
                         }
                     }
-                    else if (DS_Game_Maker.DSGMlib.IsObject(ThingString))
+                    else if (DSGMlib.IsObject(ThingString))
                     {
                         if (Actions[e.Index] == "Execute Code")
                         {
@@ -1075,12 +1075,12 @@ namespace DS_Game_Maker
             // MsgError("filter is ACT " + ObjectName + "," + DEventMainClasses(TempIndex) + "," + DEventSubClasses(TempIndex) + ",")
             // MsgError("filter is ACT " + ObjectName + "," + MainClassStringToType(DEventMainClasses(SelectedEvent)).ToString + "," + DEventSubClasses(SelectedEvent) + ",")
             // MsgError(MainClassStringToType(DEventMainClasses(SelectedEvent)).ToString)
-            foreach (string X in DS_Game_Maker.DSGMlib.StringToLines(MyXDSLines))
+            foreach (string X in DSGMlib.StringToLines(MyXDSLines))
             {
                 if (X.Length == 0)
                     continue;
                 // MsgError(X + vbcrlf + vbcrlf + "against" + vbcrlf + vbcrlf + "ACT " + ObjectName + "," + MainClassStringToType(DEventMainClasses(SelectedEvent)).ToString + "," + DEventSubClasses(SelectedEvent) + ",")
-                if (!X.StartsWith("ACT " + ObjectName + "," + DS_Game_Maker.ScriptsLib.MainClassStringToType(DEventMainClasses[SelectedEvent]).ToString() + "," + DEventSubClasses[SelectedEvent] + ","))
+                if (!X.StartsWith("ACT " + ObjectName + "," + ScriptsLib.MainClassStringToType(DEventMainClasses[SelectedEvent]).ToString() + "," + DEventSubClasses[SelectedEvent] + ","))
                 {
                     FinalString += X + Constants.vbCrLf;
                 }
@@ -1090,7 +1090,7 @@ namespace DS_Game_Maker
             // Dim TempIndex As Byte = EventsListBox.SelectedIndex
             for (short X = 0, loopTo = (short)(Actions.Count - 1); X <= loopTo; X++)
             {
-                string TheNewLine = "ACT " + ObjectName + "," + DS_Game_Maker.ScriptsLib.MainClassStringToType(DEventMainClasses[SelectedEvent]).ToString() + "," + DEventSubClasses[SelectedEvent] + ",";
+                string TheNewLine = "ACT " + ObjectName + "," + ScriptsLib.MainClassStringToType(DEventMainClasses[SelectedEvent]).ToString() + "," + DEventSubClasses[SelectedEvent] + ",";
                 TheNewLine += Actions[X] + "," + ActionArguments[X] + "," + ActionAppliesTos[X];
                 FinalString += TheNewLine + Constants.vbCrLf;
             }
@@ -1117,7 +1117,7 @@ namespace DS_Game_Maker
             ActionImages.Clear();
             ActionsList.Items.Clear();
             // GenerateIndentIndices()
-            byte MainClass = DS_Game_Maker.ScriptsLib.MainClassStringToType(DEventMainClasses[EventsListBox.SelectedIndex]);
+            byte MainClass = ScriptsLib.MainClassStringToType(DEventMainClasses[EventsListBox.SelectedIndex]);
             string SubClass = DEventSubClasses[EventsListBox.SelectedIndex];
             // MsgError("Mainclass is " + MainClass.ToString)
             // MsgError("Subclass is " + SubClass.ToString)
@@ -1125,7 +1125,7 @@ namespace DS_Game_Maker
             short TempCount = 0;
             if (MyXDSLines.Length > 0)
             {
-                foreach (string X_ in DS_Game_Maker.DSGMlib.StringToLines(MyXDSLines))
+                foreach (string X_ in DSGMlib.StringToLines(MyXDSLines))
                 {
                     string X = X_;
                     if (X.Length == 0)
@@ -1134,21 +1134,21 @@ namespace DS_Game_Maker
                         continue;
                     X = DSGMlib.SillyFixMe(X).ToString();
                     // MsgError(X(X.Length - 1))
-                    if (!((DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",") ?? "") == (MainClass.ToString() ?? "")) | !((DS_Game_Maker.DSGMlib.iGet(X, (byte)2, ",") ?? "") == (SubClass ?? "")))
+                    if (!((DSGMlib.iGet(X, (byte)1, ",") ?? "") == (MainClass.ToString() ?? "")) | !((DSGMlib.iGet(X, (byte)2, ",") ?? "") == (SubClass ?? "")))
                         continue;
                     // MsgError("On X at " + X)
-                    string ActionName = DS_Game_Maker.DSGMlib.iGet(X, (byte)3, ",");
+                    string ActionName = DSGMlib.iGet(X, (byte)3, ",");
                     // MsgError("ActionName is " + ActionName)
-                    string ActionArgs = DS_Game_Maker.DSGMlib.iGet(X, (byte)4, ",");
+                    string ActionArgs = DSGMlib.iGet(X, (byte)4, ",");
                     // ActionArgs = ActionArgs.Replace("<com>", ",")
                     // MsgError("Action Arguments are " + ActionArgs.ToString)
                     Actions.Add(ActionName);
                     ActionArguments.Add(ActionArgs);
-                    string AppliesTo = DS_Game_Maker.DSGMlib.iGet(X, (byte)5, ",");
+                    string AppliesTo = DSGMlib.iGet(X, (byte)5, ",");
                     // MsgError(ActionEquateDisplay(ActionName, ActionArgs))
-                    ActionDisplays.Add(DS_Game_Maker.ActionsLib.ActionEquateDisplay(ActionName, ActionArgs));
+                    ActionDisplays.Add(ActionsLib.ActionEquateDisplay(ActionName, ActionArgs));
                     ActionAppliesTos.Add(AppliesTo);
-                    ActionImages.Add(DS_Game_Maker.ActionsLib.ActionGetIconPath(ActionName, false));
+                    ActionImages.Add(ActionsLib.ActionGetIconPath(ActionName, false));
                     // MsgError(ActionGetIconPath(ActionName, False))
                     TempCount = (short)(TempCount + 1);
                 }
@@ -1175,11 +1175,11 @@ namespace DS_Game_Maker
                     return;
                 }
             }
-            var SpriteForm = new DS_Game_Maker.Sprite();
+            var SpriteForm = new Sprite();
             SpriteForm.SpriteName = SpriteDropper.Text;
             object argInstance = (object)SpriteForm;
-            DS_Game_Maker.DSGMlib.ShowInternalForm(ref argInstance);
-            SpriteForm = (DS_Game_Maker.Sprite)argInstance;
+            DSGMlib.ShowInternalForm(ref argInstance);
+            SpriteForm = (Sprite)argInstance;
         }
 
         public void EditAction()
@@ -1188,14 +1188,14 @@ namespace DS_Game_Maker
                 return;
             if (ActionsList.SelectedIndices.Count > 1)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You may only edit one Action at once.");
+                DSGMlib.MsgWarn("You may only edit one Action at once.");
                 return;
             }
             short EditingIndex = (short)ActionsList.SelectedIndices[0];
             if (Actions[EditingIndex] == "Execute Code")
             {
                 Program.Forms.editCode_Form.ReturnableCode = ActionArguments[EditingIndex];
-                Program.Forms.editCode_Form.CodeMode = (byte)DS_Game_Maker.DSGMlib.CodeMode.DBAS;
+                Program.Forms.editCode_Form.CodeMode = (byte)DSGMlib.CodeMode.DBAS;
                 Program.Forms.editCode_Form.ImportExport = true;
                 if (Program.Forms.editCode_Form.ShowDialog() == DialogResult.OK)
                 {
@@ -1216,7 +1216,7 @@ namespace DS_Game_Maker
                         return;
                     ActionAppliesTos[EditingIndex] = withBlock.AppliesTo;
                     ActionArguments[EditingIndex] = withBlock.ArgumentString;
-                    ActionDisplays[EditingIndex] = DS_Game_Maker.ActionsLib.ActionEquateDisplay(withBlock.ActionName, withBlock.ArgumentString);
+                    ActionDisplays[EditingIndex] = ActionsLib.ActionEquateDisplay(withBlock.ActionName, withBlock.ArgumentString);
                 }
                 ActionsList.Invalidate();
             }
@@ -1278,7 +1278,7 @@ namespace DS_Game_Maker
             {
                 int DOn = 0;
                 var TheItems = new List<string>();
-                foreach (string X in DS_Game_Maker.DSGMlib.StringToLines(Clipboard.GetText()))
+                foreach (string X in DSGMlib.StringToLines(Clipboard.GetText()))
                 {
                     if (X.Length > 0)
                     {

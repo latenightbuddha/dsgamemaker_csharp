@@ -19,10 +19,10 @@ namespace DS_Game_Maker
 
         private void StructureItem_Load(object sender, EventArgs e)
         {
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
             TypeDropper.Items.Clear();
-            for (byte X = 0, loopTo = (byte)(DS_Game_Maker.ScriptsLib.VariableTypes.Count - 1); X <= loopTo; X++)
-                TypeDropper.Items.Add(DS_Game_Maker.ScriptsLib.VariableTypes[(int)X]);
+            for (byte X = 0, loopTo = (byte)(ScriptsLib.VariableTypes.Count - 1); X <= loopTo; X++)
+                TypeDropper.Items.Add(ScriptsLib.VariableTypes[(int)X]);
             NameTextBox.Text = MemberName;
             TypeDropper.Text = MemberType;
             ValueTextBox.Text = MemberValue;

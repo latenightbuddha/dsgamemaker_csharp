@@ -15,29 +15,29 @@ namespace DS_Game_Maker
         private void GameSettings_Load(object sender, EventArgs e)
         {
             StartingRoomDropper.Items.Clear();
-            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DS_Game_Maker.DSGMlib.ResourceIDs.Room].Nodes)
+            foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DSGMlib.ResourceIDs.Room].Nodes)
                 StartingRoomDropper.Items.Add(X.Text);
-            StartingRoomDropper.Text = DS_Game_Maker.DSGMlib.GetXDSLine("BOOTROOM ").Substring(9);
-            ProjectNameTextBox.Text = DS_Game_Maker.DSGMlib.GetXDSLine("PROJECTNAME ").Substring(12);
-            Text2TextBox.Text = DS_Game_Maker.DSGMlib.GetXDSLine("TEXT2 ").Substring(6);
-            Text3TextBox.Text = DS_Game_Maker.DSGMlib.GetXDSLine("TEXT3 ").Substring(6);
-            if (DS_Game_Maker.DSGMlib.GetXDSLine("PROJECTLOGO ").Length > 12)
+            StartingRoomDropper.Text = DSGMlib.GetXDSLine("BOOTROOM ").Substring(9);
+            ProjectNameTextBox.Text = DSGMlib.GetXDSLine("PROJECTNAME ").Substring(12);
+            Text2TextBox.Text = DSGMlib.GetXDSLine("TEXT2 ").Substring(6);
+            Text3TextBox.Text = DSGMlib.GetXDSLine("TEXT3 ").Substring(6);
+            if (DSGMlib.GetXDSLine("PROJECTLOGO ").Length > 12)
             {
-                IconFileTextbox.Text = DS_Game_Maker.DSGMlib.GetXDSLine("PROJECTLOGO ").Substring(12);
+                IconFileTextbox.Text = DSGMlib.GetXDSLine("PROJECTLOGO ").Substring(12);
             }
-            ScoreDropper.Value = Convert.ToInt16(DS_Game_Maker.DSGMlib.GetXDSLine("SCORE ").Substring(6));
-            LivesDropper.Value = Convert.ToInt16(DS_Game_Maker.DSGMlib.GetXDSLine("LIVES ").Substring(6));
-            HealthDropper.Value = Convert.ToInt16(DS_Game_Maker.DSGMlib.GetXDSLine("HEALTH ").ToString().Substring(7));
-            FATCallCheckBox.Checked = DS_Game_Maker.DSGMlib.GetXDSLine("FAT_CALL ").Substring(9) == "1" ? true : false;
-            NitroFSCallCheckBox.Checked = DS_Game_Maker.DSGMlib.GetXDSLine("NITROFS_CALL ").Substring(13) == "1" ? true : false;
-            MidPointCheckBox.Checked = DS_Game_Maker.DSGMlib.GetXDSLine("MIDPOINT_COLLISIONS ").Substring(20) == "1" ? true : false;
-            IncludeWiFiLibChecker.Checked = DS_Game_Maker.DSGMlib.GetXDSLine("INCLUDE_WIFI_LIB ").Substring(17) == "1" ? true : false;
+            ScoreDropper.Value = Convert.ToInt16(DSGMlib.GetXDSLine("SCORE ").Substring(6));
+            LivesDropper.Value = Convert.ToInt16(DSGMlib.GetXDSLine("LIVES ").Substring(6));
+            HealthDropper.Value = Convert.ToInt16(DSGMlib.GetXDSLine("HEALTH ").ToString().Substring(7));
+            FATCallCheckBox.Checked = DSGMlib.GetXDSLine("FAT_CALL ").Substring(9) == "1" ? true : false;
+            NitroFSCallCheckBox.Checked = DSGMlib.GetXDSLine("NITROFS_CALL ").Substring(13) == "1" ? true : false;
+            MidPointCheckBox.Checked = DSGMlib.GetXDSLine("MIDPOINT_COLLISIONS ").Substring(20) == "1" ? true : false;
+            IncludeWiFiLibChecker.Checked = DSGMlib.GetXDSLine("INCLUDE_WIFI_LIB ").Substring(17) == "1" ? true : false;
 
             IncludeFilesList.Items.Clear();
             NitroFSFilesList.Items.Clear();
-            foreach (string P in DS_Game_Maker.DSGMlib.GetXDSFilter("INCLUDE "))
+            foreach (string P in DSGMlib.GetXDSFilter("INCLUDE "))
                 IncludeFilesList.Items.Add(P.Substring(8));
-            foreach (string P in DS_Game_Maker.DSGMlib.GetXDSFilter("NITROFS "))
+            foreach (string P in DSGMlib.GetXDSFilter("NITROFS "))
                 NitroFSFilesList.Items.Add(P.Substring(8));
         }
 
@@ -48,31 +48,31 @@ namespace DS_Game_Maker
 
         private void DOkayButton_Click(object sender, EventArgs e)
         {
-            var Logo = DS_Game_Maker.DSGMlib.PathToImage(IconOpenFileDialog.FileName);
+            var Logo = DSGMlib.PathToImage(IconOpenFileDialog.FileName);
             if (!(Logo.Width == 32) & !(Logo.Height == 32))
             {
-                DS_Game_Maker.DSGMlib.MsgError("Your project's icon must be 32 x 32!");
+                DSGMlib.MsgError("Your project's icon must be 32 x 32!");
                 return;
             }
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("BOOTROOM "), "BOOTROOM " + StartingRoomDropper.Text);
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("PROJECTNAME "), "PROJECTNAME " + ProjectNameTextBox.Text);
-            DS_Game_Maker.DSGMlib.CacheProjectName = ProjectNameTextBox.Text;
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("TEXT2 "), "TEXT2 " + Text2TextBox.Text);
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("TEXT3 "), "TEXT3 " + Text3TextBox.Text);
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("SCORE "), "SCORE " + ScoreDropper.Value.ToString());
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("LIVES "), "LIVES " + LivesDropper.Value.ToString());
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("HEALTH "), "HEALTH " + HealthDropper.Value.ToString());
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("FAT_CALL "), "FAT_CALL " + (FATCallCheckBox.Checked ? "1" : "0"));
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("NITROFS_CALL "), "NITROFS_CALL " + (NitroFSCallCheckBox.Checked ? "1" : "0"));
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("MIDPOINT_COLLISIONS "), "MIDPOINT_COLLISIONS " + (MidPointCheckBox.Checked ? "1" : "0"));
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("INCLUDE_WIFI_LIB "), "INCLUDE_WIFI_LIB " + (IncludeWiFiLibChecker.Checked ? "1" : "0"));
-            if (string.IsNullOrEmpty(DS_Game_Maker.DSGMlib.GetXDSLine("PROJECTLOGO ")))
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("BOOTROOM "), "BOOTROOM " + StartingRoomDropper.Text);
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("PROJECTNAME "), "PROJECTNAME " + ProjectNameTextBox.Text);
+            DSGMlib.CacheProjectName = ProjectNameTextBox.Text;
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("TEXT2 "), "TEXT2 " + Text2TextBox.Text);
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("TEXT3 "), "TEXT3 " + Text3TextBox.Text);
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("SCORE "), "SCORE " + ScoreDropper.Value.ToString());
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("LIVES "), "LIVES " + LivesDropper.Value.ToString());
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("HEALTH "), "HEALTH " + HealthDropper.Value.ToString());
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("FAT_CALL "), "FAT_CALL " + (FATCallCheckBox.Checked ? "1" : "0"));
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("NITROFS_CALL "), "NITROFS_CALL " + (NitroFSCallCheckBox.Checked ? "1" : "0"));
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("MIDPOINT_COLLISIONS "), "MIDPOINT_COLLISIONS " + (MidPointCheckBox.Checked ? "1" : "0"));
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("INCLUDE_WIFI_LIB "), "INCLUDE_WIFI_LIB " + (IncludeWiFiLibChecker.Checked ? "1" : "0"));
+            if (string.IsNullOrEmpty(DSGMlib.GetXDSLine("PROJECTLOGO ")))
             {
-                DS_Game_Maker.DSGMlib.XDSAddLine("PROJECTLOGO " + IconFileTextbox.Text);
+                DSGMlib.XDSAddLine("PROJECTLOGO " + IconFileTextbox.Text);
             }
             else
             {
-                DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("PROJECTLOGO "), "PROJECTLOGO " + IconFileTextbox.Text);
+                DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("PROJECTLOGO "), "PROJECTLOGO " + IconFileTextbox.Text);
             }
             Close();
         }
@@ -82,8 +82,8 @@ namespace DS_Game_Maker
             if (IncludeFilesList.SelectedIndices.Count == 0)
                 return;
             string TheName = Conversions.ToString(IncludeFilesList.Items[IncludeFilesList.SelectedIndex]);
-            System.IO.File.Delete(DS_Game_Maker.SessionsLib.SessionPath + @"IncludeFiles\" + TheName);
-            DS_Game_Maker.DSGMlib.XDSRemoveLine("INCLUDE " + TheName);
+            System.IO.File.Delete(SessionsLib.SessionPath + @"IncludeFiles\" + TheName);
+            DSGMlib.XDSRemoveLine("INCLUDE " + TheName);
             IncludeFilesList.Items.RemoveAt(IncludeFilesList.SelectedIndex);
         }
 
@@ -92,18 +92,18 @@ namespace DS_Game_Maker
             if (NitroFSFilesList.SelectedIndices.Count == 0)
                 return;
             string TheName = Conversions.ToString(NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex]);
-            System.IO.File.Delete(DS_Game_Maker.SessionsLib.SessionPath + @"NitroFSFiles\" + TheName);
-            DS_Game_Maker.DSGMlib.XDSRemoveLine("NITROFS " + TheName);
+            System.IO.File.Delete(SessionsLib.SessionPath + @"NitroFSFiles\" + TheName);
+            DSGMlib.XDSRemoveLine("NITROFS " + TheName);
             NitroFSFilesList.Items.RemoveAt(NitroFSFilesList.SelectedIndex);
         }
 
         public void AddThing(string SysName)
         {
-            string Result = DS_Game_Maker.DSGMlib.OpenFile(string.Empty, "All Files|*.*");
+            string Result = DSGMlib.OpenFile(string.Empty, "All Files|*.*");
             if (Result.Length == 0)
                 return;
             string ShortName = Result.Substring(Result.LastIndexOf(@"\") + 1);
-            DS_Game_Maker.DSGMlib.XDSAddLine(SysName.ToUpper() + " " + ShortName);
+            DSGMlib.XDSAddLine(SysName.ToUpper() + " " + ShortName);
             foreach (Control P in CodingTabPage.Controls)
             {
                 if ((P.Name ?? "") == (SysName + "FilesList" ?? ""))
@@ -111,7 +111,7 @@ namespace DS_Game_Maker
                     ((ListBox)P).Items.Add(ShortName);
                 }
             }
-            System.IO.File.Copy(Result, DS_Game_Maker.SessionsLib.SessionPath + SysName + @"Files\" + ShortName, true);
+            System.IO.File.Copy(Result, SessionsLib.SessionPath + SysName + @"Files\" + ShortName, true);
         }
 
         private void AddIncludeFileButton_Click(object sender, EventArgs e)
@@ -128,15 +128,15 @@ namespace DS_Game_Maker
         {
             if (IncludeFilesList.SelectedIndices.Count == 0)
                 return;
-            DS_Game_Maker.DSGMlib.URL(Conversions.ToString(Operators.AddObject(DS_Game_Maker.SessionsLib.SessionPath + @"IncludeFiles\", IncludeFilesList.Items[IncludeFilesList.SelectedIndex])));
+            DSGMlib.URL(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + @"IncludeFiles\", IncludeFilesList.Items[IncludeFilesList.SelectedIndex])));
         }
 
         private void EditNitroFSFileButton_Click(object sender, EventArgs e)
         {
             if (NitroFSFilesList.SelectedIndices.Count == 0)
                 return;
-            DS_Game_Maker.DSGMlib.MsgError(Conversions.ToString(Operators.AddObject(DS_Game_Maker.SessionsLib.SessionPath + @"NitroFSFiles\", NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex])));
-            DS_Game_Maker.DSGMlib.URL(Conversions.ToString(Operators.AddObject(DS_Game_Maker.SessionsLib.SessionPath + @"NitroFSFiles\", NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex])));
+            DSGMlib.MsgError(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + @"NitroFSFiles\", NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex])));
+            DSGMlib.URL(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + @"NitroFSFiles\", NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex])));
         }
 
         private void BrowseButton_Click(object sender, EventArgs e)

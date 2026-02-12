@@ -16,26 +16,26 @@ namespace DS_Game_Maker
 
         private void OriginalColorButton_Click(object sender, EventArgs e)
         {
-            OriginalColorButton.BackColor = DS_Game_Maker.DSGMlib.SelectColor(OriginalColorButton.BackColor);
+            OriginalColorButton.BackColor = DSGMlib.SelectColor(OriginalColorButton.BackColor);
         }
 
         private void ReplaceButtonColor_Click(object sender, EventArgs e)
         {
-            ReplaceColorButton.BackColor = DS_Game_Maker.DSGMlib.SelectColor(ReplaceColorButton.BackColor);
+            ReplaceColorButton.BackColor = DSGMlib.SelectColor(ReplaceColorButton.BackColor);
         }
 
         private void DOkayButton_Click(object sender, EventArgs e)
         {
             foreach (string X in ImagePaths)
             {
-                Bitmap TheImage = (Bitmap)DS_Game_Maker.DSGMlib.PathToImage(X);
+                Bitmap TheImage = (Bitmap)DSGMlib.PathToImage(X);
                 if (MainTabControl.SelectedIndex == 1)
                 {
-                    var TheSize = DS_Game_Maker.DSGMlib.PathToImage(X).Size;
+                    var TheSize = DSGMlib.PathToImage(X).Size;
                     TheImage = new Bitmap(TheSize.Width, TheSize.Height);
                     var GFX = Graphics.FromImage(TheImage);
                     GFX.Clear(ReplaceColorButton.BackColor);
-                    GFX.DrawImage(DS_Game_Maker.DSGMlib.MakeBMPTransparent(DS_Game_Maker.DSGMlib.PathToImage(X), OriginalColorButton.BackColor), new Point(0, 0));
+                    GFX.DrawImage(DSGMlib.MakeBMPTransparent(DSGMlib.PathToImage(X), OriginalColorButton.BackColor), new Point(0, 0));
                     GFX.Dispose();
                     TheImage.Save(X);
                     continue;

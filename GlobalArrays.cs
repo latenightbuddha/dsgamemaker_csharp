@@ -33,18 +33,18 @@ namespace DS_Game_Maker
 
         private void Globals_Load(object sender, EventArgs e)
         {
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
             var TMPList = new ImageList();
             TMPList.ImageSize = new Size(16, 16);
             TMPList.ColorDepth = ColorDepth.Depth32Bit;
             TMPList.Images.Add(Properties.Resources.ArrayIcon);
             ArraysList.ImageList = TMPList;
             ArraysList.Nodes.Clear();
-            foreach (string X_ in DS_Game_Maker.DSGMlib.GetXDSFilter("ARRAY "))
+            foreach (string X_ in DSGMlib.GetXDSFilter("ARRAY "))
             {
                 string X = X_;
                 X = X.Substring(6);
-                string ArrayName = DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ",");
+                string ArrayName = DSGMlib.iGet(X, (byte)0, ",");
                 ArraysList.Nodes.Add(string.Empty, ArrayName, 0);
             }
             ClearShizzle();
@@ -55,11 +55,11 @@ namespace DS_Game_Maker
             if (SN == 200)
                 return;
             string ArrayName = ArraysList.Nodes[SN].Text;
-            DS_Game_Maker.DSGMlib.XDSRemoveLine(DS_Game_Maker.DSGMlib.GetXDSLine("ARRAY " + ArrayName + ","));
+            DSGMlib.XDSRemoveLine(DSGMlib.GetXDSLine("ARRAY " + ArrayName + ","));
             ArraysList.Nodes.Remove(ArraysList.Nodes[SN]);
             string Message = "You have just deleted '" + ArrayName + "'." + Constants.vbCrLf + Constants.vbCrLf;
             Message += "Be sure to update any logic that uses this Array.";
-            DS_Game_Maker.DSGMlib.MsgInfo(Message);
+            DSGMlib.MsgInfo(Message);
             ClearShizzle();
         }
 
@@ -68,18 +68,18 @@ namespace DS_Game_Maker
             SN = (byte)e.Node.Index;
             NameTextBox.Text = e.Node.Text;
             MainGroupBox.Text = e.Node.Text;
-            string XDSLine = DS_Game_Maker.DSGMlib.GetXDSLine("ARRAY " + e.Node.Text + ",");
-            byte Type = Convert.ToByte(DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)1, ","));
+            string XDSLine = DSGMlib.GetXDSLine("ARRAY " + e.Node.Text + ",");
+            byte Type = Convert.ToByte(DSGMlib.iGet(XDSLine, (byte)1, ","));
             TypeDropper.Text = "Number";
             if (Type == 1)
                 TypeDropper.Text = "TrueFalse";
-            string ValuesString = DS_Game_Maker.DSGMlib.iGet(XDSLine, (byte)2, ",");
+            string ValuesString = DSGMlib.iGet(XDSLine, (byte)2, ",");
             ValuesListBox.Items.Clear();
             if (ValuesString.Length > 0)
             {
-                for (short i = 0, loopTo = DS_Game_Maker.DSGMlib.HowManyChar(ValuesString, ";"); i <= loopTo; i++)
+                for (short i = 0, loopTo = DSGMlib.HowManyChar(ValuesString, ";"); i <= loopTo; i++)
                 {
-                    string Value = DS_Game_Maker.DSGMlib.iGet(ValuesString, (byte)i, ";");
+                    string Value = DSGMlib.iGet(ValuesString, (byte)i, ";");
                     ValuesListBox.Items.Add(Value);
                 }
             }
@@ -92,19 +92,19 @@ namespace DS_Game_Maker
         private void SaveButton_Click(object sender, EventArgs e)
         {
             // If SN = 200 Then MsgWarn("No Variable is selected.") : Exit Sub
-            if (!DS_Game_Maker.DSGMlib.ValidateSomething(NameTextBox.Text, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.Tight))
+            if (!DSGMlib.ValidateSomething(NameTextBox.Text, (byte)DSGMlib.ValidateLevel.Tight))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must provide a valid name.");
+                DSGMlib.MsgWarn("You must provide a valid name.");
                 return;
             }
             if (TypeDropper.Text.Length == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must select a Type.");
+                DSGMlib.MsgWarn("You must select a Type.");
                 return;
             }
             if (!(TypeDropper.Text == "TrueFalse") & !(TypeDropper.Text == "Number"))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("A Variable can only be a 'TrueFalse' or a 'Number'.");
+                DSGMlib.MsgWarn("A Variable can only be a 'TrueFalse' or a 'Number'.");
                 return;
             }
             if (TypeDropper.Text == "TrueFalse")
@@ -123,7 +123,7 @@ namespace DS_Game_Maker
                 }
                 if (!AllTrueFalse)
                 {
-                    DS_Game_Maker.DSGMlib.MsgWarn("With a TrueFalse Array, all Values must be 'true' or 'false'.");
+                    DSGMlib.MsgWarn("With a TrueFalse Array, all Values must be 'true' or 'false'.");
                     return;
                 }
             }
@@ -133,7 +133,7 @@ namespace DS_Game_Maker
                 ValuesString += X + ";";
             if (ValuesString.Length > 0)
                 ValuesString = ValuesString.Substring(0, ValuesString.Length - 1);
-            DS_Game_Maker.DSGMlib.XDSChangeLine(DS_Game_Maker.DSGMlib.GetXDSLine("ARRAY " + ArraysList.Nodes[SN].Text + ","), "ARRAY " + NameTextBox.Text + "," + TheType.ToString() + "," + ValuesString);
+            DSGMlib.XDSChangeLine(DSGMlib.GetXDSLine("ARRAY " + ArraysList.Nodes[SN].Text + ","), "ARRAY " + NameTextBox.Text + "," + TheType.ToString() + "," + ValuesString);
             ArraysList.SelectedNode.Text = NameTextBox.Text;
             MainGroupBox.Text = NameTextBox.Text;
         }
@@ -143,13 +143,13 @@ namespace DS_Game_Maker
             short ToUse = 1;
             for (int i = 1; i <= 1000; i++)
             {
-                if (DS_Game_Maker.DSGMlib.GetXDSFilter("ARRAY Array_" + i.ToString() + ",").Length == 0)
+                if (DSGMlib.GetXDSFilter("ARRAY Array_" + i.ToString() + ",").Length == 0)
                 {
                     ToUse = (short)i;
                     break;
                 }
             }
-            DS_Game_Maker.DSGMlib.XDSAddLine("ARRAY Array_" + ToUse.ToString() + ",0,");
+            DSGMlib.XDSAddLine("ARRAY Array_" + ToUse.ToString() + ",0,");
             ArraysList.Nodes.Add(string.Empty, "Array_" + ToUse.ToString(), 0);
         }
 
@@ -177,7 +177,7 @@ namespace DS_Game_Maker
         {
             if (ValuesListBox.SelectedIndices.Count == 0)
                 return;
-            string Response = DS_Game_Maker.DSGMlib.GetInput("Please enter a new Value", ValuesListBox.Text, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.None);
+            string Response = DSGMlib.GetInput("Please enter a new Value", ValuesListBox.Text, (byte)DSGMlib.ValidateLevel.None);
             if (Response.Length == 0)
                 return;
             ValuesListBox.Items[ValuesListBox.SelectedIndices[0]] = Response;

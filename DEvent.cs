@@ -26,7 +26,7 @@ namespace DS_Game_Maker
 
         private void DEvent_Load(object sender, EventArgs e)
         {
-            Dropper.Renderer = new DS_Game_Maker.clsMenuRenderer();
+            Dropper.Renderer = new clsMenuRenderer();
             UseData = false;
         }
 
@@ -34,7 +34,7 @@ namespace DS_Game_Maker
         {
             Dropper.Items.Clear();
             var NewItems = new List<string>();
-            switch (DS_Game_Maker.ScriptsLib.MainClassStringToType(MainClass))
+            switch (ScriptsLib.MainClassStringToType(MainClass))
             {
                 case (byte)2:
                 case (byte)3:
@@ -64,7 +64,7 @@ namespace DS_Game_Maker
                     }
                 case (byte)6:
                     {
-                        foreach (string X_ in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECT "))
+                        foreach (string X_ in DSGMlib.GetXDSFilter("OBJECT "))
                         {
                             string X = X_;
                             X = X.Substring(7);
@@ -83,7 +83,7 @@ namespace DS_Game_Maker
         private void EventButtons_Click(object sender, EventArgs e)
         {
             MainClass = ((Button)sender).Text.Substring(6);
-            byte X = DS_Game_Maker.ScriptsLib.MainClassStringToType(MainClass);
+            byte X = ScriptsLib.MainClassStringToType(MainClass);
             if (X == 1 | X == 7)
             {
                 SubClass = "NoData";

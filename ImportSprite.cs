@@ -22,10 +22,10 @@ namespace DS_Game_Maker
 
         public Bitmap RenderImage()
         {
-            var TheSize = DS_Game_Maker.DSGMlib.PathToImage(FileName).Size;
+            var TheSize = DSGMlib.PathToImage(FileName).Size;
             var Returnable = new Bitmap(TheSize.Width, TheSize.Height);
             var RGFX = Graphics.FromImage(Returnable);
-            RGFX.DrawImage(DS_Game_Maker.DSGMlib.PathToImage(FileName), new Point(0, 0));
+            RGFX.DrawImage(DSGMlib.PathToImage(FileName), new Point(0, 0));
             bool XStartWhite = true;
             for (short Y = 0, loopTo = (short)Math.Round(ImagesPerColumnDropper.Value - 1m); Y <= loopTo; Y++)
             {
@@ -56,14 +56,14 @@ namespace DS_Game_Maker
         {
             if (FileName.Length == 0)
                 return 1;
-            short HRow = (short)DS_Game_Maker.DSGMlib.PathToImage(FileName).Width;
+            short HRow = (short)DSGMlib.PathToImage(FileName).Width;
             if (HRow % FrameWidth == 0)
             {
                 return (short)Math.Round(HRow / (double)FrameWidth);
             }
             else
             {
-                HRow = (short)(HRow + ((int)FrameWidth - DS_Game_Maker.DSGMlib.PathToImage(FileName).Width % (int)FrameWidth));
+                HRow = (short)(HRow + ((int)FrameWidth - DSGMlib.PathToImage(FileName).Width % (int)FrameWidth));
                 HRow = (short)Math.Round(HRow / (double)FrameWidth);
             }
             return HRow;
@@ -73,7 +73,7 @@ namespace DS_Game_Maker
         {
             if (FileName.Length == 0)
                 return 1;
-            short VRow = (short)DS_Game_Maker.DSGMlib.PathToImage(FileName).Height;
+            short VRow = (short)DSGMlib.PathToImage(FileName).Height;
             if (VRow % FrameHeight == 0)
             {
                 return (short)Math.Round(VRow / (double)FrameHeight);
@@ -104,7 +104,7 @@ namespace DS_Game_Maker
         {
             // TODO LATER Rows beyond the image width = bad frames!
             // Limit on selector, or ignore extra value?
-            Bitmap TheImage = (Bitmap)DS_Game_Maker.DSGMlib.PathToImage(FileName);
+            Bitmap TheImage = (Bitmap)DSGMlib.PathToImage(FileName);
             short DOn = 0;
             for (short Y = 0, loopTo = (short)Math.Round(ImagesPerColumnDropper.Value - 1m); Y <= loopTo; Y++)
             {

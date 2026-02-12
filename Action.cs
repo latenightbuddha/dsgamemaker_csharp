@@ -21,7 +21,7 @@ namespace DS_Game_Maker
 
         public void InstancesBugger()
         {
-            DS_Game_Maker.DSGMlib.MsgWarn("The instance numbers must be separated by single spaces. You may also the IRandom function." + Constants.vbCrLf + Constants.vbCrLf + "For more information, see the manual.");
+            DSGMlib.MsgWarn("The instance numbers must be separated by single spaces. You may also the IRandom function." + Constants.vbCrLf + Constants.vbCrLf + "For more information, see the manual.");
             InstancesTextBox.Focus();
         }
 
@@ -49,7 +49,7 @@ namespace DS_Game_Maker
                 }
                 if (IsOneEmpty)
                 {
-                    DS_Game_Maker.DSGMlib.MsgWarn("You must put something in every Argument box or selector.");
+                    DSGMlib.MsgWarn("You must put something in every Argument box or selector.");
                     ControlsPanel.Controls[DOn - 1].Focus();
                     return;
                 }
@@ -116,7 +116,7 @@ namespace DS_Game_Maker
                     }
                     else if (X.Name.StartsWith("Comparative"))
                     {
-                        TheText = DS_Game_Maker.ScriptsLib.StringToComparative(TheText);
+                        TheText = ScriptsLib.StringToComparative(TheText);
                     }
                     ArgumentString += TheText + ";";
                 }
@@ -152,7 +152,7 @@ namespace DS_Game_Maker
                     NewLabel.Location = new Point(1, 8 + DOn * 24);
                     LabelsPanel.Controls.Add(NewLabel);
                     Control InputControl;
-                    string TheContent = DS_Game_Maker.DSGMlib.iGet(ArgumentString, DOn, ";").ToString().Replace("<com>", ",");
+                    string TheContent = DSGMlib.iGet(ArgumentString, DOn, ";").ToString().Replace("<com>", ",");
                     if (ArgumentType == 0 | ArgumentType == 12)
                     {
                         InputControl = new TextBox();
@@ -191,7 +191,7 @@ namespace DS_Game_Maker
                     }
                     else if (ArgumentType == 3)
                     {
-                        foreach (string Y_ in DS_Game_Maker.DSGMlib.GetXDSFilter("GLOBAL "))
+                        foreach (string Y_ in DSGMlib.GetXDSFilter("GLOBAL "))
                         {
                             string Y = Y_;
                             Y = Y.Substring(7);
@@ -202,7 +202,7 @@ namespace DS_Game_Maker
                     }
                     else if (ArgumentType == 4)
                     {
-                        foreach (string Y_ in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECT "))
+                        foreach (string Y_ in DSGMlib.GetXDSFilter("OBJECT "))
                         {
                             string Y = Y_;
                             Y = Y.Substring(7);
@@ -213,13 +213,13 @@ namespace DS_Game_Maker
                     }
                     else if (ArgumentType == 5)
                     {
-                        foreach (string Y in DS_Game_Maker.DSGMlib.GetXDSFilter("BACKGROUND "))
+                        foreach (string Y in DSGMlib.GetXDSFilter("BACKGROUND "))
                             ((ComboBox)InputControl).Items.Add(Y.Substring(11));
                         InputControl.Name = "Background" + DOn.ToString();
                     }
                     else if (ArgumentType == 6)
                     {
-                        foreach (string Y_ in DS_Game_Maker.DSGMlib.GetXDSFilter("SOUND "))
+                        foreach (string Y_ in DSGMlib.GetXDSFilter("SOUND "))
                         {
                             string Y = Y_;
                             Y = Y.Substring(6);
@@ -229,7 +229,7 @@ namespace DS_Game_Maker
                     }
                     else if (ArgumentType == 7)
                     {
-                        foreach (string Y_ in DS_Game_Maker.DSGMlib.GetXDSFilter("ROOM "))
+                        foreach (string Y_ in DSGMlib.GetXDSFilter("ROOM "))
                         {
                             string Y = Y_;
                             Y = Y.Substring(5);
@@ -240,13 +240,13 @@ namespace DS_Game_Maker
                     }
                     else if (ArgumentType == 8)
                     {
-                        foreach (string Y in DS_Game_Maker.DSGMlib.GetXDSFilter("PATH "))
+                        foreach (string Y in DSGMlib.GetXDSFilter("PATH "))
                             ((ComboBox)InputControl).Items.Add(Y.Substring(5));
                         InputControl.Name = "Path" + DOn.ToString();
                     }
                     else if (ArgumentType == 9)
                     {
-                        foreach (string Y in DS_Game_Maker.DSGMlib.GetXDSFilter("SCRIPT "))
+                        foreach (string Y in DSGMlib.GetXDSFilter("SCRIPT "))
                         {
                             string ScriptName = Y.Substring(7);
                             ScriptName = ScriptName.Substring(0, ScriptName.LastIndexOf(","));
@@ -262,18 +262,18 @@ namespace DS_Game_Maker
                         ((ComboBox)InputControl).Items.Add("Less than or Equal to");
                         ((ComboBox)InputControl).Items.Add("Greater than or Equal to");
                         ((ComboBox)InputControl).Items.Add("Not Equal to");
-                        TheContent = DS_Game_Maker.ScriptsLib.ComparativeToString(TheContent);
+                        TheContent = ScriptsLib.ComparativeToString(TheContent);
                         InputControl.Name = "Comparative" + DOn.ToString();
                     }
                     else if (ArgumentType == 11)
                     {
-                        foreach (string F in DS_Game_Maker.DSGMlib.Fonts)
+                        foreach (string F in DSGMlib.Fonts)
                             ((ComboBox)InputControl).Items.Add(F);
                     }
                     // 12 Unrestrictive = no difference
                     else if (ArgumentType == 13)
                     {
-                        foreach (string Y in DS_Game_Maker.DSGMlib.GetXDSFilter("SPRITE "))
+                        foreach (string Y in DSGMlib.GetXDSFilter("SPRITE "))
                         {
                             string SpriteName = Y;
                             SpriteName = SpriteName.Substring(7);
@@ -289,7 +289,7 @@ namespace DS_Game_Maker
                     }
                     else if (ArgumentType == 15)
                     {
-                        foreach (string Y in DS_Game_Maker.DSGMlib.GetXDSFilter("ARRAY "))
+                        foreach (string Y in DSGMlib.GetXDSFilter("ARRAY "))
                         {
                             string ArrayName = Y;
                             ArrayName = ArrayName.Substring(6);
@@ -300,7 +300,7 @@ namespace DS_Game_Maker
                     }
                     else if (ArgumentType == 16)
                     {
-                        foreach (string Y_ in DS_Game_Maker.DSGMlib.GetXDSFilter("STRUCTURE "))
+                        foreach (string Y_ in DSGMlib.GetXDSFilter("STRUCTURE "))
                         {
                             string Y = Y_;
                             Y = Y.Substring(10);
@@ -334,7 +334,7 @@ namespace DS_Game_Maker
                 ControlsPanel.Visible = true;
             }
             InstancesOfDropper.Items.Clear();
-            foreach (string X_ in DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECT "))
+            foreach (string X_ in DSGMlib.GetXDSFilter("OBJECT "))
             {
                 string X = X_;
                 X = X.Substring(7);
@@ -346,7 +346,7 @@ namespace DS_Game_Maker
                 ThisRadioButton.Checked = true;
                 CheckedSomething = true;
             }
-            else if (DS_Game_Maker.DSGMlib.IsObject(AppliesTo))
+            else if (DSGMlib.IsObject(AppliesTo))
             {
                 InstancesOfRadioButton.Checked = true;
                 InstancesOfDropper.Text = AppliesTo;

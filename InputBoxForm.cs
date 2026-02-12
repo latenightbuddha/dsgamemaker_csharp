@@ -40,7 +40,7 @@ namespace DS_Game_Maker
 
         private void MainTextBox_TextChanged(object sender, EventArgs e)
         {
-            DOkayButton.Enabled = DS_Game_Maker.DSGMlib.ValidateSomething(MainTextBox.Text, Validation);
+            DOkayButton.Enabled = DSGMlib.ValidateSomething(MainTextBox.Text, Validation);
         }
     }
 }

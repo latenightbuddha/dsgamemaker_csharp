@@ -20,7 +20,7 @@ namespace DS_Game_Maker
 
         private void FoundInScripts_Load(object sender, EventArgs e)
         {
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
             if (Term.Length == 0)
                 return;
             FindInScriptsDoIt();
@@ -34,12 +34,12 @@ namespace DS_Game_Maker
             ScriptLines.Clear();
             ScriptPositions.Clear();
             short DOn = 0;
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("SCRIPT "))
+            foreach (string X in DSGMlib.GetXDSFilter("SCRIPT "))
             {
                 DOn = 0;
                 string ScriptName = X.Substring(7);
                 ScriptName = ScriptName.Substring(0, ScriptName.LastIndexOf(","));
-                foreach (string ThisLine in DS_Game_Maker.DSGMlib.StringToLines(DS_Game_Maker.DSGMlib.PathToString(DS_Game_Maker.SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas")))
+                foreach (string ThisLine in DSGMlib.StringToLines(DSGMlib.PathToString(SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas")))
                 {
                     short FullLength = (short)ThisLine.Length;
                     // MsgError("Line: " + ThisLine + vbcrlf + vbcrlf + "Length: " + FullLength.ToString)
@@ -63,7 +63,7 @@ namespace DS_Game_Maker
                         // MsgError(i.ToString + ": Observing: " + ThisLine.Substring(i))
                         if (ThisLine.Substring(i).StartsWith(Term))
                         {
-                            DS_Game_Maker.DSGMlib.MsgError(i.ToString() + " - '" + ThisLine.Substring(i) + "' starts with '" + Term + "' so I'm addin' it");
+                            DSGMlib.MsgError(i.ToString() + " - '" + ThisLine.Substring(i) + "' starts with '" + Term + "' so I'm addin' it");
                             ScriptNames.Add(ScriptName);
                             ScriptLines.Add((short)(DOn + 1));
                             ScriptPositions.Add(i);
@@ -116,18 +116,18 @@ namespace DS_Game_Maker
             {
                 if (X.Name == "Script" & (X.Text ?? "") == (ScriptName ?? ""))
                 {
-                    ((DS_Game_Maker.Script)X).GoToLine((short)(ScriptLines[MainListBox.SelectedIndex] - 1), ScriptPositions[MainListBox.SelectedIndex], (short)Term.Length);
+                    ((Script)X).GoToLine((short)(ScriptLines[MainListBox.SelectedIndex] - 1), ScriptPositions[MainListBox.SelectedIndex], (short)Term.Length);
                     X.BringToFront();
                     HasDone = true;
                 }
             }
             if (!HasDone)
             {
-                var P = new DS_Game_Maker.Script();
+                var P = new Script();
                 P.ScriptName = ScriptName;
                 object argInstance = (object)P;
-                DS_Game_Maker.DSGMlib.ShowInternalForm(ref argInstance);
-                P = (DS_Game_Maker.Script)argInstance;
+                DSGMlib.ShowInternalForm(ref argInstance);
+                P = (Script)argInstance;
                 P.GoToLine((short)(ScriptLines[MainListBox.SelectedIndex] - 1), ScriptPositions[MainListBox.SelectedIndex], (short)Term.Length);
             }
         }
