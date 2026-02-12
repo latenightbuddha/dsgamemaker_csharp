@@ -624,8 +624,11 @@ namespace DS_Game_Maker
         {
             foreach (string X in Directory.GetDirectories(Constants.AppDirectory))
             {
-                if ((X ?? "") == (SessionsLib.CompilePath.Substring(0, SessionsLib.CompilePath.Length - 1) ?? ""))
+                if (X == SessionsLib.CompilePath.Substring(0, SessionsLib.CompilePath.Length - 1))
+                {
                     continue;
+                }
+
                 try
                 {
                     if (X.StartsWith(Constants.AppDirectory + "DSGMTemp"))

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Drawing;
 using System.Net;
 
 namespace DS_Game_Maker
@@ -15,7 +16,6 @@ namespace DS_Game_Maker
 
         public static Bitmap ActionBG = new Bitmap(32, 32);
         public static Bitmap ActionConditionalBG = new Bitmap(32, 32);
-        public static WebClient WC = new WebClient();
 
         public static string ProjectPath = string.Empty;
 
@@ -119,13 +119,13 @@ namespace DS_Game_Maker
 
         public static Bitmap GenerateDSSprite(string TheSpriteName)
         {
-            string Folder = SessionsLib.SessionPath + @"Sprites\";
+            string Folder = SessionsLib.SessionPath + "Sprites/";
             byte ImageCount = 0;
             var Images = new List<string>();
             foreach (string X_ in Directory.GetFiles(Folder))
             {
                 string X = X_;
-                X = X.Substring(X.LastIndexOf(@"\") + 1);
+                X = X.Substring(X.LastIndexOf("/") + 1);
                 X = X.Substring(0, X.IndexOf(".png"));
                 X = X.Substring(X.IndexOf("_") + 1);
                 if ((X ?? "") == (TheSpriteName ?? ""))
@@ -144,26 +144,6 @@ namespace DS_Game_Maker
             }
             TempGFX.Dispose();
             return Returnable;
-        }
-
-        public static bool HasInternetConnection(string URL)
-        {
-            var uri = new Uri(URL);
-            var request = WebRequest.Create(uri);
-            WebResponse response;
-            try
-            {
-                response = request.GetResponse();
-                response.Close();
-                request = null;
-                response.Close();
-                request = null;
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
         }
 
         public static object MakeSpaces(byte HowMany)
@@ -2165,8 +2145,10 @@ namespace DS_Game_Maker
             bool IsOne = false;
             foreach (string D in Enders)
             {
-                if ((F ?? "") == (D ?? ""))
+                if (F == D)
+                {
                     IsOne = true;
+                }
             }
             if (F.StartsWith("next "))
                 IsOne = true;
@@ -2351,15 +2333,20 @@ namespace DS_Game_Maker
                         {
                             if (Y.InUse & (Y.ObjectName == ResourceName))
                             {
-                                DForm.Objects[(int)DOn].CacheImage = (Bitmap)null;
-                                DForm.Objects[(int)DOn].InUse = false;
-                                DForm.Objects[(int)DOn].ObjectName = string.Empty;
-                                DForm.Objects[(int)DOn].X = (short)0;
-                                DForm.Objects[(int)DOn].Y = (short)0;
-                                if (DForm.Objects[(int)DOn].Screen)
+                                DForm.Objects[DOn].CacheImage = EmptyBitmap();
+                                DForm.Objects[DOn].InUse = false;
+                                DForm.Objects[DOn].ObjectName = string.Empty;
+                                DForm.Objects[DOn].X = 0;
+                                DForm.Objects[DOn].Y = 0;
+
+                                if (DForm.Objects[DOn].Screen)
+                                {
                                     TopAffected = (byte)(TopAffected + 1);
+                                }
                                 else
+                                {
                                     BottomAffected = (byte)(BottomAffected + 1);
+                                }
                             }
                             DOn = (short)(DOn + 1);
                         }
@@ -2560,6 +2547,28 @@ namespace DS_Game_Maker
                 if (X.Text == ResourceName)
                     X.Close();
             }
+        }
+
+        public static Bitmap EmptyBitmap(int width = 16, int height = 16)
+        {
+            int _width = width;
+            int _height = height;
+            int _size = height/16;
+
+            Graphics bitmap = Graphics.FromImage(new Bitmap(_width, height));
+
+            int x = 0;
+            int y = _size;
+
+            while (y <= height)
+            {
+                bitmap.FillRectangle(Brushes.Red, 0, x, _width, _size); 
+                x += _size;
+
+                bitmap.FillRectangle(Brushes.Black, 0, y, _width, _size);    
+                y += _size;
+            }
+            return new Bitmap(_width, _height, bitmap);
         }
 
         public static void CopyResource(string OldName, string NewName, byte ResourceType)
