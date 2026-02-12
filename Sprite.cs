@@ -42,7 +42,7 @@ namespace DS_Game_Maker
                     if (ImageCount == 0)
                     {
                         // First image! Grab the size....
-                        MainImageList.ImageSize = DS_Game_Maker.DSGMlib.PathToImage(X).Size;
+                        MainImageList.ImageSize = DS_Game_Maker.DSGMlib.PathToImage(X_).Size;
                     }
                     ImageCount = (short)(ImageCount + 1);
                 }
