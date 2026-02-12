@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using Microsoft.VisualBasic;
-using Microsoft.VisualBasic.CompilerServices;
+﻿using System.Diagnostics;
 
 namespace DS_Game_Maker
 {
@@ -106,75 +98,47 @@ namespace DS_Game_Maker
             foreach (Control ctl in Controls)
             {
                 if (ctl is MdiClient)
+                {
                     ctl.BackgroundImage = Properties.Resources.MDIBG;
-            }
-            string System32Path = Environment.GetFolderPath(Environment.SpecialFolder.System);
-            CacheHasTinternet = DS_Game_Maker.DSGMlib.HasInternetConnection("http://google.com");
-
-            /*if (!File.Exists(System32Path + @"\SciLexer_x64.dll"))
-            {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer_x64.dll", System32Path + @"\SciLexer_x64.dll");
-            }
-            
-            if (!File.Exists(System32Path + @"\ScintillaNet.dll"))
-            {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "ScintillaNet.dll", System32Path + @"\ScintillaNet.dll");
-            }*/
-
-            // Also into Windows... nasty, rare suggested fix
-             /*string WindowsPath = System32Path.Substring(0, System32Path.LastIndexOf(@"\"));
-            if (!File.Exists(WindowsPath + @"\SciLexer_x64.dll"))
-            {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "SciLexer_x64.dll", WindowsPath + @"\SciLexer_x64.dll");
+                }
             }
 
-           
-            if (!File.Exists(WindowsPath + @"\ScintillaNet.dll"))
-            {
-                File.Copy(DS_Game_Maker.DSGMlib.AppPath + "ScintillaNet.dll", WindowsPath + @"\ScintillaNet.dll");
-            }
-           
+            List<string> VitalFiles =
+            [
+                Constants.AppDirectory + "Resources/NoSprite.png",
+                Constants.AppDirectory + "ActionIcons/Empty.png",
+                Constants.AppDirectory + "DefaultResources/Sprite.png",
+                Constants.AppDirectory + "DefaultResources/Background.png",
+                Constants.AppDirectory + "DefaultResources/Sound.wav",
+            ];
 
-            try
-            {
-                DS_Game_Maker.RegistryLib.SetFileType(".dsgm", "DSGMFile");
-                DS_Game_Maker.RegistryLib.SetFileDescription("DSGMFile", Application.ProductName + " Project");
-                DS_Game_Maker.RegistryLib.AddAction("DSGMFile", "open", "Open");
-                DS_Game_Maker.RegistryLib.SetExtensionCommandLine("open", "DSGMFile", "\"" + DS_Game_Maker.DSGMlib.AppPath + Application.ProductName + ".exe\" \"%1\"");
-                DS_Game_Maker.RegistryLib.SetDefaultIcon("DSGMFile", "\"" + DS_Game_Maker.DSGMlib.AppPath + "Icon.ico\"");
-            }
-            catch (Exception ex)
-            {
-                DS_Game_Maker.DSGMlib.MsgWarn("You should run " + Application.ProductName + " as an Administrator." + Constants.vbCrLf + Constants.vbCrLf + "(" + ex.Message + ")");
-            } */
-
-            var VitalFiles = new Collection();
-            VitalFiles.Add(Constants.AppDirectory + "Resources/NoSprite.png");
-            VitalFiles.Add(Constants.AppDirectory + "ActionIcons/Empty.png");
-            VitalFiles.Add(Constants.AppDirectory + "DefaultResources/Sprite.png");
-            VitalFiles.Add(Constants.AppDirectory + "DefaultResources/Background.png");
-            VitalFiles.Add(Constants.AppDirectory + "DefaultResources/Sound.wav");
             byte VitalBuggered = 0;
+
             foreach (string X in VitalFiles)
             {
-                if (!File.Exists(X))
+                if (File.Exists(X) == false)
+                {
                     VitalBuggered = (byte)(VitalBuggered + 1);
+                }
             }
             if (VitalBuggered == 1)
             {
-                DS_Game_Maker.DSGMlib.MsgError("A vital file is missing. You must reinstall " + Application.ProductName + ".");
+                DSGMlib.MsgError("A vital file is missing. You must reinstall " + Application.ProductName + ".");
                 return;
             }
             if (VitalBuggered > 1)
             {
-                DS_Game_Maker.DSGMlib.MsgError("Some vital files are missing. You must reinstall " + Application.ProductName + ".");
+                DSGMlib.MsgError("Some vital files are missing. You must reinstall " + Application.ProductName + ".");
                 return;
             }
-            DS_Game_Maker.DSGMlib.RebuildFontCache();
+
+            DSGMlib.RebuildFontCache();
+
             // Toolstrip Renderers
             MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
             DMainMenuStrip.Renderer = new DS_Game_Maker.clsMenuRenderer();
             ResRightClickMenu.Renderer = new DS_Game_Maker.clsMenuRenderer();
+
             // Resources Setup
             DS_Game_Maker.DSGMlib.ResourceTypes[0] = "Sprites";
             MainImageList.Images.Add("SpriteIcon", Properties.Resources.SpriteIcon);
@@ -190,12 +154,15 @@ namespace DS_Game_Maker
             MainImageList.Images.Add("PathIcon", Properties.Resources.PathIcon);
             DS_Game_Maker.DSGMlib.ResourceTypes[6] = "Scripts";
             MainImageList.Images.Add("ScriptIcon", Properties.Resources.ScriptIcon);
+
             // Imagelist Setup
             // MainImageList.Images.Add("ScriptIcon", My.Resources.ScriptIcon)
             MainImageList.Images.Add("FolderIcon", Properties.Resources.FolderIcon);
             // Resources Setup
             for (byte Resource = 0, loopTo = (byte)(DS_Game_Maker.DSGMlib.ResourceTypes.Length - 1); Resource <= loopTo; Resource++)
+            {
                 ResourcesTreeView.Nodes.Add(string.Empty, DS_Game_Maker.DSGMlib.ResourceTypes[(int)Resource], 7, 7);
+            }
 
 
             // Settings 
@@ -258,31 +225,34 @@ namespace DS_Game_Maker
 
         private void NewProject_Click(object sender, EventArgs e)
         {
-            Interaction.Shell(Constants.AppDirectory + ProductName + ".exe /skipauto");
+            Process.Start(Constants.AppDirectory + ProductName, "/skipauto");
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (DS_Game_Maker.DSGMlib.BeingUsed)
+            if (DSGMlib.BeingUsed)
             {
                 bool WillExit = false;
                 string TheText = "Your new project";
-                if (!DS_Game_Maker.DSGMlib.IsNewProject)
+
+                if (DSGMlib.IsNewProject == false)
                 {
-                    TheText = "'" + DS_Game_Maker.DSGMlib.CacheProjectName + "'";
+                    TheText = "'" + DSGMlib.CacheProjectName + "'";
                 }
-                int Result = (int)MessageBox.Show(TheText + " may have unsaved changes." + Constants.vbCrLf + Constants.vbCrLf + "Do you want to save just in case?", Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                if (Result == (int)MsgBoxResult.Yes)
+
+                DialogResult Result = MessageBox.Show(TheText + " may have unsaved changes." + Constants.vbCrLf + Constants.vbCrLf + "Do you want to save just in case?", Application.ProductName, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                if (Result == DialogResult.Yes)
                 {
                     SaveButton_Click(new object(), new EventArgs());
                     WillExit = true;
                 }
-                else if (Result == (int)MsgBoxResult.No)
+                else if (Result == DialogResult.No)
                 {
                     e.Cancel = false;
                     WillExit = true;
                 }
-                else if (Result == (int)MsgBoxResult.Cancel)
+                else if (Result == DialogResult.Cancel)
                 {
                     e.Cancel = true;
                 }
@@ -290,10 +260,13 @@ namespace DS_Game_Maker
                 {
                     if (WillExit)
                     {
-                        Directory.Delete(DS_Game_Maker.SessionsLib.SessionPath, true);
-                        Directory.Delete(DS_Game_Maker.SessionsLib.CompilePath, true);
-                        if (DS_Game_Maker.DSGMlib.IsNewProject)
-                            File.Delete(Constants.AppDirectory + "NewProjects/" + DS_Game_Maker.SessionsLib.Session + ".dsgm");
+                        Directory.Delete(SessionsLib.SessionPath, true);
+                        Directory.Delete(SessionsLib.CompilePath, true);
+
+                        if (DSGMlib.IsNewProject)
+                        {
+                            File.Delete(Constants.AppDirectory + "NewProjects/" + SessionsLib.Session + ".dsgm");
+                        }
                     }
                 }
                 catch
@@ -444,14 +417,22 @@ namespace DS_Game_Maker
 
         public bool OpenWarn()
         {
-            string TheText = "'" + DS_Game_Maker.DSGMlib.CacheProjectName + "'";
-            if (DS_Game_Maker.DSGMlib.IsNewProject)
+            string TheText = "'" + DSGMlib.CacheProjectName + "'";
+
+            if (DSGMlib.IsNewProject)
+            {
                 TheText = "your new Project";
-            byte Answer = (byte)MessageBox.Show("Are you sure you want to open another Project?" + Constants.vbCrLf + Constants.vbCrLf + "You will lose any changes you have made to " + TheText + ".", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (Answer == (int)MsgBoxResult.Yes)
+            }
+
+            DialogResult Answer = MessageBox.Show("Are you sure you want to open another Project?" + Constants.vbCrLf + Constants.vbCrLf + "You will lose any changes you have made to " + TheText + ".", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (Answer == DialogResult.Yes)
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
 
         private void OpenProjectButton_Click(object sender, EventArgs e)
@@ -486,11 +467,12 @@ namespace DS_Game_Maker
                 if ((LastPath ?? "") == (DS_Game_Maker.DSGMlib.ProjectPath ?? ""))
                 {
                     // Same Project - Reload job
-                    byte Result = (byte)MessageBox.Show("Do you want to reload the current Project?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    if (Result == (int)MsgBoxResult.Yes)
+                    DialogResult Result = MessageBox.Show("Do you want to reload the current Project?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (Result == DialogResult.Yes)
                     {
-                        DS_Game_Maker.DSGMlib.CleanFresh(false);
-                        DS_Game_Maker.DSGMlib.OpenProject(DS_Game_Maker.DSGMlib.ProjectPath);
+                        DSGMlib.CleanFresh(false);
+                        DSGMlib.OpenProject(DSGMlib.ProjectPath);
+
                         return;
                     }
                 }
@@ -607,7 +589,7 @@ namespace DS_Game_Maker
                     var withBlock = Program.Forms.compiled_Form;
                     withBlock.Text = DS_Game_Maker.DSGMlib.CacheProjectName;
                     withBlock.MainLabel.Text = DS_Game_Maker.DSGMlib.CacheProjectName;
-                    withBlock.SubLabel.Text = Conversions.ToString(Operators.AddObject("Compiled by " + Environment.UserName + " at ", DS_Game_Maker.DSGMlib.GetTime()));
+                    withBlock.SubLabel.Text = "Compiled by " + Environment.UserName + " at " + DSGMlib.GetTime();
                     withBlock.ShowDialog();
                 }
             }
@@ -798,7 +780,7 @@ namespace DS_Game_Maker
                 string SessionName = string.Empty;
                 for (byte Looper = 0; Looper <= 10; Looper++)
                 {
-                    SessionName = Conversions.ToString(Operators.AddObject("NewProject", DS_Game_Maker.SessionsLib.MakeSessionName()));
+                    SessionName = "NewProject" +  SessionsLib.MakeSessionName();
                     if (!Directory.Exists(Constants.AppDirectory + "ProjectTemp/" + SessionName))
                         break;
                 }

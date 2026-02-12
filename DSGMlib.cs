@@ -1785,11 +1785,17 @@ namespace DS_Game_Maker
         public static object CanDivide(short num1, short num2)
         {
             if (num1 == 0 | num2 == 0)
+            {
                 return false;
+            }
             if (num1 % num2 == 0)
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
 
         public static short ImageCountColors(Bitmap TheImage)
