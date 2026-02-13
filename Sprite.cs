@@ -252,25 +252,25 @@ namespace DS_Game_Maker
             }
             short ID = (short)MainListView.SelectedIndices[0];
             // For Each ID As Byte In MainListView.SelectedIndices
-            // IO.File.Delete(SessionPath + "Sprites\" + ID.ToString + "_" + SpriteName + ".png")
+            // IO.File.Delete(SessionPath + "Sprites/" + ID.ToString + "_" + SpriteName + ".png")
             // Next
-            // Directory.CreateDirectory(SessionPath + "Sprites\" + SpriteName)
+            // Directory.CreateDirectory(SessionPath + "Sprites/" + SpriteName)
             // For Each X As String In Directory.GetFiles(SessionPath + "Sprites")
             // Dim Backup As String = X
-            // X = X.Substring(X.LastIndexOf("\") + 1)
+            // X = X.Substring(X.LastIndexOf("/") + 1)
             // X = X.Substring(0, X.LastIndexOf("."))
             // Dim ID As Byte = Convert.ToByte(X.Substring(0, X.IndexOf("_")))
             // X = X.Substring(X.IndexOf("_") + 1)
             // If X = SpriteName Then
-            // File.Move(Backup, SessionPath + "Sprites\" + SpriteName + "\" + ID.ToString + ".png")
+            // File.Move(Backup, SessionPath + "Sprites/" + SpriteName + "/" + ID.ToString + ".png")
             // End If
             // Next
             // Dim DOn As Byte = 0
-            // For Each X As String In Directory.GetFiles(SessionPath + "Sprites\" + SpriteName)
-            // IO.File.Move(X, SessionPath + "Sprites\" + DOn.ToString + "_" + SpriteName + ".png")
+            // For Each X As String In Directory.GetFiles(SessionPath + "Sprites/" + SpriteName)
+            // IO.File.Move(X, SessionPath + "Sprites/" + DOn.ToString + "_" + SpriteName + ".png")
             // DOn += 1
             // Next
-            // Directory.Delete(SessionPath + "Sprites\" + SpriteName)
+            // Directory.Delete(SessionPath + "Sprites/" + SpriteName)
             // SyncImages()
             MainImageList.Images.RemoveAt(ID);
             MainListView.Items.RemoveAt(ID);
@@ -373,7 +373,7 @@ namespace DS_Game_Maker
                 return;
             // For Each X As String In Directory.GetFiles(SessionPath + "Sprites")
             // Dim Backup As String = X
-            // X = X.Substring(X.LastIndexOf("\") + 1)
+            // X = X.Substring(X.LastIndexOf("/") + 1)
             // X = X.Substring(0, X.LastIndexOf("."))
             // X = X.Substring(X.IndexOf("_") + 1)
             // If X = SpriteName Then File.Delete(Backup)
@@ -391,10 +391,10 @@ namespace DS_Game_Maker
             for (short X = 0, loopTo = (short)(ImageCount - 1); X <= loopTo; X++)
             {
                 string TheKey = "Frame_" + MainImageList.Images.Count.ToString();
-                MainImageList.Images.Add(TheKey, DSGMlib.PathToImage(ThePath + @"\" + X.ToString() + ".png"));
+                MainImageList.Images.Add(TheKey, DSGMlib.PathToImage(ThePath + "/" + X.ToString() + ".png"));
                 MainListView.Items.Add(TheKey.Replace("_", " "), MainImageList.Images.Count - 1);
-                File.Delete(ThePath + @"\" + X.ToString() + ".png");
-                // File.Move(ThePath + "\" + X.ToString + ".png", SessionPath + "Sprites\" + X.ToString + "_" + SpriteName + ".png")
+                File.Delete(ThePath + "/" + X.ToString() + ".png");
+                // File.Move(ThePath + "/" + X.ToString + ".png", SessionPath + "Sprites/" + X.ToString + "_" + SpriteName + ".png")
             }
             Directory.Delete(ThePath);
             DataChanged = true;
@@ -410,9 +410,9 @@ namespace DS_Game_Maker
         // If Not Response = MsgBoxResult.Yes Then Exit Sub
         // End If
         // Dim ImageCount As Int16 = 0
-        // Dim ThePath As String = SessionPath + "Sprites\"
+        // Dim ThePath As String = SessionPath + "Sprites/"
         // For Each X As String In Directory.GetFiles(ThePath)
-        // X = X.Substring(X.LastIndexOf("\") + 1)
+        // X = X.Substring(X.LastIndexOf("/") + 1)
         // X = X.Substring(0, X.LastIndexOf("."))
         // X = X.Substring(X.IndexOf("_") + 1)
         // If X = SpriteName Then ImageCount += 1
@@ -463,8 +463,8 @@ namespace DS_Game_Maker
                     }
                     FinalString += ToAdd + Constants.vbCrLf;
                 }
-                File.WriteAllText(SessionsLib.CompilePath + @"gfx\dsgm_gfx.h", FinalString);
-                File.SetLastWriteTime(SessionsLib.CompilePath + @"gfx\dsgm_gfx.h", BackupDate);
+                File.WriteAllText(SessionsLib.CompilePath + "gfx/dsgm_gfx.h", FinalString);
+                File.SetLastWriteTime(SessionsLib.CompilePath + "gfx/dsgm_gfx.h", BackupDate);
             }
             if (File.Exists(SessionsLib.CompilePath + "build/" + SpriteName + "_Sprite.h"))
             {

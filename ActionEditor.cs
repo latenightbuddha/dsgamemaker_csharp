@@ -21,24 +21,24 @@ namespace DS_Game_Maker
 
         private void ActionEditor_Load(object sender, EventArgs e)
         {
-            MainToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
-            SubToolStrip.Renderer = new DS_Game_Maker.clsToolstripRenderer();
+            MainToolStrip.Renderer = new clsToolstripRenderer();
+            SubToolStrip.Renderer = new clsToolstripRenderer();
             MainImageList.Images.Add("ActionIcon", Properties.Resources.ActionIcon); 
             ActionsTreeView.ImageList = MainImageList;
             TypeDropper.Items.Clear();
             ImageDropper.Items.Clear();
             for (byte X = 0; X <= 5; X++)
-                TypeDropper.Items.Add(DS_Game_Maker.ScriptsLib.ActionTypeToString(X));
+                TypeDropper.Items.Add(ScriptsLib.ActionTypeToString(X));
             foreach (string X in Directory.GetFiles(Constants.AppDirectory + "ActionIcons"))
             {
-                string ToAdd = X.Substring(X.LastIndexOf(@"\") + 1);
+                string ToAdd = X.Substring(X.LastIndexOf("/") + 1);
                 ToAdd = ToAdd.Substring(0, ToAdd.IndexOf("."));
                 ImageDropper.Items.Add(ToAdd);
             }
             short ActionCount = 0;
             foreach (string X in Directory.GetFiles(Constants.AppDirectory + "Actions", "*.action"))
             {
-                string ActionName = X.Substring(X.LastIndexOf(@"\") + 1);
+                string ActionName = X.Substring(X.LastIndexOf("/") + 1);
                 ActionName = ActionName.Substring(0, ActionName.LastIndexOf("."));
                 ActionsTreeView.Nodes.Add(new TreeNode(ActionName, 0, 0));
                 ActionCount = (short)(ActionCount + 1);
@@ -50,7 +50,7 @@ namespace DS_Game_Maker
 
         private void ActionsTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (!File.Exists(Constants.AppDirectory + @"Actions\" + e.Node.Text + ".action"))
+            if (!File.Exists(Constants.AppDirectory + "Actions/" + e.Node.Text + ".action"))
                 return;
             byte ActionType = 6;
             string ActionDisplay = string.Empty;
@@ -61,7 +61,7 @@ namespace DS_Game_Maker
             bool NoApplies = false;
             DontRequestApplicationChecker.Checked = false;
             ConditionalDisplayChecker.Checked = false;
-            foreach (string ActLine_ in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + e.Node.Text + ".action"))
+            foreach (string ActLine_ in File.ReadAllLines(Constants.AppDirectory + "Actions/" + e.Node.Text + ".action"))
             {
                 string ActLine = ActLine_;
                 if (ActLine.StartsWith("TYPE "))
@@ -117,14 +117,14 @@ namespace DS_Game_Maker
                 IsError = true;
             if (IsError)
             {
-                DS_Game_Maker.DSGMlib.MsgError("'" + e.Node.Text + "' is not a valid action file.");
+                DSGMlib.MsgError("'" + e.Node.Text + "' is not a valid action file.");
                 return;
             }
             Editing = e.Node.Text;
             NameTextBox.Text = e.Node.Text;
             ListDisplayTextBox.Text = ActionDisplay;
-            TypeDropper.Text = DS_Game_Maker.ScriptsLib.ActionTypeToString(ActionType);
-            ImageDropper.Text = DS_Game_Maker.ActionsLib.ActionGetIconPath(e.Node.Text, false);
+            TypeDropper.Text = ScriptsLib.ActionTypeToString(ActionType);
+            ImageDropper.Text = ActionsLib.ActionGetIconPath(e.Node.Text, false);
             ImageDropper.Text = ImageDropper.Text.Substring(0, ImageDropper.Text.LastIndexOf("."));
             ArgumentsListView.Items.Clear();
             if (ArgNames.Count > 0)
@@ -133,7 +133,7 @@ namespace DS_Game_Maker
                 {
                     var ToAdd = new ListViewItem();
                     ToAdd.Text = ArgNames[X];
-                    ToAdd.SubItems.Add(DS_Game_Maker.ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgTypes[X])));
+                    ToAdd.SubItems.Add(ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgTypes[X])));
                     ArgumentsListView.Items.Add(ToAdd);
                 }
             }
@@ -144,12 +144,12 @@ namespace DS_Game_Maker
         {
             if (Editing.Length == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("No action is selected.");
+                DSGMlib.MsgWarn("No action is selected.");
                 return;
             }
-            if (!File.Exists(Constants.AppDirectory + @"ActionIcons\" + ImageDropper.Text + ".png"))
+            if (!File.Exists(Constants.AppDirectory + "ActionIcons/" + ImageDropper.Text + ".png"))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("The action icon does not exist.");
+                DSGMlib.MsgWarn("The action icon does not exist.");
                 return;
             }
             // TODO LATER
@@ -165,14 +165,14 @@ namespace DS_Game_Maker
             // actions in arguments - knock offs and add ons
             SaveButton.Enabled = false;
             bool NameChanged = true;
-            if ((Editing ?? "") == (NameTextBox.Text ?? ""))
+            if (Editing == NameTextBox.Text)
                 NameChanged = false;
             bool ActionExists = false;
-            if (!((NameTextBox.Text ?? "") == (Editing ?? "")))
+            if (NameTextBox.Text != Editing)
             {
                 foreach (TreeNode Action in ActionsTreeView.Nodes)
                 {
-                    if ((NameTextBox.Text ?? "") == (Action.Text ?? ""))
+                    if (NameTextBox.Text == Action.Text)
                     {
                         ActionExists = true;
                         break;
@@ -181,7 +181,7 @@ namespace DS_Game_Maker
             }
             if (ActionExists)
             {
-                DS_Game_Maker.DSGMlib.MsgError("There is already an action called '" + NameTextBox.Text + "'.");
+                DSGMlib.MsgError("There is already an action called '" + NameTextBox.Text + "'.");
                 return;
             }
             string FinalString = "TYPE " + TypeDropper.SelectedIndex.ToString() + Constants.vbCrLf;
@@ -189,7 +189,7 @@ namespace DS_Game_Maker
             FinalString += "ICON " + ImageDropper.Text + ".png" + Constants.vbCrLf;
             FinalString += "CONDITION " + (ConditionalDisplayChecker.Checked ? "1" : "0") + Constants.vbCrLf;
             foreach (ListViewItem X in ArgumentsListView.Items)
-                FinalString += "ARG " + X.Text + "," + DS_Game_Maker.ScriptsLib.ArgumentStringToType(X.SubItems[1].Text).ToString() + Constants.vbCrLf;
+                FinalString += "ARG " + X.Text + "," + ScriptsLib.ArgumentStringToType(X.SubItems[1].Text).ToString() + Constants.vbCrLf;
             foreach (ScintillaNET.Line X in MainTextBox.Lines)
                 FinalString += X.Text;
             if (IndentRadioButton.Checked)
@@ -198,38 +198,38 @@ namespace DS_Game_Maker
                 FinalString += Constants.vbCrLf + "DEDENT";
             if (DontRequestApplicationChecker.Checked)
                 FinalString += Constants.vbCrLf + "NOAPPLIES";
-            File.WriteAllText(Constants.AppDirectory + @"Actions\" + Editing + ".action", FinalString);
+            File.WriteAllText(Constants.AppDirectory + "Actions/" + Editing + ".action", FinalString);
             if (NameChanged)
-                File.Move(Constants.AppDirectory + @"Actions\" + Editing + ".action", Constants.AppDirectory + @"Actions\" + NameTextBox.Text + ".action");
+                File.Move(Constants.AppDirectory + "Actions/" + Editing + ".action", Constants.AppDirectory + "Actions/" + NameTextBox.Text + ".action");
             foreach (TreeNode X in ActionsTreeView.Nodes)
             {
-                if ((X.Text ?? "") == (Editing ?? ""))
+                if (X.Text == Editing)
                     X.Text = NameTextBox.Text;
             }
-            foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("ACT "))
+            foreach (string X in DSGMlib.GetXDSFilter("ACT "))
             {
-                if ((DS_Game_Maker.DSGMlib.iGet(X, (byte)3, ",") ?? "") == (Editing ?? ""))
+                if ((DSGMlib.iGet(X, (byte)3, ",") ?? "") == (Editing ?? ""))
                 {
-                    string NewLine = DS_Game_Maker.DSGMlib.iGet(X, (byte)0, ",") + ",";
-                    NewLine += DS_Game_Maker.DSGMlib.iGet(X, (byte)1, ",") + ",";
-                    NewLine += DS_Game_Maker.DSGMlib.iGet(X, (byte)2, ",") + ",";
-                    NewLine += NameTextBox.Text + "," + DS_Game_Maker.DSGMlib.iGet(X, (byte)4, ",") + "," + DS_Game_Maker.DSGMlib.iGet(X, (byte)5, ",");
-                    DS_Game_Maker.DSGMlib.XDSChangeLine(X, NewLine);
+                    string NewLine = DSGMlib.iGet(X, (byte)0, ",") + ",";
+                    NewLine += DSGMlib.iGet(X, (byte)1, ",") + ",";
+                    NewLine += DSGMlib.iGet(X, (byte)2, ",") + ",";
+                    NewLine += NameTextBox.Text + "," + DSGMlib.iGet(X, (byte)4, ",") + "," + DSGMlib.iGet(X, (byte)5, ",");
+                    DSGMlib.XDSChangeLine(X, NewLine);
                 }
             }
             foreach (Form X in Program.Forms.main_Form.MdiChildren)
             {
-                if (DS_Game_Maker.DSGMlib.GetXDSFilter("OBJECT " + X.Text + ",").Length == 0)
+                if (DSGMlib.GetXDSFilter("OBJECT " + X.Text + ",").Length == 0)
                     continue;
-                for (short Y = 0, loopTo = (short)(((DS_Game_Maker.DObject)X).Actions.Count - 1); Y <= loopTo; Y++)
+                for (short Y = 0, loopTo = (short)(((DObject)X).Actions.Count - 1); Y <= loopTo; Y++)
                 {
-                    if ((((DS_Game_Maker.DObject)X).Actions[(int)Y] ?? "") == (Editing ?? ""))
+                    if ((((DObject)X).Actions[(int)Y] ?? "") == (Editing ?? ""))
                     {
-                        ((DS_Game_Maker.DObject)X).Actions[(int)Y] = NameTextBox.Text;
-                        ((DS_Game_Maker.DObject)X).ActionImages[(int)Y] = DS_Game_Maker.ActionsLib.ActionGetIconPath(NameTextBox.Text, false);
-                        ((DS_Game_Maker.DObject)X).ActionDisplays[(int)Y] = DS_Game_Maker.ActionsLib.ActionEquateDisplay(((DS_Game_Maker.DObject)X).Actions[(int)Y], ((DS_Game_Maker.DObject)X).ActionArguments[(int)Y]);
+                        ((DObject)X).Actions[(int)Y] = NameTextBox.Text;
+                        ((DObject)X).ActionImages[(int)Y] = ActionsLib.ActionGetIconPath(NameTextBox.Text, false);
+                        ((DObject)X).ActionDisplays[(int)Y] = ActionsLib.ActionEquateDisplay(((DObject)X).Actions[(int)Y], ((DObject)X).ActionArguments[(int)Y]);
                     }
-                } ((DS_Game_Maker.DObject)X).RepopulateLibrary();
+                } ((DObject)X).RepopulateLibrary();
                 // For Each Y As Control In X.Controls
                 // If Y.Name = "ActionsToAddTabControl" Then
                 // DObject.PopulateActionsTabControl(DirectCast(Y, TabControl))
@@ -266,17 +266,17 @@ namespace DS_Game_Maker
             bool BothMessages = NeedsBinning & DisplayNeedsBinning ? true : false;
             if (BothMessages)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must removal all references to !" + TheName + "! and $" + TheName + "$.");
+                DSGMlib.MsgWarn("You must removal all references to !" + TheName + "! and $" + TheName + "$.");
             }
             else
             {
                 if (NeedsBinning)
                 {
-                    DS_Game_Maker.DSGMlib.MsgWarn("You must removal all references to !" + TheName + "!.");
+                    DSGMlib.MsgWarn("You must removal all references to !" + TheName + "!.");
                 }
                 if (DisplayNeedsBinning)
                 {
-                    DS_Game_Maker.DSGMlib.MsgWarn("You must removal all references to $" + TheName + "$ and %" + TheName + "%.");
+                    DSGMlib.MsgWarn("You must removal all references to $" + TheName + "$ and %" + TheName + "%.");
                 }
             }
         }
@@ -285,10 +285,10 @@ namespace DS_Game_Maker
         {
             if (Editing.Length == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("No action is selected.");
+                DSGMlib.MsgWarn("No action is selected.");
                 return;
             }
-            var ArgumentForm = new DS_Game_Maker.Argument();
+            var ArgumentForm = new Argument();
             ArgumentForm.ArgumentName = string.Empty;
             ArgumentForm.ArgumentType = 0.ToString();
             ArgumentForm.Text = "Add Argument";
@@ -298,11 +298,11 @@ namespace DS_Game_Maker
             if (ArgumentForm.ArgumentName.Length == 0)
                 return;
             string NewName = ArgumentForm.ArgumentName;
-            string NewType = DS_Game_Maker.ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgumentForm.ArgumentType));
+            string NewType = ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgumentForm.ArgumentType));
             ArgumentForm.Dispose();
-            if (!DS_Game_Maker.DSGMlib.ValidateSomething(NewName, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.Loose))
+            if (!DSGMlib.ValidateSomething(NewName, (byte)DSGMlib.ValidateLevel.Loose))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must enter a valid name for the new Argument.");
+                DSGMlib.MsgWarn("You must enter a valid name for the new Argument.");
                 return;
             }
             bool AlreadyDone = false;
@@ -313,12 +313,12 @@ namespace DS_Game_Maker
             }
             if (AlreadyDone)
             {
-                DS_Game_Maker.DSGMlib.MsgError("There is already an Argument called '" + NewName + "'." + Constants.vbCrLf + Constants.vbCrLf + "You must choose another name.");
+                DSGMlib.MsgError("There is already an Argument called '" + NewName + "'." + Constants.vbCrLf + Constants.vbCrLf + "You must choose another name.");
                 return;
             }
             var Y = new ListViewItem();
             Y.Text = ArgumentForm.ArgumentName;
-            Y.SubItems.Add(DS_Game_Maker.ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgumentForm.ArgumentType)));
+            Y.SubItems.Add(ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgumentForm.ArgumentType)));
             ArgumentsListView.Items.Add(Y);
         }
 
@@ -326,9 +326,9 @@ namespace DS_Game_Maker
         {
             if (ArgumentsListView.SelectedItems.Count == 0)
                 return;
-            var ArgumentForm = new DS_Game_Maker.Argument();
+            var ArgumentForm = new Argument();
             ArgumentForm.ArgumentName = ArgumentsListView.SelectedItems[0].Text;
-            ArgumentForm.ArgumentType = DS_Game_Maker.ScriptsLib.ArgumentStringToType(ArgumentsListView.SelectedItems[0].SubItems[1].Text).ToString();
+            ArgumentForm.ArgumentType = ScriptsLib.ArgumentStringToType(ArgumentsListView.SelectedItems[0].SubItems[1].Text).ToString();
             ArgumentForm.Text = "Edit Argument";
             ArgumentForm.IsAction = true;
             if (!(ArgumentForm.ShowDialog() == DialogResult.OK))
@@ -336,10 +336,10 @@ namespace DS_Game_Maker
             if (ArgumentForm.ArgumentName.Length == 0)
                 return;
             string NewName = ArgumentForm.ArgumentName;
-            string NewType = DS_Game_Maker.ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgumentForm.ArgumentType));
-            if (!DS_Game_Maker.DSGMlib.ValidateSomething(NewName, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.Loose))
+            string NewType = ScriptsLib.ArgumentTypeToString(Conversions.ToByte(ArgumentForm.ArgumentType));
+            if (!DSGMlib.ValidateSomething(NewName, (byte)DSGMlib.ValidateLevel.Loose))
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("You must enter a valid name for the Argument.");
+                DSGMlib.MsgWarn("You must enter a valid name for the Argument.");
                 return;
             }
             if (!((NewName ?? "") == (ArgumentsListView.SelectedItems[0].Text ?? "")))
@@ -352,7 +352,7 @@ namespace DS_Game_Maker
                 }
                 if (AlreadyDone)
                 {
-                    DS_Game_Maker.DSGMlib.MsgError("There is already an Argument called '" + NewName + "'." + Constants.vbCrLf + Constants.vbCrLf + "You must choose another name.");
+                    DSGMlib.MsgError("There is already an Argument called '" + NewName + "'." + Constants.vbCrLf + Constants.vbCrLf + "You must choose another name.");
                     return;
                 }
             }
@@ -365,14 +365,14 @@ namespace DS_Game_Maker
         {
             if (Editing.Length == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgWarn("No action is selected.");
+                DSGMlib.MsgWarn("No action is selected.");
                 return;
             }
             string ActionName = ActionsTreeView.SelectedNode.Text;
             byte Response = (byte)MessageBox.Show("Are you sure you want to delete '" + ActionName + "'?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (!(Response == (int)MsgBoxResult.Yes))
                 return;
-            File.Delete(Constants.AppDirectory + @"Actions\" + ActionName + ".action");
+            File.Delete(Constants.AppDirectory + "Actions/" + ActionName + ".action");
             ActionsTreeView.SelectedNode.Remove();
             if (ActionsTreeView.Nodes.Count == 0)
             {
@@ -403,12 +403,12 @@ namespace DS_Game_Maker
 
         private void AddActionButton_Click(object sender, EventArgs e)
         {
-            string Response = DS_Game_Maker.DSGMlib.GetInput("Please enter a name for the new action", string.Empty, (byte)DS_Game_Maker.DSGMlib.ValidateLevel.Loose);
+            string Response = DSGMlib.GetInput("Please enter a name for the new action", string.Empty, (byte)DSGMlib.ValidateLevel.Loose);
             if (Response.Length == 0)
                 return;
             string FinalString = "TYPE 5" + Constants.vbCrLf;
             FinalString += "DISPLAY " + Response + Constants.vbCrLf;
-            File.WriteAllText(Constants.AppDirectory + @"Actions\" + Response + ".action", FinalString);
+            File.WriteAllText(Constants.AppDirectory + "Actions/" + Response + ".action", FinalString);
             ActionsTreeView.Nodes.Add(new TreeNode(Response, 0, 0));
             foreach (TreeNode X in ActionsTreeView.Nodes)
             {

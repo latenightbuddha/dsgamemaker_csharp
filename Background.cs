@@ -26,8 +26,8 @@ namespace DS_Game_Maker
             MainToolStrip.Renderer = new clsToolstripRenderer();
             NameTextBox.Text = BackgroundName;
             Text = BackgroundName;
-            RealPath = SessionsLib.SessionPath + @"Backgrounds\" + BackgroundName + ".png";
-            TempPath = SessionsLib.SessionPath + @"Backgrounds\" + BackgroundName + "_Copy.png";
+            RealPath = SessionsLib.SessionPath + "Backgrounds/" + BackgroundName + ".png";
+            TempPath = SessionsLib.SessionPath + "Backgrounds/" + BackgroundName + "_Copy.png";
             File.Delete(TempPath);
             File.Copy(RealPath, TempPath);
             ImageChanged = false;
@@ -53,8 +53,8 @@ namespace DS_Game_Maker
             if (!((NewName ?? "") == (BackgroundName ?? "")))
             {
                 DSGMlib.XDSChangeLine("BACKGROUND " + BackgroundName, "BACKGROUND " + NewName);
-                DSGMlib.SilentMoveFile(RealPath, SessionsLib.SessionPath + @"Backgrounds\" + NewName + ".png");
-                // File.Move(RealPath, SessionPath + "Backgrounds\" + NewName + ".png")
+                DSGMlib.SilentMoveFile(RealPath, SessionsLib.SessionPath + "Backgrounds/" + NewName + ".png");
+                // File.Move(RealPath, SessionPath + "Backgrounds/" + NewName + ".png")
                 foreach (Form X in Program.Forms.main_Form.MdiChildren)
                 {
                     if (X.Name == "Room")
@@ -146,25 +146,25 @@ namespace DS_Game_Maker
                     }
                 }
                 // Remove the old files (no use!!!!!)
-                File.Delete(SessionsLib.CompilePath + @"gfx\" + BackgroundName + ".png");
-                if (Directory.Exists(SessionsLib.CompilePath + @"gfx\bin"))
+                File.Delete(SessionsLib.CompilePath + "gfx/" + BackgroundName + ".png");
+                if (Directory.Exists(SessionsLib.CompilePath + "gfx/bin"))
                 {
-                    File.Delete(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + ".c");
-                    File.Delete(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Tiles.bin");
-                    File.Delete(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Map.bin");
-                    File.Delete(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Pal.bin");
+                    File.Delete(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + ".c");
+                    File.Delete(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Tiles.bin");
+                    File.Delete(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Map.bin");
+                    File.Delete(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Pal.bin");
                 }
             }
-            if (!((BackgroundName ?? "") == (NewName ?? "")))
+            if (BackgroundName != NewName)
             {
-                if (File.Exists(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + ".c"))
+                if (File.Exists(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + ".c"))
                 {
-                    var BackupDate = File.GetLastWriteTime(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + ".c");
-                    // SilentMoveFile(CompilePath + "gfx\bin\" + BackgroundName + ".c", CompilePath + "gfx\bin\" + NewName + ".c")
-                    File.Move(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + ".c", SessionsLib.CompilePath + @"gfx\bin\" + NewName + ".c");
+                    var BackupDate = File.GetLastWriteTime(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + ".c");
+                    // SilentMoveFile(CompilePath + "gfx/bin/" + BackgroundName + ".c", CompilePath + "gfx/bin/" + NewName + ".c")
+                    File.Move(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + ".c", SessionsLib.CompilePath + "gfx/bin/" + NewName + ".c");
                     string ToWrite = string.Empty;
                     string ToPaste = string.Empty;
-                    foreach (string X in DSGMlib.StringToLines(DSGMlib.PathToString(SessionsLib.CompilePath + @"gfx\bin\" + NewName + ".c")))
+                    foreach (string X in DSGMlib.StringToLines(DSGMlib.PathToString(SessionsLib.CompilePath + "gfx/bin/" + NewName + ".c")))
                     {
                         ToPaste = X;
                         switch (X ?? "")
@@ -207,40 +207,40 @@ namespace DS_Game_Maker
                         }
                         ToWrite += ToPaste + Constants.vbCrLf;
                     }
-                    File.WriteAllText(SessionsLib.CompilePath + @"gfx\bin\" + NewName + ".c", ToWrite);
-                    File.SetLastWriteTime(SessionsLib.CompilePath + @"gfx\bin\" + NewName + ".c", BackupDate);
+                    File.WriteAllText(SessionsLib.CompilePath + "gfx/bin/" + NewName + ".c", ToWrite);
+                    File.SetLastWriteTime(SessionsLib.CompilePath + "gfx/bin/" + NewName + ".c", BackupDate);
                 }
-                if (File.Exists(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Map.bin"))
+                if (File.Exists(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Map.bin"))
                 {
-                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Map.bin", SessionsLib.CompilePath + @"gfx\bin\" + NewName + "_Map.bin");
+                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Map.bin", SessionsLib.CompilePath + "gfx/bin/" + NewName + "_Map.bin");
                 }
-                if (File.Exists(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Tiles.bin"))
+                if (File.Exists(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Tiles.bin"))
                 {
-                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Tiles.bin", SessionsLib.CompilePath + @"gfx\bin\" + NewName + "_Tiles.bin");
+                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Tiles.bin", SessionsLib.CompilePath + "gfx/bin/" + NewName + "_Tiles.bin");
                 }
-                if (File.Exists(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Pal.bin"))
+                if (File.Exists(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Pal.bin"))
                 {
-                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + @"gfx\bin\" + BackgroundName + "_Pal.bin", SessionsLib.CompilePath + @"gfx\bin\" + NewName + "_Pal.bin");
+                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + "gfx/bin/" + BackgroundName + "_Pal.bin", SessionsLib.CompilePath + "gfx/bin/" + NewName + "_Pal.bin");
                 }
-                if (File.Exists(SessionsLib.CompilePath + @"gfx\" + BackgroundName + ".png"))
+                if (File.Exists(SessionsLib.CompilePath + "gfx/" + BackgroundName + ".png"))
                 {
-                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + @"gfx\" + BackgroundName + ".png", SessionsLib.CompilePath + @"gfx\" + NewName + ".png");
+                    DSGMlib.SilentMoveFile(SessionsLib.CompilePath + "gfx/" + BackgroundName + ".png", SessionsLib.CompilePath + "gfx/" + NewName + ".png");
                 }
                 string NewString = string.Empty;
-                foreach (string X_ in DSGMlib.StringToLines(DSGMlib.PathToString(SessionsLib.CompilePath + @"gfx\dsgm_gfx.h")))
+                foreach (string X_ in DSGMlib.StringToLines(DSGMlib.PathToString(SessionsLib.CompilePath + "gfx/dsgm_gfx.h")))
                 {
                     string X = X_;
                     if ((X ?? "") == ("extern const PA_BgStruct " + BackgroundName + ";" ?? ""))
                         X = "extern const PA_BgStruct " + NewName + ";";
                     NewString += X + Constants.vbCrLf;
                 }
-                File.WriteAllText(SessionsLib.CompilePath + @"gfx\temp_gfx.h", NewString);
-                File.Delete(SessionsLib.CompilePath + @"gfx\dsgm_gfx.h");
-                DSGMlib.SilentMoveFile(SessionsLib.CompilePath + @"gfx\temp_gfx.h", SessionsLib.CompilePath + @"gfx\dsgm_gfx.h");
+                File.WriteAllText(SessionsLib.CompilePath + "gfx/temp_gfx.h", NewString);
+                File.Delete(SessionsLib.CompilePath + "gfx/dsgm_gfx.h");
+                DSGMlib.SilentMoveFile(SessionsLib.CompilePath + "gfx/temp_gfx.h", SessionsLib.CompilePath + "gfx/dsgm_gfx.h");
             }
             foreach (TreeNode X in Program.Forms.main_Form.ResourcesTreeView.Nodes[(int)DSGMlib.ResourceIDs.Background].Nodes)
             {
-                if ((X.Text ?? "") == (BackgroundName ?? ""))
+                if (X.Text == BackgroundName)
                     X.Text = NewName;
             }
             Close();

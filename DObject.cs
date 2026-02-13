@@ -52,7 +52,7 @@ namespace DS_Game_Maker
             ActionNameLabel.Text = ActionName;
             ArgumentsListLabel.Text = string.Empty;
             byte ArgumentCount = 0;
-            foreach (string X_ in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + ActionName + ".action"))
+            foreach (string X_ in File.ReadAllLines(Constants.AppDirectory + "Actions/" + ActionName + ".action"))
             {
                 string X = X_;
                 if (X.StartsWith("ARG "))
@@ -120,7 +120,7 @@ namespace DS_Game_Maker
                 return;
             byte ArgCount = 0;
             bool NoAppliesTo = false;
-            foreach (string X in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + ActionName + ".action"))
+            foreach (string X in File.ReadAllLines(Constants.AppDirectory + "Actions/" + ActionName + ".action"))
             {
                 if (X.StartsWith("ARG "))
                     ArgCount = (byte)(ArgCount + 1);
@@ -261,7 +261,7 @@ namespace DS_Game_Maker
             {
                 string ActionName = Actions[X];
                 byte IndentChange = 0;
-                foreach (string Y in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + ActionName + ".action"))
+                foreach (string Y in File.ReadAllLines(Constants.AppDirectory + "Actions/" + ActionName + ".action"))
                 {
                     if (Y == "INDENT")
                     {
@@ -289,7 +289,7 @@ namespace DS_Game_Maker
             // For X As Int16 = 0 To Actions.Count - 1
             // IndentChange = 0
             // Dim ActionName As String = Actions(X)
-            // For Each Y As String In IO.File.ReadAllLines(AppPath + "Actions\" + ActionName + ".action")
+            // For Each Y As String In IO.File.ReadAllLines(AppPath + "Actions/" + ActionName + ".action")
             // If Y = "INDENT" Then IndentChange = 2 : Exit For
             // If Y = "DEDENT" Then IndentChange = 1 : Exit For
             // Next
@@ -320,11 +320,11 @@ namespace DS_Game_Maker
             string ImagePath;
             if (SpriteDropper.Text == "None")
             {
-                ImagePath = Constants.AppDirectory + @"Resources\NoSprite.png";
+                ImagePath = Constants.AppDirectory + "Resources/NoSprite.png";
             }
             else
             {
-                ImagePath = SessionsLib.SessionPath + @"Sprites\" + Frame.ToString() + "_" + SpriteDropper.Text + ".png";
+                ImagePath = SessionsLib.SessionPath + "Sprites/" + Frame.ToString() + "_" + SpriteDropper.Text + ".png";
             }
             var Drawable = DSGMlib.PathToImage(ImagePath);
             Drawable = DSGMlib.MakeBMPTransparent(Drawable, Color.Magenta);
@@ -384,7 +384,7 @@ namespace DS_Game_Maker
                 var Actions = new List<string>();
                 foreach (string Z in Directory.GetFiles(Constants.AppDirectory + "Actions"))
                 {
-                    string ActionName = Z.Substring(Z.LastIndexOf(@"\") + 1);
+                    string ActionName = Z.Substring(Z.LastIndexOf("/") + 1);
                     ActionName = ActionName.Substring(0, ActionName.LastIndexOf("."));
                     if (Hide)
                     {
@@ -680,7 +680,7 @@ namespace DS_Game_Maker
                 foreach (string X_ in Directory.GetFiles(SessionsLib.SessionPath + "Sprites"))
                 {
                     string X = X_;
-                    X = X.Substring(X.LastIndexOf(@"\") + 1);
+                    X = X.Substring(X.LastIndexOf("/") + 1);
                     X = X.Substring(0, X.LastIndexOf("."));
                     X = X.Substring(X.IndexOf("_") + 1);
                     if ((X ?? "") == (SpriteDropper.Text ?? ""))
@@ -1226,7 +1226,7 @@ namespace DS_Game_Maker
         {
             bool NoAppliesTo = false;
             byte ArgCount = 0;
-            foreach (string X in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + Actions[ActionsList.SelectedIndices[0]] + ".action"))
+            foreach (string X in File.ReadAllLines(Constants.AppDirectory + "Actions/" + Actions[ActionsList.SelectedIndices[0]] + ".action"))
             {
                 if (X == "NOAPPLIES")
                     NoAppliesTo = true;

@@ -23,7 +23,7 @@ namespace DS_Game_Maker
         {
             base.OnRenderToolStripBackground(e);
 
-            var b = new System.Drawing.Drawing2D.LinearGradientBrush(e.AffectedBounds, DS_Game_Maker.clsColors.clrHorBG_GrayBlue, DS_Game_Maker.clsColors.clrHorBG_White, System.Drawing.Drawing2D.LinearGradientMode.Horizontal);
+            var b = new System.Drawing.Drawing2D.LinearGradientBrush(e.AffectedBounds, clsColors.clrHorBG_GrayBlue, clsColors.clrHorBG_White, System.Drawing.Drawing2D.LinearGradientMode.Horizontal);
             e.Graphics.FillRectangle(b, e.AffectedBounds);
         }
 
@@ -33,20 +33,20 @@ namespace DS_Game_Maker
             base.OnRenderImageMargin(e);
 
             // // Draw ImageMargin background gradient
-            var b = new System.Drawing.Drawing2D.LinearGradientBrush(e.AffectedBounds, DS_Game_Maker.clsColors.clrImageMarginWhite, DS_Game_Maker.clsColors.clrImageMarginBlue, System.Drawing.Drawing2D.LinearGradientMode.Horizontal);
+            var b = new System.Drawing.Drawing2D.LinearGradientBrush(e.AffectedBounds, clsColors.clrImageMarginWhite, clsColors.clrImageMarginBlue, System.Drawing.Drawing2D.LinearGradientMode.Horizontal);
 
             // // Shadow at the right of image margin
-            var DarkLine = new SolidBrush(DS_Game_Maker.clsColors.clrImageMarginLine);
+            var DarkLine = new SolidBrush(clsColors.clrImageMarginLine);
             var WhiteLine = new SolidBrush(Color.White);
             var rect = new Rectangle(e.AffectedBounds.Width, 2, 1, e.AffectedBounds.Height);
             var rect2 = new Rectangle(e.AffectedBounds.Width + 1, 2, 1, e.AffectedBounds.Height);
 
             // // Gray background
-            var SubmenuBGbrush = new SolidBrush(DS_Game_Maker.clsColors.clrSubmenuBG);
+            var SubmenuBGbrush = new SolidBrush(clsColors.clrSubmenuBG);
             var rect3 = new Rectangle(0, 0, e.ToolStrip.Width, e.ToolStrip.Height);
 
             // // Border
-            var borderPen = new Pen(DS_Game_Maker.clsColors.clrMenuBorder);
+            var borderPen = new Pen(clsColors.clrMenuBorder);
             var rect4 = new Rectangle(0, 1, e.ToolStrip.Width - 1, e.ToolStrip.Height - 2);
 
             e.Graphics.FillRectangle(SubmenuBGbrush, rect3);
@@ -64,8 +64,8 @@ namespace DS_Game_Maker
             {
                 var rect = new Rectangle(3, 1, 20, 20);
                 var rect2 = new Rectangle(4, 2, 18, 18);
-                var b = new SolidBrush(DS_Game_Maker.clsColors.clrToolstripBtn_Border);
-                var b2 = new SolidBrush(DS_Game_Maker.clsColors.clrCheckBG);
+                var b = new SolidBrush(clsColors.clrToolstripBtn_Border);
+                var b2 = new SolidBrush(clsColors.clrCheckBG);
 
                 e.Graphics.FillRectangle(b, rect);
                 e.Graphics.FillRectangle(b2, rect2);
@@ -75,8 +75,8 @@ namespace DS_Game_Maker
             {
                 var rect = new Rectangle(3, 1, 20, 20);
                 var rect2 = new Rectangle(4, 2, 18, 18);
-                var b = new SolidBrush(DS_Game_Maker.clsColors.clrSelectedBG_Drop_Border);
-                var b2 = new SolidBrush(DS_Game_Maker.clsColors.clrCheckBG);
+                var b = new SolidBrush(clsColors.clrSelectedBG_Drop_Border);
+                var b2 = new SolidBrush(clsColors.clrCheckBG);
 
                 e.Graphics.FillRectangle(b, rect);
                 e.Graphics.FillRectangle(b2, rect2);
@@ -89,7 +89,7 @@ namespace DS_Game_Maker
         {
             base.OnRenderSeparator(e);
 
-            var DarkLine = new SolidBrush(DS_Game_Maker.clsColors.clrImageMarginLine);
+            var DarkLine = new SolidBrush(clsColors.clrImageMarginLine);
             var WhiteLine = new SolidBrush(Color.White);
             var rect = new Rectangle(32, 3, e.Item.Width - 32, 1);
             var rect2 = new Rectangle(32, 4, e.Item.Width - 32, 1);
@@ -116,12 +116,12 @@ namespace DS_Game_Maker
                     // // If item is MenuHeader and selected: draw darkblue border
 
                     var rect = new Rectangle(3, 2, e.Item.Width - 6, e.Item.Height - 4);
-                    var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, DS_Game_Maker.clsColors.clrSelectedBG_White, DS_Game_Maker.clsColors.clrSelectedBG_Header_Blue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
-                    var b2 = new SolidBrush(DS_Game_Maker.clsColors.clrToolstripBtn_Border);
+                    var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, clsColors.clrSelectedBG_White, clsColors.clrSelectedBG_Header_Blue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+                    var b2 = new SolidBrush(clsColors.clrToolstripBtn_Border);
 
                     e.Graphics.FillRectangle(b, rect);
-                    DS_Game_Maker.clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 1, rect.Top - 1, rect.Width, rect.Height + 1, 4, DS_Game_Maker.clsColors.clrToolstripBtn_Border);
-                    DS_Game_Maker.clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 2, rect.Top - 2, rect.Width + 2, rect.Height + 3, 4, Color.White);
+                    clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 1, rect.Top - 1, rect.Width, rect.Height + 1, 4, clsColors.clrToolstripBtn_Border);
+                    clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 2, rect.Top - 2, rect.Width + 2, rect.Height + 3, 4, Color.White);
                     e.Item.ForeColor = Color.Black;
                 }
 
@@ -130,11 +130,11 @@ namespace DS_Game_Maker
                     // // If item is NOT menuheader (but subitem) and selected: draw lightblue border
 
                     var rect = new Rectangle(4, 2, e.Item.Width - 6, e.Item.Height - 4);
-                    var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, DS_Game_Maker.clsColors.clrSelectedBG_White, DS_Game_Maker.clsColors.clrSelectedBG_Blue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
-                    var b2 = new SolidBrush(DS_Game_Maker.clsColors.clrSelectedBG_Border);
+                    var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, clsColors.clrSelectedBG_White, clsColors.clrSelectedBG_Blue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+                    var b2 = new SolidBrush(clsColors.clrSelectedBG_Border);
 
                     e.Graphics.FillRectangle(b, rect);
-                    DS_Game_Maker.clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 1, rect.Top - 1, rect.Width, rect.Height + 1, 6, DS_Game_Maker.clsColors.clrSelectedBG_Border);
+                    clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 1, rect.Top - 1, rect.Width, rect.Height + 1, 6, clsColors.clrSelectedBG_Border);
                     e.Item.ForeColor = Color.Black;
 
                 }
@@ -143,12 +143,12 @@ namespace DS_Game_Maker
                 if (((ToolStripMenuItem)e.Item).DropDown.Visible && e.Item.IsOnDropDown == false) // CType(e.Item, ToolStripMenuItem).OwnerItem Is Nothing Then
                 {
                     var rect = new Rectangle(3, 2, e.Item.Width - 6, e.Item.Height - 4);
-                    var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, Color.White, DS_Game_Maker.clsColors.clrSelectedBG_Drop_Blue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
-                    var b2 = new SolidBrush(DS_Game_Maker.clsColors.clrSelectedBG_Drop_Border);
+                    var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, Color.White, clsColors.clrSelectedBG_Drop_Blue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+                    var b2 = new SolidBrush(clsColors.clrSelectedBG_Drop_Border);
 
                     e.Graphics.FillRectangle(b, rect);
-                    DS_Game_Maker.clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 1, rect.Top - 1, rect.Width, rect.Height + 1, 4, DS_Game_Maker.clsColors.clrSelectedBG_Drop_Border);
-                    DS_Game_Maker.clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 2, rect.Top - 2, rect.Width + 2, rect.Height + 3, 4, Color.White);
+                    clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 1, rect.Top - 1, rect.Width, rect.Height + 1, 4, clsColors.clrSelectedBG_Drop_Border);
+                    clsColors.DrawRoundedRectangle(e.Graphics, rect.Left - 2, rect.Top - 2, rect.Width + 2, rect.Height + 3, 4, Color.White);
                     e.Item.ForeColor = Color.Black;
                 }
             }

@@ -11,8 +11,8 @@ namespace DS_Game_Maker
         {
             base.OnRenderToolStripBackground(e);
 
-            var b = new System.Drawing.Drawing2D.LinearGradientBrush(e.AffectedBounds, DS_Game_Maker.clsColors.clrVerBG_White, DS_Game_Maker.clsColors.clrVerBG_GrayBlue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
-            var shadow = new SolidBrush(DS_Game_Maker.clsColors.clrVerBG_Shadow);
+            var b = new System.Drawing.Drawing2D.LinearGradientBrush(e.AffectedBounds, clsColors.clrVerBG_White, clsColors.clrVerBG_GrayBlue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+            var shadow = new SolidBrush(clsColors.clrVerBG_Shadow);
             var rect = new Rectangle(0, e.ToolStrip.Height - 2, e.ToolStrip.Width, 1);
             e.Graphics.FillRectangle(b, e.AffectedBounds);
             e.Graphics.FillRectangle(shadow, rect);
@@ -26,8 +26,8 @@ namespace DS_Game_Maker
             {
                 var rectBorder = new Rectangle(0, 0, e.Item.Width - 1, e.Item.Height - 1);
                 var rect = new Rectangle(1, 1, e.Item.Width - 2, e.Item.Height - 2);
-                var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, DS_Game_Maker.clsColors.clrToolstripBtnGrad_White, DS_Game_Maker.clsColors.clrToolstripBtnGrad_Blue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
-                var b2 = new SolidBrush(DS_Game_Maker.clsColors.clrToolstripBtn_Border);
+                var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, clsColors.clrToolstripBtnGrad_White, clsColors.clrToolstripBtnGrad_Blue, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+                var b2 = new SolidBrush(clsColors.clrToolstripBtn_Border);
 
                 e.Graphics.FillRectangle(b2, rectBorder);
                 e.Graphics.FillRectangle(b, rect);
@@ -36,8 +36,8 @@ namespace DS_Game_Maker
             {
                 var rectBorder = new Rectangle(0, 0, e.Item.Width - 1, e.Item.Height - 1);
                 var rect = new Rectangle(1, 1, e.Item.Width - 2, e.Item.Height - 2);
-                var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, DS_Game_Maker.clsColors.clrToolstripBtnGrad_White_Pressed, DS_Game_Maker.clsColors.clrToolstripBtnGrad_Blue_Pressed, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
-                var b2 = new SolidBrush(DS_Game_Maker.clsColors.clrToolstripBtn_Border);
+                var b = new System.Drawing.Drawing2D.LinearGradientBrush(rect, clsColors.clrToolstripBtnGrad_White_Pressed, clsColors.clrToolstripBtnGrad_Blue_Pressed, System.Drawing.Drawing2D.LinearGradientMode.Vertical);
+                var b2 = new SolidBrush(clsColors.clrToolstripBtn_Border);
 
                 e.Graphics.FillRectangle(b2, rectBorder);
                 e.Graphics.FillRectangle(b, rect);

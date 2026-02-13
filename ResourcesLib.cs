@@ -21,7 +21,7 @@ namespace DS_Game_Maker
 
         public static void AddSprite(string DName)
         {
-            File.Copy(Constants.AppDirectory + @"DefaultResources\Sprite.png", SessionsLib.SessionPath + @"Sprites\0_" + DName + ".png");
+            File.Copy(Constants.AppDirectory + "DefaultResources/Sprite.png", SessionsLib.SessionPath + "Sprites/0_" + DName + ".png");
             DSGMlib.XDSAddLine("SPRITE " + DName + ",32,32");
             foreach (Form X in Program.Forms.main_Form.MdiChildren)
         {
@@ -63,7 +63,7 @@ namespace DS_Game_Maker
 
         public static void AddBackground(string DName)
         {
-            File.Copy(Constants.AppDirectory + @"DefaultResources\Background.png", SessionsLib.SessionPath + @"Backgrounds\" + DName + ".png");
+            File.Copy(Constants.AppDirectory + "DefaultResources/Background.png", SessionsLib.SessionPath + "Backgrounds/" + DName + ".png");
             DSGMlib.XDSAddLine("BACKGROUND " + DName);
             byte background = (byte)DSGMlib.ResourceIDs.Background;
             DSGMlib.AddResourceNode(ref background, DName, "BackgroundNode", ShowWindowMode);
@@ -109,7 +109,7 @@ namespace DS_Game_Maker
             Program.Forms.soundType_Form.ShowDialog();
             bool SB = Program.Forms.soundType_Form.IsSoundEffect;
             string Extension = SB ? "wav" : "mp3";
-            File.Copy(Constants.AppDirectory + @"DefaultResources\Sound." + Extension,SessionsLib.SessionPath + @"Sounds\" + DName + "." + Extension);
+            File.Copy(Constants.AppDirectory + "DefaultResources/Sound." + Extension,SessionsLib.SessionPath + "Sounds/" + DName + "." + Extension);
             DSGMlib.XDSAddLine("SOUND " + DName + "," + (SB ? 0 : 1).ToString());
             byte sound = (byte)DSGMlib.ResourceIDs.Sound;
             DSGMlib.AddResourceNode(ref sound, DName, "SoundNode", ShowWindowMode);
@@ -149,7 +149,7 @@ namespace DS_Game_Maker
 
         public static void AddScript(string DName, bool IsDBAS)
         {
-            File.CreateText(SessionsLib.SessionPath + @"Scripts\" + DName + ".dbas").Dispose();
+            File.CreateText(SessionsLib.SessionPath + "Scripts/" + DName + ".dbas").Dispose();
             DSGMlib.XDSAddLine("SCRIPT " + DName + "," + (IsDBAS ? 1 : 0).ToString());
             byte script = (byte)DSGMlib.ResourceIDs.Script;
             DSGMlib.AddResourceNode(ref script, DName, "ScriptNode", ShowWindowMode);

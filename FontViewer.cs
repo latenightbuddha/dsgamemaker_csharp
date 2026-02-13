@@ -17,7 +17,7 @@ namespace DS_Game_Maker
 
         private void RebuildCacheButton_Click(object sender, EventArgs e)
         {
-            DS_Game_Maker.DSGMlib.RebuildFontCache();
+            DSGMlib.RebuildFontCache();
             InitialDisplayShizzle();
             CurrentFont = 0;
             DisplayShizzle();
@@ -65,8 +65,8 @@ namespace DS_Game_Maker
 
         public void DisplayShizzle()
         {
-            NameLabel.Text = DS_Game_Maker.DSGMlib.Fonts[(int)CurrentFont];
-            MainImagePanel.BackgroundImage = DS_Game_Maker.DSGMlib.PathToImage(Constants.AppDirectory + @"Fonts\" + DS_Game_Maker.DSGMlib.Fonts[(int)CurrentFont] + ".png");
+            NameLabel.Text = DSGMlib.Fonts[(int)CurrentFont];
+            MainImagePanel.BackgroundImage = DSGMlib.PathToImage(Constants.AppDirectory + "Fonts/" + DSGMlib.Fonts[(int)CurrentFont] + ".png");
         }
 
         private void RebuildCacheButton_MouseLeave(object sender, EventArgs e)
@@ -76,10 +76,10 @@ namespace DS_Game_Maker
 
         public void InitialDisplayShizzle()
         {
-            NameLabel.Text = DS_Game_Maker.DSGMlib.Fonts[(int)CurrentFont];
+            NameLabel.Text = DSGMlib.Fonts[(int)CurrentFont];
             PreviousButton.Enabled = false;
             NextButton.Enabled = false;
-            if (DS_Game_Maker.DSGMlib.Fonts.Count == 1)
+            if (DSGMlib.Fonts.Count == 1)
                 return;
             NextButton.Enabled = true;
             DisplayShizzle();
@@ -87,11 +87,11 @@ namespace DS_Game_Maker
 
         private void FontEditor_Load(object sender, EventArgs e)
         {
-            DS_Game_Maker.DSGMlib.RebuildFontCache();
-            FontCount = (byte)DS_Game_Maker.DSGMlib.Fonts.Count;
+            DSGMlib.RebuildFontCache();
+            FontCount = (byte)DSGMlib.Fonts.Count;
             if (FontCount == 0)
             {
-                DS_Game_Maker.DSGMlib.MsgError("There are no Fonts on this machine.");
+                DSGMlib.MsgError("There are no Fonts on this machine.");
                 Close();
                 return;
             }

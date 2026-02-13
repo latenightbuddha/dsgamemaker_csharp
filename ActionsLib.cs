@@ -9,7 +9,7 @@ namespace DS_Game_Maker
         public static string ActionEquateDisplay(string ActionName, string ActionArguments)
         {
             string Returnable = string.Empty;
-            foreach (string Y in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + ActionName + ".action"))
+            foreach (string Y in File.ReadAllLines(Constants.AppDirectory + "Actions/" + ActionName + ".action"))
             {
                 if (Y.StartsWith("DISPLAY "))
                 {
@@ -19,7 +19,7 @@ namespace DS_Game_Maker
             }
             if (Returnable.Length == 0)
                 return ActionName;
-            foreach (string Y in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + ActionName + ".action"))
+            foreach (string Y in File.ReadAllLines(Constants.AppDirectory + "Actions/" + ActionName + ".action"))
             {
                 for (int Z = 0, loopTo = (int)DSGMlib.HowManyChar(ActionArguments, ";"); Z <= loopTo; Z++)
                 {
@@ -64,15 +64,15 @@ namespace DS_Game_Maker
         public static string ActionGetIconPath(string ActionName, bool UseFullPath)
         {
             string Returnable = "Empty.png";
-            foreach (string X in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + ActionName + ".action"))
+            foreach (string X in File.ReadAllLines(Constants.AppDirectory + "Actions/" + ActionName + ".action"))
             {
                 if (X.StartsWith("ICON "))
                     Returnable = X.Substring(5);
             }
-            if (!File.Exists(Constants.AppDirectory + @"ActionIcons\" + Returnable))
+            if (!File.Exists(Constants.AppDirectory + "ActionIcons/" + Returnable))
                 Returnable = "Empty.png";
             if (UseFullPath)
-                Returnable = Constants.AppDirectory + @"ActionIcons\" + Returnable;
+                Returnable = Constants.AppDirectory + "ActionIcons/" + Returnable;
             return Returnable;
         }
 

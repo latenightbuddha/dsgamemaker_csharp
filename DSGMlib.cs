@@ -26,9 +26,8 @@ namespace DS_Game_Maker
 
         public static List<string> FontNames = new List<string>();
 
-        public static string[] BannedChars = new string[] { " ", ",", ".", ";", "/", @"\", "!", "\"", "(", ")", "£", "$", "%", "^", "&", "*", "{", "}", "[", "]", "@", "#", "'", "~", "<", ">", "?", "+", "=", "-", "|", "¬", "`" };
-
-        public static string[] Numbers = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+		public static string[] BannedChars = new string[] { " ", ",", ".", ";", "/", @"\", "!", "\"", "(", ")", "£", "$", "%", "^", "&", "*", "{", "}", "[", "]", "@", "#", "'", "~", "<", ">", "?", "+", "=", "-", "|", "¬", "`" };
+		public static string[] Numbers = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
         public static string ImageFilter = "Graphics|*.png; *.gif; *.bmp|PNG Images|*.png|GIF Images|*.gif|Bitmap Images|*.bmp";
 
         public static string LoadDefaultFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -166,7 +165,7 @@ namespace DS_Game_Maker
             {
                 if (!X.EndsWith(".png"))
                     continue;
-                string FontName = X.Substring(X.LastIndexOf(@"\") + 1);
+                string FontName = X.Substring(X.LastIndexOf("/") + 1);
                 FontName = FontName.Substring(0, FontName.Length - 4);
                 Fonts.Add(FontName);
             }
@@ -461,13 +460,13 @@ namespace DS_Game_Maker
                 if (iGet(GetXDSLine("SOUND " + X + ","), 1, ",") == "1")
                 {
                     MP3String += "mp3enc -b 64 \"" + X + "_enc.mp3\" \"" + X + "\".mp3" + Constants.vbCrLf;
-                    File.Copy(SessionsLib.SessionPath + @"Sounds\" + X + ".mp3", SessionsLib.CompilePath + "nitrofiles/" + X + "_enc.mp3");
+                    File.Copy(SessionsLib.SessionPath + "Sounds/" + X + ".mp3", SessionsLib.CompilePath + "nitrofiles/" + X + "_enc.mp3");
                     DoMP3 = true;
                 }
                 else
                 {
                     RAWString += "sox \"" + X + "\".wav -r 11025 -c 1 -e signed -b 8 \"" + X + "\".raw" + Constants.vbCrLf;
-                    File.Copy(SessionsLib.SessionPath + @"Sounds\" + X + ".wav", SessionsLib.CompilePath + "data/" + X + ".wav");
+                    File.Copy(SessionsLib.SessionPath + "Sounds/" + X + ".wav", SessionsLib.CompilePath + "data/" + X + ".wav");
                     DoRAW = true;
                 }
             }
@@ -762,7 +761,7 @@ namespace DS_Game_Maker
                     var InputtedArgumentValues = new List<string>();
                     for (byte X = 0, loopTo = (byte)(ArgumentCount - 1); X <= loopTo; X++)
                         InputtedArgumentValues.Add(iGet(Arguments, X, ";").ToString().Replace("<com>", ","));
-                    // For Each X As String In File.ReadAllLines(AppPath + "Actions\" + ActionName + ".action")
+                    // For Each X As String In File.ReadAllLines(AppPath + "Actions/" + ActionName + ".action")
                     // If X = "NOAPPLIES" Then ActionSaysIgnoreApplies = True : Exit For
                     // Next
                     if (!(ActionName == "Execute Code"))
@@ -836,7 +835,7 @@ namespace DS_Game_Maker
                             Added = 1;
                         }
                     }
-                    // For Each X As String In File.ReadAllLines(AppPath + "Actions\" + ActionName + ".action")
+                    // For Each X As String In File.ReadAllLines(AppPath + "Actions/" + ActionName + ".action")
                     // If X = "INDENT" Then
                     // CurrentIndent += 1
                     // End If
@@ -1245,7 +1244,7 @@ namespace DS_Game_Maker
             // Twas here 2, Marvolo!
             // FinalString += "  return true;" + vbcrlf
             // FinalString += "}" + vbcrlf + vbcrlf
-            // File.WriteAllText(CompilePath + "gfx\PAGfx.ini", PAini)
+            // File.WriteAllText(CompilePath + "gfx/PAGfx.ini", PAini)
             File.WriteAllText(SessionsLib.CompilePath + "source/main.c", FinalString);
             string DefsString = string.Empty;
             foreach (string XDSLine in GetXDSFilter("ROOM "))
@@ -1288,7 +1287,7 @@ namespace DS_Game_Maker
             {
                 string FileName = X.Substring(8);
                 GameString += "#include \"" + FileName + "\"" + Constants.vbCrLf;
-                File.Copy(SessionsLib.SessionPath + @"IncludeFiles\" + FileName, SessionsLib.CompilePath + "include/" + FileName);
+                File.Copy(SessionsLib.SessionPath + "IncludeFiles/" + FileName, SessionsLib.CompilePath + "include/" + FileName);
             }
             foreach (string X_ in GetXDSFilter("SOUND "))
             {
@@ -1585,8 +1584,8 @@ namespace DS_Game_Maker
                 MyProcess.Start();
                 MyProcess.WaitForExit();
             }
-            File.Delete(SessionsLib.CompilePath + @"gfx\PAGfx.txt");
-            File.Delete(SessionsLib.CompilePath + @"gfx\all_gfx.h");
+            File.Delete(SessionsLib.CompilePath + "gfx/PAGfx.txt");
+            File.Delete(SessionsLib.CompilePath + "gfx/all_gfx.h");
             // Make a hacky GFX file ...
             string DSGMH = string.Empty;
             DSGMH += "#pragma once" + Constants.vbCrLf;
@@ -1835,7 +1834,7 @@ namespace DS_Game_Maker
 
             Process.Start(startInfo);
 
-            //Process.Start(FinalEXE, "\"" + FilePath + ".png\"");
+            //Process.Start(FinalEXE, "/"" + FilePath + ".png/"");
 
             string Message = "'" + ResourceName + "' has been opened. When you are finished, click 'OK'." + Constants.vbCrLf + Constants.vbCrLf + "To reverse any changes, please click 'Cancel'.";
             if (CustomMessage)

@@ -39,7 +39,7 @@ namespace DS_Game_Maker
             else
                 SoundType = false;
             SoundTypeString = "." + (SoundType ? "mp3" : "wav");
-            OldPath = SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString;
+            OldPath = SessionsLib.SessionPath + "Sounds/" + SoundName + SoundTypeString;
             NewPath = OldPath;
             InfoLabel.Text = SoundType ? "Background Sound" : "Sound Effect";
             if (!SoundType)
@@ -85,17 +85,17 @@ namespace DS_Game_Maker
             string SoundTypeString = "." + (SoundType ? "mp3" : "wav");
             if (!((NewName ?? "") == (SoundName ?? "")))
             {
-                File.Move(SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString, SessionsLib.SessionPath + @"Sounds\" + NewName + SoundTypeString);
+                File.Move(SessionsLib.SessionPath + "Sounds/" + SoundName + SoundTypeString, SessionsLib.SessionPath + "Sounds/" + NewName + SoundTypeString);
                 if (SoundType)
                 {
-                    if (File.Exists(SessionsLib.CompilePath + @"nitrofiles\" + SoundName + ".mp3"))
+                    if (File.Exists(SessionsLib.CompilePath + "nitrofiles/" + SoundName + ".mp3"))
                     {
-                        File.Move(SessionsLib.CompilePath + @"nitrofiles\" + SoundName + ".mp3", SessionsLib.CompilePath + @"nitrofiles\" + NewName + ".mp3");
+                        File.Move(SessionsLib.CompilePath + "nitrofiles/" + SoundName + ".mp3", SessionsLib.CompilePath + "nitrofiles/" + NewName + ".mp3");
                     }
                 }
-                else if (File.Exists(SessionsLib.CompilePath + @"data\" + SoundName + ".raw"))
+                else if (File.Exists(SessionsLib.CompilePath + "data/" + SoundName + ".raw"))
                 {
-                    File.Move(SessionsLib.CompilePath + @"data\" + SoundName + ".raw", SessionsLib.CompilePath + @"nitrofiles\" + NewName + ".raw");
+                    File.Move(SessionsLib.CompilePath + "data/" + SoundName + ".raw", SessionsLib.CompilePath + "nitrofiles/" + NewName + ".raw");
                 }
                 if (DSGMlib.SoundsToRedo.Contains(SoundName))
                 {
@@ -140,8 +140,8 @@ namespace DS_Game_Maker
                 DSGMlib.MsgWarn("Your Sound Editor EXE is not present. See 'Options'.");
                 return;
             }
-            string ThePath = SessionsLib.SessionPath + @"Sounds\" + SoundName + SoundTypeString;
-            string CopyPath = SessionsLib.SessionPath + @"Sounds\" + SoundName + "_Copy" + SoundTypeString;
+            string ThePath = SessionsLib.SessionPath + "Sounds/" + SoundName + SoundTypeString;
+            string CopyPath = SessionsLib.SessionPath + "Sounds/" + SoundName + "_Copy" + SoundTypeString;
             try
             {
                 if (File.Exists(CopyPath))
