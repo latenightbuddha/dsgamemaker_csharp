@@ -115,7 +115,7 @@ namespace DS_Game_Maker
                     var TP = new Point(-1 * X * FrameWidth, -1 * Y * FrameHeight);
                     RGFX.DrawImage(TheImage, TP);
                     RGFX.Dispose();
-                    LittleImage.Save(ToDirectory + @"\" + DOn.ToString() + ".png");
+                    LittleImage.Save(ToDirectory + "/" + DOn.ToString() + ".png");
                     DOn = (short)(DOn + 1);
                 }
             }

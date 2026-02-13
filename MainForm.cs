@@ -1168,7 +1168,7 @@ namespace DS_Game_Maker
         // Private Sub InstallPluginButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles InstallPluginButton.Click, InstallPluginToolStripMenuItem.Click
         // Dim FilePath As String = OpenFile(String.Empty, "DS Game Maker Plugins|*.dsgmp")
         // If FilePath.Length = 0 Then Exit Sub
-        // Dim P As String = AppPath + "PluginInstall\"
+        // Dim P As String = AppPath + "PluginInstall/"
         // Directory.CreateDirectory(P)
         // File.Copy(FilePath, P + "Plugin.zip")
         // Dim MyBAT As String = "zip.exe x Plugin.zip -y" + vbCrLf + "exit"
@@ -1185,7 +1185,7 @@ namespace DS_Game_Maker
         // If X.StartsWith("LINK ") Then PLink = X.Substring(5)
         // Next
 
-        // File.Copy(P + "Executable.exe", AppPath + "Plugins\" + PName + ".exe")
+        // File.Copy(P + "Executable.exe", AppPath + "Plugins/" + PName + ".exe")
         // File.WriteAllText(AppPath + "pluginList.dat", File.ReadAllText(AppPath + "pluginList.dat") + PName + vbCrLf)
         // My.Computer.FileSystem.DeleteDirectory(P, FileIO.DeleteDirectoryOption.DeleteAllContents)
         // End Sub

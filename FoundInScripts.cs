@@ -39,7 +39,7 @@ namespace DS_Game_Maker
                 DOn = 0;
                 string ScriptName = X.Substring(7);
                 ScriptName = ScriptName.Substring(0, ScriptName.LastIndexOf(","));
-                foreach (string ThisLine in DSGMlib.StringToLines(DSGMlib.PathToString(SessionsLib.SessionPath + @"Scripts\" + ScriptName + ".dbas")))
+                foreach (string ThisLine in DSGMlib.StringToLines(DSGMlib.PathToString(SessionsLib.SessionPath + "Scripts/" + ScriptName + ".dbas")))
                 {
                     short FullLength = (short)ThisLine.Length;
                     // MsgError("Line: " + ThisLine + vbcrlf + vbcrlf + "Length: " + FullLength.ToString)

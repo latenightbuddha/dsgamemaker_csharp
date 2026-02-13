@@ -82,7 +82,7 @@ namespace DS_Game_Maker
             if (IncludeFilesList.SelectedIndices.Count == 0)
                 return;
             string TheName = Conversions.ToString(IncludeFilesList.Items[IncludeFilesList.SelectedIndex]);
-            System.IO.File.Delete(SessionsLib.SessionPath + @"IncludeFiles\" + TheName);
+            System.IO.File.Delete(SessionsLib.SessionPath + "IncludeFiles/" + TheName);
             DSGMlib.XDSRemoveLine("INCLUDE " + TheName);
             IncludeFilesList.Items.RemoveAt(IncludeFilesList.SelectedIndex);
         }
@@ -92,7 +92,7 @@ namespace DS_Game_Maker
             if (NitroFSFilesList.SelectedIndices.Count == 0)
                 return;
             string TheName = Conversions.ToString(NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex]);
-            System.IO.File.Delete(SessionsLib.SessionPath + @"NitroFSFiles\" + TheName);
+            System.IO.File.Delete(SessionsLib.SessionPath + "NitroFSFiles/" + TheName);
             DSGMlib.XDSRemoveLine("NITROFS " + TheName);
             NitroFSFilesList.Items.RemoveAt(NitroFSFilesList.SelectedIndex);
         }
@@ -102,7 +102,7 @@ namespace DS_Game_Maker
             string Result = DSGMlib.OpenFile(string.Empty, "All Files|*.*");
             if (Result.Length == 0)
                 return;
-            string ShortName = Result.Substring(Result.LastIndexOf(@"\") + 1);
+            string ShortName = Result.Substring(Result.LastIndexOf("/") + 1);
             DSGMlib.XDSAddLine(SysName.ToUpper() + " " + ShortName);
             foreach (Control P in CodingTabPage.Controls)
             {
@@ -111,7 +111,7 @@ namespace DS_Game_Maker
                     ((ListBox)P).Items.Add(ShortName);
                 }
             }
-            System.IO.File.Copy(Result, SessionsLib.SessionPath + SysName + @"Files\" + ShortName, true);
+            System.IO.File.Copy(Result, SessionsLib.SessionPath + SysName + "Files/" + ShortName, true);
         }
 
         private void AddIncludeFileButton_Click(object sender, EventArgs e)
@@ -128,15 +128,15 @@ namespace DS_Game_Maker
         {
             if (IncludeFilesList.SelectedIndices.Count == 0)
                 return;
-            DSGMlib.URL(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + @"IncludeFiles\", IncludeFilesList.Items[IncludeFilesList.SelectedIndex])));
+            DSGMlib.URL(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + "IncludeFiles/", IncludeFilesList.Items[IncludeFilesList.SelectedIndex])));
         }
 
         private void EditNitroFSFileButton_Click(object sender, EventArgs e)
         {
             if (NitroFSFilesList.SelectedIndices.Count == 0)
                 return;
-            DSGMlib.MsgError(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + @"NitroFSFiles\", NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex])));
-            DSGMlib.URL(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + @"NitroFSFiles\", NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex])));
+            DSGMlib.MsgError(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + "NitroFSFiles/", NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex])));
+            DSGMlib.URL(Conversions.ToString(Operators.AddObject(SessionsLib.SessionPath + "NitroFSFiles/", NitroFSFilesList.Items[NitroFSFilesList.SelectedIndex])));
         }
 
         private void BrowseButton_Click(object sender, EventArgs e)

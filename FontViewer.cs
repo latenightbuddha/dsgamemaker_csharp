@@ -66,7 +66,7 @@ namespace DS_Game_Maker
         public void DisplayShizzle()
         {
             NameLabel.Text = DS_Game_Maker.DSGMlib.Fonts[(int)CurrentFont];
-            MainImagePanel.BackgroundImage = DS_Game_Maker.DSGMlib.PathToImage(Constants.AppDirectory + @"Fonts\" + DS_Game_Maker.DSGMlib.Fonts[(int)CurrentFont] + ".png");
+            MainImagePanel.BackgroundImage = DS_Game_Maker.DSGMlib.PathToImage(Constants.AppDirectory + "Fonts/" + DS_Game_Maker.DSGMlib.Fonts[(int)CurrentFont] + ".png");
         }
 
         private void RebuildCacheButton_MouseLeave(object sender, EventArgs e)

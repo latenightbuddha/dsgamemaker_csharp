@@ -68,7 +68,7 @@ namespace DS_Game_Maker
 
         public Bitmap GetBGImage(string BackgroundName)
         {
-            return (Bitmap)DSGMlib.MakeBMPTransparent(DSGMlib.PathToImage(SessionsLib.SessionPath + @"Backgrounds\" + BackgroundName + ".png"), Color.Magenta);
+            return (Bitmap)DSGMlib.MakeBMPTransparent(DSGMlib.PathToImage(SessionsLib.SessionPath + "Backgrounds/" + BackgroundName + ".png"), Color.Magenta);
         }
 
         public Bitmap MakeRoomImage(bool WhichScreen)

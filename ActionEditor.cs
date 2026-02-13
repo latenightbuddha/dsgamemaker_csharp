@@ -31,14 +31,14 @@ namespace DS_Game_Maker
                 TypeDropper.Items.Add(DS_Game_Maker.ScriptsLib.ActionTypeToString(X));
             foreach (string X in Directory.GetFiles(Constants.AppDirectory + "ActionIcons"))
             {
-                string ToAdd = X.Substring(X.LastIndexOf(@"\") + 1);
+                string ToAdd = X.Substring(X.LastIndexOf("/") + 1);
                 ToAdd = ToAdd.Substring(0, ToAdd.IndexOf("."));
                 ImageDropper.Items.Add(ToAdd);
             }
             short ActionCount = 0;
             foreach (string X in Directory.GetFiles(Constants.AppDirectory + "Actions", "*.action"))
             {
-                string ActionName = X.Substring(X.LastIndexOf(@"\") + 1);
+                string ActionName = X.Substring(X.LastIndexOf("/") + 1);
                 ActionName = ActionName.Substring(0, ActionName.LastIndexOf("."));
                 ActionsTreeView.Nodes.Add(new TreeNode(ActionName, 0, 0));
                 ActionCount = (short)(ActionCount + 1);
@@ -50,7 +50,7 @@ namespace DS_Game_Maker
 
         private void ActionsTreeView_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            if (!File.Exists(Constants.AppDirectory + @"Actions\" + e.Node.Text + ".action"))
+            if (!File.Exists(Constants.AppDirectory + "Actions/" + e.Node.Text + ".action"))
                 return;
             byte ActionType = 6;
             string ActionDisplay = string.Empty;
@@ -61,7 +61,7 @@ namespace DS_Game_Maker
             bool NoApplies = false;
             DontRequestApplicationChecker.Checked = false;
             ConditionalDisplayChecker.Checked = false;
-            foreach (string ActLine_ in File.ReadAllLines(Constants.AppDirectory + @"Actions\" + e.Node.Text + ".action"))
+            foreach (string ActLine_ in File.ReadAllLines(Constants.AppDirectory + "Actions/" + e.Node.Text + ".action"))
             {
                 string ActLine = ActLine_;
                 if (ActLine.StartsWith("TYPE "))
@@ -147,7 +147,7 @@ namespace DS_Game_Maker
                 DS_Game_Maker.DSGMlib.MsgWarn("No action is selected.");
                 return;
             }
-            if (!File.Exists(Constants.AppDirectory + @"ActionIcons\" + ImageDropper.Text + ".png"))
+            if (!File.Exists(Constants.AppDirectory + "ActionIcons/" + ImageDropper.Text + ".png"))
             {
                 DS_Game_Maker.DSGMlib.MsgWarn("The action icon does not exist.");
                 return;
@@ -165,14 +165,14 @@ namespace DS_Game_Maker
             // actions in arguments - knock offs and add ons
             SaveButton.Enabled = false;
             bool NameChanged = true;
-            if ((Editing ?? "") == (NameTextBox.Text ?? ""))
+            if (Editing == NameTextBox.Text)
                 NameChanged = false;
             bool ActionExists = false;
-            if (!((NameTextBox.Text ?? "") == (Editing ?? "")))
+            if (NameTextBox.Text != Editing)
             {
                 foreach (TreeNode Action in ActionsTreeView.Nodes)
                 {
-                    if ((NameTextBox.Text ?? "") == (Action.Text ?? ""))
+                    if (NameTextBox.Text == Action.Text)
                     {
                         ActionExists = true;
                         break;
@@ -198,12 +198,12 @@ namespace DS_Game_Maker
                 FinalString += Constants.vbCrLf + "DEDENT";
             if (DontRequestApplicationChecker.Checked)
                 FinalString += Constants.vbCrLf + "NOAPPLIES";
-            File.WriteAllText(Constants.AppDirectory + @"Actions\" + Editing + ".action", FinalString);
+            File.WriteAllText(Constants.AppDirectory + "Actions/" + Editing + ".action", FinalString);
             if (NameChanged)
-                File.Move(Constants.AppDirectory + @"Actions\" + Editing + ".action", Constants.AppDirectory + @"Actions\" + NameTextBox.Text + ".action");
+                File.Move(Constants.AppDirectory + "Actions/" + Editing + ".action", Constants.AppDirectory + "Actions/" + NameTextBox.Text + ".action");
             foreach (TreeNode X in ActionsTreeView.Nodes)
             {
-                if ((X.Text ?? "") == (Editing ?? ""))
+                if (X.Text == Editing)
                     X.Text = NameTextBox.Text;
             }
             foreach (string X in DS_Game_Maker.DSGMlib.GetXDSFilter("ACT "))
@@ -372,7 +372,7 @@ namespace DS_Game_Maker
             byte Response = (byte)MessageBox.Show("Are you sure you want to delete '" + ActionName + "'?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (!(Response == (int)MsgBoxResult.Yes))
                 return;
-            File.Delete(Constants.AppDirectory + @"Actions\" + ActionName + ".action");
+            File.Delete(Constants.AppDirectory + "Actions/" + ActionName + ".action");
             ActionsTreeView.SelectedNode.Remove();
             if (ActionsTreeView.Nodes.Count == 0)
             {
@@ -408,7 +408,7 @@ namespace DS_Game_Maker
                 return;
             string FinalString = "TYPE 5" + Constants.vbCrLf;
             FinalString += "DISPLAY " + Response + Constants.vbCrLf;
-            File.WriteAllText(Constants.AppDirectory + @"Actions\" + Response + ".action", FinalString);
+            File.WriteAllText(Constants.AppDirectory + "Actions/" + Response + ".action", FinalString);
             ActionsTreeView.Nodes.Add(new TreeNode(Response, 0, 0));
             foreach (TreeNode X in ActionsTreeView.Nodes)
             {
