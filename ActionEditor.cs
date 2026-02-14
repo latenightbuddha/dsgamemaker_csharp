@@ -364,12 +364,12 @@ namespace DS_Game_Maker
             string ActionName = ActionsTreeView.SelectedNode.Text;
            
             DialogResult Response = MessageBox.Show("Are you sure you want to delete '" + ActionName + "'?", Application.ProductName, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (Response != DialogResult.No)
+            if (Response == DialogResult.No)
             {
                 return;
             }
 
-            File.Delete(Constants.AppDirectory + "Actions/" + ActionName + ".action");
+            File.Delete(Constants.AppDirectory + "Actions/" + ActionName.Split('\\')[1] + ".action");
             ActionsTreeView.SelectedNode.Remove();
             if (ActionsTreeView.Nodes.Count == 0)
             {

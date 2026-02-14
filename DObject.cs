@@ -1286,7 +1286,7 @@ namespace DS_Game_Maker
         {
             bool NoAppliesTo = false;
             byte ArgCount = 0;
-            foreach (string X in File.ReadAllLines(Constants.AppDirectory + "Actions/" + Actions[ActionsList.SelectedIndices[0]] + ".action"))
+            foreach (string X in File.ReadAllLines(Constants.AppDirectory + "Actions/" + ActionName.Split('\\')[1] /*Actions[ActionsList.SelectedIndices[0]]*/ + ".action"))
             {
                 if (X == "NOAPPLIES")
                     NoAppliesTo = true;

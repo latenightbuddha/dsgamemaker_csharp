@@ -2,7 +2,6 @@
 
 namespace DS_Game_Maker
 {
-
     public partial class MainForm
     {
 
@@ -898,7 +897,7 @@ namespace DS_Game_Maker
 
         private void CompileChangeButton_Click(object sender, EventArgs e)
         {
-            switch (((ToolStripMenuItem)sender).Name ?? "")
+            switch (((ToolStripMenuItem)sender).Name)
             {
                 case "GraphicsChangeButton":
                     {
@@ -927,7 +926,7 @@ namespace DS_Game_Maker
             {
                 try
                 {
-                    ToWorkFrom = ResourcesTreeView.SelectedNode?.Parent;
+                    ToWorkFrom = ResourcesTreeView.SelectedNode.Parent;
                     if (ToWorkFrom == null)
                     {
                         break; // Exit the loop if there is no parent
@@ -1049,7 +1048,6 @@ namespace DS_Game_Maker
                 }
             }
         }
-
         private void ResourcesTreeView_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             ResourcesTreeView.SelectedNode = e.Node;
@@ -1057,11 +1055,19 @@ namespace DS_Game_Maker
 
         private void DeleteResourceRightClickButton_Click(object sender, EventArgs e)
         {
-            string Type = ResourcesTreeView.SelectedNode.Parent.Text.Substring(0, ResourcesTreeView.SelectedNode.Parent.Text.Length - 1);
-            if (Type == "Object")
+            string Type = ResourcesTreeView.SelectedNode.Parent.Text;
+            string TypeObject = Type.Substring(0, ResourcesTreeView.SelectedNode.Parent.Text.Length - 1);
+
+            if (TypeObject == "Object")
+            {
                 Type = "DObject";
+            }
+
             Type = Type.Replace(" ", string.Empty);
-            DSGMlib.DeleteResource(ResourcesTreeView.SelectedNode.Text, Type);
+
+            string temp = ResourcesTreeView.SelectedNode.Text;
+
+            DSGMlib.DeleteResource(temp, Type);
         }
 
         private void OpenResourceRightClickButton_Click(object sender, EventArgs e)
@@ -1078,8 +1084,9 @@ namespace DS_Game_Maker
 
         private void AddResourceRightClickButton_Click(object sender, EventArgs e)
         {
+            // Take the resource type and strip "Add "(Count 4) from for example Sprite instead of "Add Sprite"
             string TheText = AddResourceRightClickButton.Text.Substring(4);
-            switch (TheText ?? "")
+            switch (TheText)
             {
                 case "Sprite":
                     {
@@ -1115,6 +1122,10 @@ namespace DS_Game_Maker
                     {
                         AddScriptButton_Click(new object(), new EventArgs());
                         break;
+                    }
+                default:
+                    {
+                        throw new NotSupportedException("Switch did not have a case for desired object: " + TheText + Constants.vbNewLine + "New feature?");
                     }
             }
         }
