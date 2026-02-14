@@ -38,6 +38,7 @@ namespace DS_Game_Maker
             components = new System.ComponentModel.Container();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(Preview));
             PreviewPanel = new Panel();
+            label = new Label();
             MainTimer = new System.Timers.Timer(components.Components.Count +1);
             MainTimer.Elapsed += new System.Timers.ElapsedEventHandler(MainTimer_Tick);
             SuspendLayout();
@@ -50,6 +51,18 @@ namespace DS_Game_Maker
             PreviewPanel.Name = "PreviewPanel";
             PreviewPanel.Size = new Size(64, 64);
             PreviewPanel.TabIndex = 0;
+            //
+            // Manual Created Label
+            //
+            label.Text = "This Is A Label";
+            label.ForeColor = Color.White;
+            label.BackColor = Color.Red;
+            label.Location = new Point(20, 10);
+            label.Size = new Size(144, 64);
+            label.Name = "MattyText";
+            label.Font = new Font(new FontFamily("Arial"), 16, FontStyle.Regular, GraphicsUnit.Pixel);
+            label.BringToFront();
+            Controls.Add(label);
             // 
             // MainTimer
             // 
@@ -64,7 +77,7 @@ namespace DS_Game_Maker
             Font = new Font("Tahoma", 8.25f, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
-            MaximizeBox = false;
+            MaximizeBox = true;
             MinimizeBox = false;
             Name = "Preview";
             StartPosition = FormStartPosition.CenterParent;
@@ -75,5 +88,6 @@ namespace DS_Game_Maker
         }
         internal Panel PreviewPanel;
         internal System.Timers.Timer MainTimer;
+        internal Label label;
     }
 }
